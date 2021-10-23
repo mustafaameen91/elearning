@@ -37,6 +37,13 @@ exports.findOne = (req, res) => {
    });
 };
 
+exports.findUserId = (req, res) => {
+   StudentInfo.findByUserId(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({

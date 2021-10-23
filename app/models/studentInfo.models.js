@@ -47,6 +47,36 @@ StudentInfo.findById = async (studentInfoId, result) => {
    }
 };
 
+StudentInfo.findByUserId = async (userId, result) => {
+   try {
+      const singleStudentInfo = await prismaInstance.studentInfo.findUnique({
+         where: {
+            userId: JSON.parse(userId),
+         },
+         include: {
+            subCategory: {
+               include: {
+                  category: true,
+               },
+            },
+         },
+      });
+
+      if (singleStudentInfo) {
+         result(null, singleStudentInfo);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found StudentInfo with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentInfo.getAll = async (result) => {
    try {
       const students = await prismaInstance.studentInfo.findMany();
