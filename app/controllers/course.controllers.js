@@ -1,3 +1,9 @@
+// mysql password : Ee123123!@
+// CREATE USER 'learn'@'%' IDENTIFIED WITH authentication_plugin BY 'Ee123123!@';
+// CREATE USER 'learn'@'%' IDENTIFIED BY 'Ee123123!@';
+// ALTER USER 'learn'@'%' IDENTIFIED WITH mysql_native_password BY 'Ee123123!@';
+// GRANT ALL PRIVILEGES ON *.* TO 'learn'@'%' WITH GRANT OPTION;
+
 const Course = require("../models/course.models.js");
 
 exports.create = (req, res) => {
@@ -6,12 +12,6 @@ exports.create = (req, res) => {
          message: "Content can not be empty!",
       });
    }
-
-   // mysql password : Ee123123!@
-   // CREATE USER 'learn'@'%' IDENTIFIED WITH authentication_plugin BY 'Ee123123!@';
-   // CREATE USER 'learn'@'%' IDENTIFIED BY 'Ee123123!@';
-   // ALTER USER 'learn'@'%' IDENTIFIED WITH mysql_native_password BY 'Ee123123!@';
-   // GRANT ALL PRIVILEGES ON *.* TO 'learn'@'%' WITH GRANT OPTION;
 
    const course = new Course({
       courseTitle: req.body.courseTitle,

@@ -1,6 +1,7 @@
 const User = require("../models/user.models.js");
 require("dotenv").config();
 const CryptoJS = require("crypto-js");
+const jwt = require("jsonwebtoken");
 
 exports.create = (req, res) => {
    if (!req.body) {
@@ -49,7 +50,12 @@ exports.login = (req, res) => {
       },
       (err, data) => {
          if (err) res.status(err.code).send(err);
-         else res.send(data);
+         else {
+            const token = jwt.sign(data, process.env.JWT_KEY, {
+               expiresIn: "30d",
+            });
+            res.send({ token });
+         }
       }
    );
 };
