@@ -1,0 +1,322 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  idUser                Int                    @id @default(autoincrement())
+  userName              String                 @db.VarChar(220)
+  password              String                 @db.VarChar(220)
+  phone                 String                 @unique @db.VarChar(220)
+  province              Province               @relation(fields: [provinceId], references: [idProvince])
+  provinceId            Int
+  role                  Role                   @relation(fields: [roleId], references: [idRole])
+  roleId                Int
+  DistributorsInfo      DistributorInfo?
+  TeachersInfo          TeacherInfo?
+  studentsInfo          StudentInfo?
+  TeacherAssistanceInfo TeacherAssistanceInfo?
+  Library               Library[]
+  Course                Course[]
+  Homework              Homework[]
+  CourseVideo           CourseVideo[]
+  VideoAttachment       VideoAttachment[]
+  VideoComment          VideoComment[]
+  reportComment         reportComment[]
+  Quiz                  Quiz[]
+  StudentCourse         StudentCourse[]
+  GlobalLibrary         GlobalLibrary[]
+  PromoCode             PromoCode[]
+  UsedCode              UsedCode[]
+  StudentAchievements   StudentAchievement[]
+  HomeworkAnswer        HomeworkAnswer[]
+  Subject               Subject[]
+}
+
+model Role {
+  idRole   Int    @id @default(autoincrement())
+  roleName String @db.VarChar(220)
+  Users    User[]
+}
+
+model Province {
+  idProvince   Int    @id @default(autoincrement())
+  provinceName String @db.VarChar(220)
+  Users        User[]
+}
+
+model DistributorInfo {
+  idDistributor    Int    @id @default(autoincrement())
+  lang             String @db.VarChar(220)
+  lat              String @db.VarChar(220)
+  libraryName      String @db.VarChar(220)
+  distributorPhoto String @db.VarChar(220)
+  distributorBio   String @db.Text
+  user             User   @relation(fields: [userId], references: [idUser])
+  userId           Int    @unique
+}
+
+model TeacherInfo {
+  idTeacher         Int                 @id @default(autoincrement())
+  specialty         String              @db.VarChar(220)
+  schoolName        String              @db.VarChar(220)
+  photoPath         String              @db.VarChar(220)
+  bio               String              @db.VarChar(220)
+  user              User                @relation(fields: [userId], references: [idUser])
+  userId            Int                 @unique
+  AssistanceTeacher AssistanceTeacher[]
+}
+
+model StudentInfo {
+  idStudent     Int             @id @default(autoincrement())
+  schoolName    String          @db.VarChar(220)
+  grade         Float
+  dob           String          @db.VarChar(220)
+  subCategory   SubCategory     @relation(fields: [subCategoryId], references: [idSubCategory])
+  subCategoryId Int
+  user          User            @relation(fields: [userId], references: [idUser])
+  userId        Int             @unique
+  StudentCourse StudentCourse[]
+}
+
+model AssistanceTeacher {
+  idAssistanceTeacher Int                   @id @default(autoincrement())
+  teacher             TeacherInfo           @relation(fields: [teacherId], references: [idTeacher])
+  teacherId           Int
+  assistance          TeacherAssistanceInfo @relation(fields: [assistanceId], references: [idTeacherAssistence])
+  assistanceId        Int
+}
+
+model HomeworkAnswer {
+  idHomeworkAnswer Int      @id @default(autoincrement())
+  homework         Homework @relation(fields: [homeworkId], references: [idHomework])
+  homeworkId       Int
+  user             User     @relation(fields: [userId], references: [idUser])
+  userId           Int
+  answerPath       String
+  mark             Float    @default(0)
+  createdAt        DateTime @default(now())
+}
+
+model TeacherAssistanceInfo {
+  idTeacherAssistence Int                 @id @default(autoincrement())
+  financialDetails    Boolean
+  user                User                @relation(fields: [userId], references: [idUser])
+  userId              Int                 @unique
+  AssistanceTeacher   AssistanceTeacher[]
+}
+
+model GlobalLibrary {
+  idLibrary    Int      @id @default(autoincrement())
+  title        String   @db.VarChar(220)
+  subTitle     String   @db.VarChar(220)
+  documentPath String   @db.VarChar(220)
+  downloaded   Int
+  user         User     @relation(fields: [createdBy], references: [idUser])
+  createdBy    Int
+  createdAt    DateTime @default(now())
+}
+
+model Library {
+  idLibrary    Int      @id @default(autoincrement())
+  title        String   @db.VarChar(220)
+  subTitle     String   @db.VarChar(220)
+  documentPath String   @db.VarChar(220)
+  downloaded   Int
+  course       Course   @relation(fields: [courseId], references: [idCourse])
+  courseId     Int
+  user         User     @relation(fields: [createdBy], references: [idUser])
+  createdBy    Int
+  createdAt    DateTime @default(now())
+}
+
+model StudentAchievement {
+  idStudentAchievement Int     @id @default(autoincrement())
+  course               Course  @relation(fields: [courseId], references: [idCourse])
+  courseId             Int
+  average              Float
+  user                 User    @relation(fields: [userId], references: [idUser])
+  userId               Int
+  shearing             Boolean
+}
+
+model UsedCode {
+  idUsedCode Int       @id @default(autoincrement())
+  promoCode  PromoCode @relation(fields: [promoId], references: [idPromoCode])
+  promoId    Int
+  user       User      @relation(fields: [userId], references: [idUser])
+  userId     Int
+  createdAt  DateTime  @default(now())
+}
+
+model PromoCode {
+  idPromoCode    Int        @id @default(autoincrement())
+  code           String     @db.VarChar(220)
+  usedCount      Int
+  discountAmount Float
+  user           User       @relation(fields: [userId], references: [idUser])
+  userId         Int
+  course         Course     @relation(fields: [courseId], references: [idCourse])
+  courseId       Int
+  createdAt      DateTime   @default(now())
+  UsedCode       UsedCode[]
+}
+
+model Course {
+  idCourse            Int                  @id @default(autoincrement())
+  courseTitle         String               @db.VarChar(220)
+  courseDescription   String               @db.VarChar(220)
+  courseRate          Float                @default(0.0)
+  coursePrice         Float
+  platformPrice       Float
+  coursePath          String               @db.VarChar(220)
+  subCategory         SubCategory          @relation(fields: [subCategoryId], references: [idSubCategory])
+  subCategoryId       Int
+  user                User                 @relation(fields: [createdBy], references: [idUser])
+  createdBy           Int
+  createdAt           DateTime             @default(now())
+  subject             Subject              @relation(fields: [subjectId], references: [idSubject])
+  subjectId           Int
+  Library             Library[]
+  Homework            Homework[]
+  CourseVideo         CourseVideo[]
+  StudentCourse       StudentCourse[]
+  PromoCode           PromoCode[]
+  StudentAchievements StudentAchievement[]
+}
+
+model Subject {
+  idSubject     Int         @id @default(autoincrement())
+  subjectName   String      @db.VarChar(220)
+  subjectImage  String      @db.VarChar(220)
+  subCategory   SubCategory @relation(fields: [subCategoryId], references: [idSubCategory])
+  subCategoryId Int
+  createdAt     DateTime    @default(now())
+  user          User        @relation(fields: [createdBy], references: [idUser])
+  createdBy     Int
+  Course        Course[]
+}
+
+model Category {
+  idCategory    Int           @id @default(autoincrement())
+  categoryName  String        @db.VarChar(220)
+  categoryImage String        @db.VarChar(220)
+  subCategory   SubCategory[]
+}
+
+model SubCategory {
+  idSubCategory   Int           @id @default(autoincrement())
+  subCategoryName String        @db.VarChar(220)
+  category        Category      @relation(fields: [categoryId], references: [idCategory])
+  categoryId      Int
+  Course          Course[]
+  StudentInfo     StudentInfo[]
+  Subject         Subject[]
+}
+
+model Homework {
+  idHomework       Int              @id @default(autoincrement())
+  homeworkTitle    String           @db.VarChar(220)
+  homeworkSubTitle String           @db.VarChar(220)
+  homeworkPath     String           @db.VarChar(220)
+  course           Course           @relation(fields: [courseId], references: [idCourse])
+  courseId         Int
+  user             User             @relation(fields: [createdBy], references: [idUser])
+  createdBy        Int
+  createdAt        DateTime         @default(now())
+  HomeworkAnswer   HomeworkAnswer[]
+}
+
+model CourseVideo {
+  idCourseVideo    Int               @id @default(autoincrement())
+  videoTitle       String            @db.VarChar(220)
+  videoLink        String            @db.VarChar(220)
+  videoDescription String            @db.VarChar(220)
+  course           Course            @relation(fields: [courseId], references: [idCourse])
+  courseId         Int
+  user             User              @relation(fields: [createdBy], references: [idUser])
+  createdBy        Int
+  createdAt        DateTime          @default(now())
+  VideoAttachment  VideoAttachment[]
+  VideoComment     VideoComment[]
+  Quiz             Quiz[]
+}
+
+model VideoAttachment {
+  idVideoAttachment Int         @id @default(autoincrement())
+  attachmentTitle   String      @db.VarChar(220)
+  attachmentPath    String      @db.VarChar(220)
+  video             CourseVideo @relation(fields: [videoId], references: [idCourseVideo])
+  videoId           Int
+  user              User        @relation(fields: [createdBy], references: [idUser])
+  createdBy         Int
+  createdAt         DateTime    @default(now())
+}
+
+model VideoComment {
+  idVideoComment Int             @id @default(autoincrement())
+  userComment    String          @db.Text
+  commentTime    String          @db.VarChar(220)
+  courseVideo    CourseVideo     @relation(fields: [videoId], references: [idCourseVideo])
+  videoId        Int
+  parentId       Int
+  user           User            @relation(fields: [createdBy], references: [idUser])
+  createdBy      Int
+  createdAt      DateTime        @default(now())
+  reportComment  reportComment[]
+}
+
+model reportComment {
+  idReportComment Int          @id @default(autoincrement())
+  videoComment    VideoComment @relation(fields: [commentId], references: [idVideoComment])
+  commentId       Int
+  user            User         @relation(fields: [createdBy], references: [idUser])
+  createdBy       Int
+  createdAt       DateTime     @default(now())
+}
+
+model Quiz {
+  idQuiz       Int         @id @default(autoincrement())
+  quizQuestion String      @db.VarChar(220)
+  courseVideo  CourseVideo @relation(fields: [videoId], references: [idCourseVideo])
+  videoId      Int
+  user         User        @relation(fields: [createdBy], references: [idUser])
+  createdBy    Int
+  createdAt    DateTime    @default(now())
+  Choice       Choice[]
+}
+
+model Choice {
+  idChoice       Int     @id @default(autoincrement())
+  questionChoice String  @db.VarChar(220)
+  correctAnswer  Boolean
+  quiz           Quiz    @relation(fields: [quizId], references: [idQuiz])
+  quizId         Int
+}
+
+model StudentCourse {
+  idStudentCourse Int         @id @default(autoincrement())
+  student         StudentInfo @relation(fields: [studentId], references: [idStudent])
+  studentId       Int
+  course          Course      @relation(fields: [courseId], references: [idCourse])
+  courseId        Int
+  status          Status      @relation(fields: [statusId], references: [idStatus])
+  statusId        Int
+  createdAt       DateTime    @default(now())
+  distributor     User        @relation(fields: [distributorId], references: [idUser])
+  distributorId   Int
+  discount        Float
+}
+
+model Status {
+  idStatus      Int             @id @default(autoincrement())
+  statusName    String          @db.VarChar(220)
+  StudentCourse StudentCourse[]
+}

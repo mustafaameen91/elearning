@@ -1,0 +1,70 @@
+const StudentCourse = require("../models/studentCourse.models.js");
+
+exports.create = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   const studentCourse = new StudentCourse({
+      studentId: req.body.studentId,
+      courseId: req.body.courseId,
+      statusId: req.body.statusId,
+      distributorId: req.body.distributorId,
+      discount: req.body.discount,
+   });
+
+   StudentCourse.create(studentCourse, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else {
+         res.send(data);
+      }
+   });
+};
+
+exports.findAll = (req, res) => {
+   StudentCourse.getAll((err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
+exports.findOne = (req, res) => {
+   StudentCourse.findById(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
+exports.update = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   StudentCourse.updateById(
+      req.params.id,
+      new StudentCourse(req.body),
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      }
+   );
+};
+
+exports.delete = (req, res) => {
+   StudentCourse.remove(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send({ message: `StudentCourse was deleted successfully!` });
+   });
+};
+
+exports.deleteAll = (req, res) => {
+   StudentCourse.removeAll((err, data) => {
+      if (err) res.status(err.code).send(err);
+      else
+         res.send({ message: `All StudentCourses were deleted successfully!` });
+   });
+};
