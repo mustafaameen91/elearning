@@ -46,7 +46,11 @@ Category.findById = async (categoryId, result) => {
 
 Category.getAll = async (result) => {
    try {
-      const categories = await prismaInstance.category.findMany();
+      const categories = await prismaInstance.category.findMany({
+         include: {
+            subCategory: true,
+         },
+      });
       result(null, categories);
    } catch (err) {
       console.log(prismaErrorHandling(err));
