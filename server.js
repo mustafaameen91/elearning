@@ -20,7 +20,7 @@ function generateRandomName(length, patientId) {
    return result;
 }
 
-app.post("/upload", function (req, res) {
+app.post("/api/upload", function (req, res) {
    if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send("No files were uploaded.");
    }
@@ -29,12 +29,12 @@ app.post("/upload", function (req, res) {
    let photoName = generateRandomName(5, 3);
    var filename = uploadedFile.name;
    var ext = filename.substr(filename.lastIndexOf(".") + 1);
-   let imagePath = `${__dirname}/app/studentImages/${photoName}.${ext}`;
+   let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
 
    uploadedFile.mv(imagePath, function (err) {
       if (err) return res.status(500).send(err);
 
-      res.send({ imagePath: `studentImages/${photoName}.${ext}` });
+      res.send({ imagePath: `attachments/${photoName}.${ext}` });
    });
 });
 
