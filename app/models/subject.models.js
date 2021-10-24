@@ -6,7 +6,7 @@ const {
 const Subject = function (subject) {
    this.subjectName = subject.subjectName;
    this.subjectImage = subject.subjectImage;
-   this.subCategoryId = subject.subCategoryId;
+   this.classId = subject.classId;
    this.createdBy = subject.createdBy;
 };
 

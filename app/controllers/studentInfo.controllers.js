@@ -11,7 +11,7 @@ exports.create = (req, res) => {
       schoolName: req.body.schoolName,
       grade: req.body.grade,
       dob: req.body.dob,
-      subCategoryId: req.body.subCategoryId,
+      classId: req.body.classId,
       userId: req.body.userId,
    });
 

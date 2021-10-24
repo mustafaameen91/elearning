@@ -10,7 +10,7 @@ exports.create = (req, res) => {
    const subject = new Subject({
       subjectName: req.body.subjectName,
       subjectImage: req.body.subjectImage,
-      subCategoryId: req.body.subCategoryId,
+      classId: req.body.classId,
       createdBy: req.body.createdBy,
    });
 

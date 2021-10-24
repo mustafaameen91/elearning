@@ -7,7 +7,7 @@ const StudentInfo = function (studentInfo) {
    this.schoolName = studentInfo.schoolName;
    this.grade = studentInfo.grade;
    this.dob = studentInfo.dob;
-   this.subCategoryId = studentInfo.subCategoryId;
+   this.classId = studentInfo.classId;
    this.userId = studentInfo.userId;
 };
 
@@ -54,11 +54,7 @@ StudentInfo.findByUserId = async (userId, result) => {
             userId: JSON.parse(userId),
          },
          include: {
-            subCategory: {
-               include: {
-                  category: true,
-               },
-            },
+            class: true,
          },
       });
 
