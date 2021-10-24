@@ -1,4 +1,4 @@
-const SubCategory = require("../models/subCategory.models.js");
+const Class = require("../models/class.models.js");
 
 exports.create = (req, res) => {
    if (!req.body) {
@@ -7,12 +7,12 @@ exports.create = (req, res) => {
       });
    }
 
-   const subCategory = new SubCategory({
-      subCategoryName: req.body.subCategoryName,
-      categoryId: req.body.categoryId,
+   const studentClass = new Class({
+      className: req.body.className,
+      classImage: req.body.classImage,
    });
 
-   SubCategory.create(subCategory, (err, data) => {
+   Class.create(studentClass, (err, data) => {
       if (err) res.status(err.code).send(err);
       else {
          res.send(data);
@@ -21,14 +21,14 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-   SubCategory.getAll((err, data) => {
+   Class.getAll((err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
 };
 
 exports.findOne = (req, res) => {
-   SubCategory.findById(req.params.id, (err, data) => {
+   Class.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
@@ -41,27 +41,22 @@ exports.update = (req, res) => {
       });
    }
 
-   SubCategory.updateById(
-      req.params.id,
-      new SubCategory(req.body),
-      (err, data) => {
-         if (err) res.status(err.code).send(err);
-         else res.send(data);
-      }
-   );
+   Class.updateById(req.params.id, new Class(req.body), (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
 };
 
 exports.delete = (req, res) => {
-   SubCategory.remove(req.params.id, (err, data) => {
+   Class.remove(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
-      else res.send({ message: `SubCategory was deleted successfully!` });
+      else res.send({ message: `Class was deleted successfully!` });
    });
 };
 
 exports.deleteAll = (req, res) => {
-   SubCategory.removeAll((err, data) => {
+   Class.removeAll((err, data) => {
       if (err) res.status(err.code).send(err);
-      else
-         res.send({ message: `All SubCategories were deleted successfully!` });
+      else res.send({ message: `All Classes were deleted successfully!` });
    });
 };

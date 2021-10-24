@@ -79,8 +79,8 @@ model StudentInfo {
   schoolName    String          @db.VarChar(220)
   grade         Float
   dob           String          @db.VarChar(220)
-  subCategory   SubCategory     @relation(fields: [subCategoryId], references: [idSubCategory])
-  subCategoryId Int
+  class         Class           @relation(fields: [classId], references: [idClass])
+  classId       Int
   user          User            @relation(fields: [userId], references: [idUser])
   userId        Int             @unique
   StudentCourse StudentCourse[]
@@ -177,8 +177,8 @@ model Course {
   coursePrice         Float
   platformPrice       Float
   coursePath          String               @db.VarChar(220)
-  subCategory         SubCategory          @relation(fields: [subCategoryId], references: [idSubCategory])
-  subCategoryId       Int
+  class               Class                @relation(fields: [classId], references: [idClass])
+  classId             Int
   user                User                 @relation(fields: [createdBy], references: [idUser])
   createdBy           Int
   createdAt           DateTime             @default(now())
@@ -193,32 +193,24 @@ model Course {
 }
 
 model Subject {
-  idSubject     Int         @id @default(autoincrement())
-  subjectName   String      @db.VarChar(220)
-  subjectImage  String      @db.VarChar(220)
-  subCategory   SubCategory @relation(fields: [subCategoryId], references: [idSubCategory])
-  subCategoryId Int
-  createdAt     DateTime    @default(now())
-  user          User        @relation(fields: [createdBy], references: [idUser])
-  createdBy     Int
-  Course        Course[]
+  idSubject    Int      @id @default(autoincrement())
+  subjectName  String   @db.VarChar(220)
+  subjectImage String   @db.VarChar(220)
+  class        Class    @relation(fields: [classId], references: [idClass])
+  classId      Int
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [createdBy], references: [idUser])
+  createdBy    Int
+  Course       Course[]
 }
 
-model Category {
-  idCategory    Int           @id @default(autoincrement())
-  categoryName  String        @db.VarChar(220)
-  categoryImage String        @db.VarChar(220)
-  subCategory   SubCategory[]
-}
-
-model SubCategory {
-  idSubCategory   Int           @id @default(autoincrement())
-  subCategoryName String        @db.VarChar(220)
-  category        Category      @relation(fields: [categoryId], references: [idCategory])
-  categoryId      Int
-  Course          Course[]
-  StudentInfo     StudentInfo[]
-  Subject         Subject[]
+model Class {
+  idClass     Int           @id @default(autoincrement())
+  className   String        @db.VarChar(220)
+  classImage  String        @db.VarChar(220)
+  StudentInfo StudentInfo[]
+  Course      Course[]
+  Subject     Subject[]
 }
 
 model Homework {
