@@ -139,6 +139,29 @@ User.getAll = async (result) => {
    }
 };
 
+User.getByRoleId = async (roleId, result) => {
+   try {
+      const users = await prismaInstance.user.findMany({
+         where: {
+            roleId: JSON.parse(roleId),
+         },
+         select: {
+            userName: true,
+            provinceId: true,
+            roleId: true,
+            phone: true,
+            province: true,
+            role: true,
+         },
+      });
+
+      result(null, users);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 User.updateById = async (userId, user, result) => {
    try {
       const updateUser = await prismaInstance.user.update({
