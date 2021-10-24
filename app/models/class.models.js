@@ -48,7 +48,7 @@ Class.getAll = async (result) => {
    try {
       const classes = await prismaInstance.class.findMany({
          include: {
-            subject: true,
+            Subject: true,
          },
       });
       result(null, classes);
