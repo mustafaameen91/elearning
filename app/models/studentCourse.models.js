@@ -59,6 +59,25 @@ StudentCourse.getAll = async (result) => {
    }
 };
 
+StudentCourse.getStudentCourses = async (studentId, result) => {
+   try {
+      const studentCourses = await prismaInstance.studentCourse.findMany({
+         where: {
+            studentId: JSON.parse(studentId),
+            statusId: 1,
+         },
+      });
+
+      result(null, {
+         totalCourses: studentCourses.length,
+         studentCourses: studentCourses,
+      });
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
    try {
       const updateStudentCourse = await prismaInstance.studentCourse.update({

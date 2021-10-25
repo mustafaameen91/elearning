@@ -1,7 +1,7 @@
 const User = require("../models/user.models.js");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const CryptoJS = require("crypto-js");
-const jwt = require("jsonwebtoken");
 
 exports.create = (req, res) => {
    if (!req.body) {
