@@ -55,7 +55,6 @@ StudentInfo.findByUserId = async (userId, result) => {
          },
          include: {
             class: true,
-            user: true,
          },
       });
 
