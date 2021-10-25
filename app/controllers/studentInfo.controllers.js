@@ -11,8 +11,8 @@ exports.create = (req, res) => {
       schoolName: req.body.schoolName,
       grade: req.body.grade,
       dob: req.body.dob,
-      classId: req.body.classId,
-      userId: req.body.userId,
+      classId: req.body.classId * 1,
+      userId: req.body.userId * 1,
    });
 
    StudentInfo.create(studentInfo, (err, data) => {
