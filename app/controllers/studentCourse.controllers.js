@@ -30,6 +30,13 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findStudentCourses = (req, res) => {
+   StudentCourse.getStudentCourses(req.params.studentId, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    StudentCourse.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
