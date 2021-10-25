@@ -65,8 +65,8 @@ User.login = async (user, result) => {
          include: {
             province: true,
             role: true,
-            DistributorsInfo: true,
-            TeachersInfo: true,
+            distributorInfo: true,
+            teachersInfo: true,
             studentsInfo: true,
          },
       });

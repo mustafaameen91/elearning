@@ -19,9 +19,9 @@ model User {
   provinceId            Int
   role                  Role                   @relation(fields: [roleId], references: [idRole])
   roleId                Int
-  DistributorsInfo      DistributorInfo?
-  TeachersInfo          TeacherInfo?
-  studentsInfo          StudentInfo?
+  distributorInfo       DistributorInfo?
+  teacherInfo           TeacherInfo?
+  studentInfo           StudentInfo?
   TeacherAssistanceInfo TeacherAssistanceInfo?
   Library               Library[]
   Course                Course[]
