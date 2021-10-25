@@ -35,7 +35,7 @@ app.post("/api/upload", function (req, res) {
    uploadedFile.mv(imagePath, function (err) {
       if (err) return res.status(500).send(err);
 
-      res.send({ imagePath: `attachments/${photoName}.${ext}` });
+      res.send({ imagePath: `attachment/${photoName}.${ext}` });
    });
 });
 
