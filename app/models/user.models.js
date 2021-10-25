@@ -66,8 +66,8 @@ User.login = async (user, result) => {
             province: true,
             role: true,
             distributorInfo: true,
-            teachersInfo: true,
-            studentsInfo: true,
+            teacherInfo: true,
+            studentInfo: true,
          },
       });
 
