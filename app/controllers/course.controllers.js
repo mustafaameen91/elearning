@@ -19,6 +19,7 @@ exports.create = (req, res) => {
       courseRate: req.body.courseRate,
       coursePrice: req.body.coursePrice,
       classId: req.body.classId,
+      coursePath: req.body.coursePath,
       createdBy: req.body.createdBy,
       subjectId: req.body.subjectId,
       platformPrice: req.body.platformPrice,

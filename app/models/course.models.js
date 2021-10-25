@@ -10,6 +10,7 @@ const Course = function (course) {
    this.coursePrice = course.coursePrice;
    this.classId = course.classId;
    this.createdBy = course.createdBy;
+   this.coursePath = course.coursePath;
    this.subjectId = course.subjectId;
    this.platformPrice = course.platformPrice;
 };
