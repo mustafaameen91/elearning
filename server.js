@@ -42,7 +42,7 @@ app.post("/api/upload", function (req, res) {
 app.get("/api/attachment/:file", function (request, response) {
    let file = request.params.file;
    var extension = file.split(".").pop();
-   var tempFile = `./app/attachments/${file}`;
+   var tempFile = `./app/attachment/${file}`;
 
    fs.readFile(tempFile, function (err, data) {
       switch (extension) {
