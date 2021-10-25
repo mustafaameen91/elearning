@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
+const fs = require("fs");
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +30,7 @@ app.post("/api/upload", function (req, res) {
    let photoName = generateRandomName(5, 3);
    var filename = uploadedFile.name;
    var ext = filename.substr(filename.lastIndexOf(".") + 1);
-   let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
+   let imagePath = `${__dirname}/app/attachment/${photoName}.${ext}`;
 
    uploadedFile.mv(imagePath, function (err) {
       if (err) return res.status(500).send(err);
