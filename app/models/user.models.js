@@ -68,7 +68,9 @@ User.login = async (user, result) => {
             distributorInfo: true,
             teacherInfo: true,
             studentInfo: {
-               class: true,
+               include: {
+                  class: true,
+               },
             },
          },
       });
