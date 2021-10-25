@@ -27,6 +27,9 @@ Class.findById = async (classId, result) => {
          where: {
             idClass: JSON.parse(classId),
          },
+         include: {
+            Subject: true,
+         },
       });
 
       if (singleClass) {
