@@ -40,6 +40,45 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findByFilterCourse = (req, res) => {
+   let filtered = {};
+   let limit = 1000;
+   let order = { idCourse: "asc" };
+
+   if (req.query.limit) {
+      limit = req.query.limit;
+   }
+
+   if (req.query.order) {
+      let data = req.query.order.split(":");
+      delete order[order.idCourse];
+      order[data[0]] = data[1];
+   }
+
+   if (req.query.courseTitle) {
+      filtered.courseTitle = {
+         contains: req.query.courseTitle,
+      };
+   }
+
+   if (req.query.createdBy) {
+      filtered.createdBy = req.query.createdBy * 1;
+   }
+
+   if (req.query.subjectId) {
+      filtered.subjectId = req.query.subjectId * 1;
+   }
+
+   if (req.query.classId) {
+      filtered.classId = req.query.classId * 1;
+   }
+
+   Course.getByFilterCourse(filtered, limit, order, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findByClassId = (req, res) => {
    Course.getByClassId(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
