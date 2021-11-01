@@ -106,6 +106,25 @@ Course.findById = async (courseId, result) => {
       });
 
       if (singleCourse) {
+         let currentDate = new Date();
+         currentDate.setHours(0, 0, 0, 0);
+         let data = singleCourse.CourseVideo.map((video) => {
+            let videoDate = new Date(video.unlockAt);
+            videoDate.setHours(0, 0, 0, 0);
+            return {
+               idCourseVideo: video.idCourseVideo,
+               videoTitle: video.videoTitle,
+               videoLink: video.videoLink,
+               videoDescription: video.videoDescription,
+               courseId: video.courseId,
+               createdBy: video.createdBy,
+               unlockAt: video.unlockAt,
+               createdAt: video.createdAt,
+               videoStatus: currentDate >= videoDate ? 1 : 0,
+            };
+         });
+
+         singleCourse.CourseVideo = data;
          result(null, singleCourse);
       } else {
          result({
