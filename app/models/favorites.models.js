@@ -10,11 +10,25 @@ const Favorites = function (favorites) {
 
 Favorites.create = async (newFavorites, result) => {
    try {
-      const studentFavorites = await prismaInstance.favorites.create({
-         data: newFavorites,
+      const singleFavorites = await prismaInstance.favorites.findUnique({
+         where: {
+            studentId: parseInt(newFavorites.studentId),
+            courseId: parseInt(newFavorites.courseId),
+         },
       });
 
-      result(null, studentFavorites);
+      if (singleFavorites) {
+         result(null, singleFavorites);
+         const deleteFavorites = await prismaInstance.favorites.delete({
+            where: { idFavorites: JSON.parse(singleFavorites.idFavorites) },
+         });
+      } else {
+         const studentFavorites = await prismaInstance.favorites.create({
+            data: newFavorites,
+         });
+
+         result(null, studentFavorites);
+      }
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
