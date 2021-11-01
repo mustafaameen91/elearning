@@ -38,6 +38,7 @@ model User {
   StudentAchievements   StudentAchievement[]
   HomeworkAnswer        HomeworkAnswer[]
   Subject               Subject[]
+  Favorites             Favorites[]
 }
 
 model Role {
@@ -190,6 +191,16 @@ model Course {
   StudentCourse       StudentCourse[]
   PromoCode           PromoCode[]
   StudentAchievements StudentAchievement[]
+  Favorites           Favorites[]
+}
+
+model Favorites {
+  idFavorites Int      @id @default(autoincrement())
+  student     User     @relation(fields: [studentId], references: [idUser])
+  studentId   Int
+  course      Course   @relation(fields: [courseId], references: [idCourse])
+  courseId    Int
+  createdAt   DateTime @default(now())
 }
 
 model Subject {
