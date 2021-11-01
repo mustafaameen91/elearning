@@ -13,6 +13,7 @@ exports.create = (req, res) => {
       videoDescription: req.body.videoDescription,
       courseId: req.body.courseId,
       createdBy: req.body.createdBy,
+      unlockAt: req.body.unlockAt,
    });
 
    CourseVideo.create(courseVideo, (err, data) => {

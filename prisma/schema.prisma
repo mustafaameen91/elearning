@@ -246,6 +246,7 @@ model CourseVideo {
   courseId         Int
   user             User              @relation(fields: [createdBy], references: [idUser])
   createdBy        Int
+  unlockAt         DateTime          @default(now())
   createdAt        DateTime          @default(now())
   VideoAttachment  VideoAttachment[]
   VideoComment     VideoComment[]

@@ -9,6 +9,7 @@ const CourseVideo = function (courseVideo) {
    this.videoDescription = courseVideo.videoDescription;
    this.courseId = courseVideo.courseId;
    this.createdBy = courseVideo.createdBy;
+   this.unlockAt = courseVideo.unlockAt;
 };
 
 CourseVideo.create = async (newCourseVideo, result) => {
