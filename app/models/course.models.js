@@ -28,6 +28,51 @@ Course.create = async (newCourse, result) => {
    }
 };
 
+Course.getByClassId = async (classId, result) => {
+   console.log(classId);
+   try {
+      const subjects = await prismaInstance.subject.findMany({
+         where: {
+            classId: parseInt(classId),
+         },
+      });
+
+      const lastAddCourse = await prismaInstance.course.findMany({
+         orderBy: [
+            {
+               createdAt: "desc",
+            },
+         ],
+         where: {
+            classId: parseInt(classId),
+         },
+         take: 5,
+      });
+
+      const ratingCourse = await prismaInstance.course.findMany({
+         where: {
+            classId: parseInt(classId),
+            courseRate: {
+               gte: 4.5,
+            },
+         },
+         take: 5,
+      });
+
+      let data = {
+         subjects: subjects,
+         recentlyCourses: lastAddCourse,
+         featuredCourses: ratingCourse,
+      };
+      console.log(data);
+
+      result(null, data);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Course.findById = async (courseId, result) => {
    try {
       const singleCourse = await prismaInstance.course.findUnique({
