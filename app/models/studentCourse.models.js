@@ -24,6 +24,21 @@ StudentCourse.create = async (newStudentCourse, result) => {
    }
 };
 
+StudentCourse.getByStudentId = async (courseId, studentId, result) => {
+   try {
+      const studentCourses = await prismaInstance.studentCourse.findMany({
+         where: {
+            studentId: parseInt(studentId),
+            courseId: parseInt(courseId),
+         },
+      });
+      result(null, studentCourses);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentCourse.findById = async (studentCourseId, result) => {
    try {
       const singleStudentCourse = await prismaInstance.studentCourse.findUnique(
