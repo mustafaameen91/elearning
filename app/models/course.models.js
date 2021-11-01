@@ -98,6 +98,11 @@ Course.findById = async (courseId, result) => {
          where: {
             idCourse: JSON.parse(courseId),
          },
+         include: {
+            Library: true,
+            CourseVideo: true,
+            Homework: true,
+         },
       });
 
       if (singleCourse) {
