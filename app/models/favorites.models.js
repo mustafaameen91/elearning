@@ -10,17 +10,17 @@ const Favorites = function (favorites) {
 
 Favorites.create = async (newFavorites, result) => {
    try {
-      const singleFavorites = await prismaInstance.favorites.findUnique({
+      const singleFavorites = await prismaInstance.favorites.findMany({
          where: {
             studentId: parseInt(newFavorites.studentId),
             courseId: parseInt(newFavorites.courseId),
          },
       });
 
-      if (singleFavorites) {
+      if (singleFavorites.length > 0) {
          result(null, singleFavorites);
          const deleteFavorites = await prismaInstance.favorites.delete({
-            where: { idFavorites: JSON.parse(singleFavorites.idFavorites) },
+            where: { idFavorites: JSON.parse(singleFavorites[0].idFavorites) },
          });
       } else {
          const studentFavorites = await prismaInstance.favorites.create({
