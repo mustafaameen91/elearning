@@ -39,6 +39,7 @@ model User {
   HomeworkAnswer        HomeworkAnswer[]
   Subject               Subject[]
   Favorites             Favorites[]
+  CourseDistributor     CourseDistributor[]
 }
 
 model Role {
@@ -192,6 +193,16 @@ model Course {
   PromoCode           PromoCode[]
   StudentAchievements StudentAchievement[]
   Favorites           Favorites[]
+  CourseDistributor   CourseDistributor[]
+}
+
+model CourseDistributor {
+  idCourseDistributor Int      @id @default(autoincrement())
+  course              Course   @relation(fields: [courseId], references: [idCourse])
+  courseId            Int
+  user                User     @relation(fields: [distributorId], references: [idUser])
+  distributorId       Int
+  createdAt           DateTime @default(now())
 }
 
 model Favorites {

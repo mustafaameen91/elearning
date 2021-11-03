@@ -91,6 +91,7 @@ require("./app/routes/choice.routes.js")(app);
 require("./app/routes/studentCourse.routes.js")(app);
 require("./app/routes/status.routes.js")(app);
 require("./app/routes/favorites.routes.js")(app);
+require("./app/routes/courseDistributor.routes.js")(app);
 
 app.listen(5100, () => {
    console.log("app listening on port 5100");
