@@ -102,6 +102,7 @@ Course.findById = async (courseId, result) => {
             Library: true,
             CourseVideo: true,
             Homework: true,
+            CourseDistributor: true,
          },
       });
 
