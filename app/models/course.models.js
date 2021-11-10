@@ -110,8 +110,6 @@ Course.findById = async (courseId, result) => {
                         userName: true,
                         phone: true,
                         provinceId: true,
-                     },
-                     include: {
                         province: true,
                         distributorInfo: true,
                      },
