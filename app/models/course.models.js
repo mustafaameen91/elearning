@@ -93,7 +93,6 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
 };
 
 Course.findById = async (courseId, studentId, result) => {
-   console.log(studentId);
    try {
       const singleCourse = await prismaInstance.course.findUnique({
          where: {
