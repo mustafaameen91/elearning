@@ -92,7 +92,7 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
    }
 };
 
-Course.findById = async (courseId, result) => {
+Course.findById = async (courseId, studentId, result) => {
    try {
       const singleCourse = await prismaInstance.course.findUnique({
          where: {
@@ -117,6 +117,11 @@ Course.findById = async (courseId, result) => {
                         phone: true,
                      },
                   },
+               },
+            },
+            StudentCourse: {
+               where: {
+                  statusId: studentId,
                },
             },
             CourseDistributor: {

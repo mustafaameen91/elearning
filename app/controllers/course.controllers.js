@@ -87,7 +87,7 @@ exports.findByClassId = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
-   Course.findById(req.params.id, (err, data) => {
+   Course.findById(req.params.id, (req.studentId = -1), (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
