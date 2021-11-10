@@ -6,7 +6,7 @@ module.exports = (app) => {
 
    app.get("/api/courses", course.findAll);
 
-   app.get("/api/course/:id", checkAuth, course.findOne);
+   app.get("/api/course/:id", course.findOne);
 
    app.get("/api/filterCourse", course.findByFilterCourse);
 
