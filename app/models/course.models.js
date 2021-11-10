@@ -161,7 +161,12 @@ Course.findById = async (courseId, studentId, result) => {
                videoStatus: currentDate >= videoDate ? 1 : 0,
             };
          });
-         console.log(singleCourse);
+
+         if (singleCourse.StudentCourse.length > 0) {
+            singleCourse.enrolled = true;
+         } else {
+            singleCourse.enrolled = false;
+         }
          singleCourse.CourseVideo = data;
          result(null, singleCourse);
       } else {
