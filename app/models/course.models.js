@@ -99,6 +99,13 @@ Course.findById = async (courseId, result) => {
             idCourse: JSON.parse(courseId),
          },
          include: {
+            user: {
+               select: {
+                  idUser: true,
+                  userName: true,
+                  phone: true,
+               },
+            },
             Library: true,
             CourseVideo: true,
             Homework: {
