@@ -102,11 +102,13 @@ Course.findById = async (courseId, result) => {
             Library: true,
             CourseVideo: true,
             Homework: {
-               select: {
+               include: {
                   user: {
-                     idUser: true,
-                     userName: true,
-                     phone: true,
+                     select: {
+                        idUser: true,
+                        userName: true,
+                        phone: true,
+                     },
                   },
                },
             },
