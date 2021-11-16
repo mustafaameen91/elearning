@@ -30,6 +30,9 @@ VideoComment.findByVideoId = async (commentVideoId, result) => {
          where: {
             videoId: JSON.parse(commentVideoId),
          },
+         include: {
+            user: true,
+         },
       });
 
       let parentComments = singleVideoComment.filter((parent) => {
