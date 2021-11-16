@@ -40,7 +40,7 @@ VideoComment.findByVideoId = async (commentVideoId, result) => {
 
       let arrangeComments = parentComments.map((comment) => {
          return {
-            parentComment: comment,
+            ...comment,
             children: singleVideoComment.filter((child) => {
                if (child.parentId == comment.parentId) {
                   return child;
