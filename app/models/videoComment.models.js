@@ -24,6 +24,48 @@ VideoComment.create = async (newVideoComment, result) => {
    }
 };
 
+VideoComment.findByVideoId = async (commentVideoId, result) => {
+   try {
+      const singleVideoComment = await prismaInstance.videoComment.findMany({
+         where: {
+            videoId: JSON.parse(commentVideoId),
+         },
+      });
+
+      let parentComments = singleVideoComment.filter((parent) => {
+         if (parent.parentId == 0) {
+            return parent;
+         }
+      });
+
+      let arrangeComments = parentComments.map((comment) => {
+         return {
+            parentComment: comment,
+            children: singleVideoComment.filter((child) => {
+               if (child.parentId == comment.parentId) {
+                  return child;
+               }
+            }),
+         };
+      });
+
+      console.log(arrangeComments);
+
+      if (singleVideoComment) {
+         result(null, arrangeComments);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Video Comment with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 VideoComment.findById = async (videoCommentId, result) => {
    try {
       const singleVideoComment = await prismaInstance.videoComment.findUnique({

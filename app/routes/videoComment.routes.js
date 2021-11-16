@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/videoComment/:id", videoComment.findOne);
 
+   app.get("/api/commentVideoId/:id", videoComment.findOneByVideoId);
+
    app.put("/api/videoComment/:id", videoComment.update);
 
    app.delete("/api/videoComment/:id", videoComment.delete);
