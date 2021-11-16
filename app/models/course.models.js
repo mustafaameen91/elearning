@@ -83,6 +83,13 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
          where: {
             ...filtered,
          },
+         include: {
+            Library: true,
+            Homework: true,
+            CourseVideo: true,
+            PromoCode: true,
+            CourseDistributor: true,
+         },
       });
       console.log(courses);
       result(null, courses);

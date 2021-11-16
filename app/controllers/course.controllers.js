@@ -42,11 +42,17 @@ exports.findAll = (req, res) => {
 
 exports.findByFilterCourse = (req, res) => {
    let filtered = {};
+
    let limit = 1000;
    let order = { idCourse: "asc" };
 
    if (req.query.limit) {
       limit = req.query.limit;
+   }
+   if (req.query.courseIds) {
+      if (req.query.courseIds.length > 0) {
+         filtered.idCourse = { in: JSON.parse(req.query.courseIds) };
+      }
    }
 
    if (req.query.order) {
@@ -68,9 +74,39 @@ exports.findByFilterCourse = (req, res) => {
    if (req.query.subjectId) {
       filtered.subjectId = req.query.subjectId * 1;
    }
+   if (req.query.createdAt) {
+      if (req.query.createdAt.length > 0) {
+         console.log(JSON.parse(req.query.createdAt));
+         let dates = JSON.parse(req.query.createdAt);
+         var startDate = new Date(dates[0]);
+         var day = 60 * 60 * 24 * 1000;
+         var endDate = new Date(dates[1]);
+         // var endDate = new Date(startDate.getTime() + day);
 
-   if (req.query.classId) {
-      filtered.classId = req.query.classId * 1;
+         filtered.createdAt = {
+            gte: startDate.toISOString(),
+            lte: endDate.toISOString(),
+         };
+      }
+   }
+   if (req.query.courseRate) {
+      let rate = JSON.parse(req.query.courseRate);
+      if (req.query.courseRate.length > 0) {
+         filtered.courseRate = {
+            gte: rate[0],
+            lte: rate[1],
+         };
+      }
+   }
+
+   if (req.query.coursePrice) {
+      let rate = JSON.parse(req.query.coursePrice);
+      if (req.query.courseRate.length > 0) {
+         filtered.coursePrice = {
+            gte: rate[0],
+            lte: rate[1],
+         };
+      }
    }
 
    Course.getByFilterCourse(filtered, limit, order, (err, data) => {
