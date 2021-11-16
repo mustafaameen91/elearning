@@ -42,7 +42,7 @@ VideoComment.findByVideoId = async (commentVideoId, result) => {
          return {
             ...comment,
             children: singleVideoComment.filter((child) => {
-               if (child.parentId == comment.parentId) {
+               if (child.parentId == comment.idVideoComment) {
                   return child;
                }
             }),
