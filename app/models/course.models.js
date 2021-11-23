@@ -172,10 +172,16 @@ Course.findById = async (courseId, studentId, result) => {
             };
          });
 
-         if (singleCourse.StudentCourse.length > 0 && statusId == 1) {
+         if (
+            singleCourse.StudentCourse.length > 0 &&
+            singleCourse.StudentCourse.status.idStatus == 1
+         ) {
             singleCourse.enrolled = false;
             singleCourse.isPending = true;
-         } else if (singleCourse.StudentCourse.length > 0 && statusId == 2) {
+         } else if (
+            singleCourse.StudentCourse.length > 0 &&
+            singleCourse.StudentCourse.status.idStatus == 2
+         ) {
             singleCourse.enrolled = true;
             singleCourse.isPending = false;
          } else {
