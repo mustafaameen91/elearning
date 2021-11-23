@@ -130,6 +130,7 @@ Course.findById = async (courseId, studentId, result) => {
             StudentCourse: {
                include: {
                   status: true,
+                  student: true,
                },
                where: {
                   student: {
