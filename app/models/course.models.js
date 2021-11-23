@@ -176,13 +176,13 @@ Course.findById = async (courseId, studentId, result) => {
          console.log(singleCourse);
          if (
             singleCourse.StudentCourse.length > 0 &&
-            singleCourse.StudentCourse?.statusId == 1
+            singleCourse.StudentCourse[0]?.statusId == 1
          ) {
             singleCourse.enrolled = false;
             singleCourse.isPending = true;
          } else if (
             singleCourse.StudentCourse.length > 0 &&
-            singleCourse.StudentCourse?.statusId == 2
+            singleCourse.StudentCourse[0]?.statusId == 2
          ) {
             singleCourse.enrolled = true;
             singleCourse.isPending = false;
