@@ -132,7 +132,9 @@ Course.findById = async (courseId, studentId, result) => {
                   status: true,
                },
                where: {
-                  studentId: studentId,
+                  student: {
+                     userId: studentId,
+                  },
                },
             },
             CourseDistributor: {
