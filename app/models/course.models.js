@@ -126,13 +126,13 @@ Course.findById = async (courseId, studentId, result) => {
                   },
                },
             },
-            // StudentCourse: {
-            //    where: {
-            //       student: {
-            //          userId: studentId,
-            //       },
-            //    },
-            // },
+            StudentCourse: {
+               where: {
+                  student: {
+                     userId: studentId,
+                  },
+               },
+            },
             CourseDistributor: {
                include: {
                   user: {
@@ -169,11 +169,11 @@ Course.findById = async (courseId, studentId, result) => {
             };
          });
 
-         // if (singleCourse.StudentCourse.length > 0) {
-         //    singleCourse.enrolled = true;
-         // } else {
-         //    singleCourse.enrolled = false;
-         // }
+         if (singleCourse.StudentCourse.length > 0) {
+            singleCourse.enrolled = true;
+         } else {
+            singleCourse.enrolled = false;
+         }
          singleCourse.CourseVideo = data;
          result(null, singleCourse);
       } else {
