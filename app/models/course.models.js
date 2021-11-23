@@ -174,13 +174,13 @@ Course.findById = async (courseId, studentId, result) => {
 
          if (
             singleCourse.StudentCourse.length > 0 &&
-            singleCourse.StudentCourse.status.idStatus == 1
+            singleCourse?.StudentCourse.status.idStatus == 1
          ) {
             singleCourse.enrolled = false;
             singleCourse.isPending = true;
          } else if (
             singleCourse.StudentCourse.length > 0 &&
-            singleCourse.StudentCourse.status.idStatus == 2
+            singleCourse?.StudentCourse.status.idStatus == 2
          ) {
             singleCourse.enrolled = true;
             singleCourse.isPending = false;
