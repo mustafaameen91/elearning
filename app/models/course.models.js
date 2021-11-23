@@ -127,6 +127,9 @@ Course.findById = async (courseId, studentId, result) => {
                },
             },
             StudentCourse: {
+               include: {
+                  status: true,
+               },
                where: {
                   student: {
                      userId: studentId,
@@ -169,10 +172,15 @@ Course.findById = async (courseId, studentId, result) => {
             };
          });
 
-         if (singleCourse.StudentCourse.length > 0) {
+         if (singleCourse.StudentCourse.length > 0 && statusId == 1) {
+            singleCourse.enrolled = false;
+            singleCourse.isPending = true;
+         } else if (singleCourse.StudentCourse.length > 0 && statusId == 2) {
             singleCourse.enrolled = true;
+            singleCourse.isPending = false;
          } else {
             singleCourse.enrolled = false;
+            singleCourse.isPending = false;
          }
          singleCourse.CourseVideo = data;
          result(null, singleCourse);
