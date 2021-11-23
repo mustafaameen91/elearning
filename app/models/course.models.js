@@ -172,7 +172,7 @@ Course.findById = async (courseId, studentId, result) => {
                videoStatus: currentDate >= videoDate ? 1 : 0,
             };
          });
-
+         console.log(singleCourse);
          if (
             singleCourse.StudentCourse.length > 0 &&
             singleCourse.StudentCourse?.statusId == 1
