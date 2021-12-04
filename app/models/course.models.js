@@ -137,8 +137,6 @@ Course.findByTeacherId = async (teacherId, result) => {
          };
       });
 
-      console.log(countMoney);
-
       result(null, countMoney);
    } catch (err) {
       console.log(prismaErrorHandling(err));

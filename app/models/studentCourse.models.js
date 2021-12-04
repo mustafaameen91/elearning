@@ -64,6 +64,30 @@ StudentCourse.findById = async (studentCourseId, result) => {
    }
 };
 
+StudentCourse.getAllByCourseId = async (courseId, result) => {
+   try {
+      const studentCourses = await prismaInstance.studentCourse.findMany({
+         where: {
+            courseId: parseInt(courseId),
+         },
+         include: {
+            course: true,
+            status: true,
+            student: {
+               include: {
+                  user: true,
+               },
+            },
+            distributor: true,
+         },
+      });
+      result(null, studentCourses);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentCourse.getAll = async (result) => {
    try {
       const studentCourses = await prismaInstance.studentCourse.findMany();
