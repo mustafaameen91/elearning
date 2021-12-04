@@ -3,10 +3,6 @@ const {
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
 
-function add(accumulator, a) {
-   return accumulator + a;
-}
-
 const Course = function (course) {
    this.courseTitle = course.courseTitle;
    this.courseDescription = course.courseDescription;
@@ -111,13 +107,33 @@ Course.findByTeacherId = async (teacherId, result) => {
          },
          include: {
             StudentCourse: true,
+            subject: true,
+            class: true,
          },
       });
       let countMoney = courseMoney.map((money) => {
          return {
             idCourse: money.idCourse,
             courseTitle: money.courseTitle,
-            totalPrice: money.StudentCourse,
+            courseDescription: money.courseDescription,
+            courseRate: money.courseRate,
+            coursePrice: money.coursePrice,
+            coursePath: money.coursePath,
+            platformPrice: money.platformPrice,
+            subject: money.subject,
+            class: money.class,
+            totalPrice:
+               money.coursePrice *
+               money.StudentCourse.filter(
+                  (stu) => stu.statusId == 2 || stu.statusId == 3
+               ).length,
+            remainingPrice:
+               money.coursePrice *
+               money.StudentCourse.filter((stu) => stu.statusId == 1).length,
+            // totalPrice: money.StudentCourse.reduce(
+            //    (pv, cv) => pv + cv.discount,
+            //    0
+            // ),
          };
       });
 
