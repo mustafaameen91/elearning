@@ -3,6 +3,10 @@ const {
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
 
+function add(accumulator, a) {
+   return accumulator + a;
+}
+
 const Course = function (course) {
    this.courseTitle = course.courseTitle;
    this.courseDescription = course.courseDescription;
@@ -93,6 +97,33 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
       });
       console.log(courses);
       result(null, courses);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
+Course.findByTeacherId = async (teacherId, result) => {
+   try {
+      const courseMoney = await prismaInstance.course.findMany({
+         where: {
+            createdBy: parseInt(teacherId),
+         },
+         include: {
+            StudentCourse: true,
+         },
+      });
+      let countMoney = courseMoney.map((money) => {
+         return {
+            idCourse: money.idCourse,
+            courseTitle: money.courseTitle,
+            totalPrice: money.StudentCourse,
+         };
+      });
+
+      console.log(countMoney);
+
+      result(null, countMoney);
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);

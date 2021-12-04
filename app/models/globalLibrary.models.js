@@ -67,6 +67,9 @@ GlobalLibrary.getAllPagination = async (searchTerm, result) => {
          orderBy: {
             idLibrary: "desc",
          },
+         include: {
+            user: true,
+         },
       });
       const globalCount = await prismaInstance.globalLibrary.count();
       let response = {
