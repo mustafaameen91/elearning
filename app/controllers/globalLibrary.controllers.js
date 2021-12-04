@@ -37,6 +37,7 @@ exports.findAllPaginated = (req, res) => {
    let searchTerm = {
       skip: page == 1 ? 0 : limit * page,
       take: limit,
+      page: page,
    };
 
    GlobalLibrary.getAllPagination(searchTerm, (err, data) => {

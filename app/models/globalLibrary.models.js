@@ -68,7 +68,13 @@ GlobalLibrary.getAllPagination = async (searchTerm, result) => {
             idLibrary: "desc",
          },
       });
-      result(null, globalLibraries);
+      const globalCount = await prismaInstance.globalLibrary.count();
+      let response = {
+         currentPage: searchTerm.page * 1,
+         totalPages: parseInt(globalCount / searchTerm.take),
+         files: globalLibraries,
+      };
+      result(null, response);
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
