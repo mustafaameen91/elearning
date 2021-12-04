@@ -144,6 +144,48 @@ Course.findByTeacherId = async (teacherId, result) => {
    }
 };
 
+Course.findByAllCourses = async (result) => {
+   try {
+      const courseMoney = await prismaInstance.course.findMany({
+         include: {
+            StudentCourse: true,
+            subject: true,
+            class: true,
+         },
+      });
+      let countMoney = courseMoney.map((money) => {
+         return {
+            idCourse: money.idCourse,
+            courseTitle: money.courseTitle,
+            courseDescription: money.courseDescription,
+            courseRate: money.courseRate,
+            coursePrice: money.coursePrice,
+            coursePath: money.coursePath,
+            platformPrice: money.platformPrice,
+            subject: money.subject,
+            class: money.class,
+            totalPrice:
+               money.coursePrice *
+               money.StudentCourse.filter(
+                  (stu) => stu.statusId == 2 || stu.statusId == 3
+               ).length,
+            remainingPrice:
+               money.coursePrice *
+               money.StudentCourse.filter((stu) => stu.statusId == 1).length,
+            // totalPrice: money.StudentCourse.reduce(
+            //    (pv, cv) => pv + cv.discount,
+            //    0
+            // ),
+         };
+      });
+
+      result(null, countMoney);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Course.findById = async (courseId, studentId, result) => {
    console.log(studentId);
    try {
