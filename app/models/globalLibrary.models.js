@@ -59,6 +59,22 @@ GlobalLibrary.getAll = async (result) => {
    }
 };
 
+GlobalLibrary.getAllPagination = async (searchTerm, result) => {
+   try {
+      const globalLibraries = await prismaInstance.globalLibrary.findMany({
+         skip: searchTerm.skip,
+         take: searchTerm.take,
+         orderBy: {
+            idLibrary: "desc",
+         },
+      });
+      result(null, globalLibraries);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 GlobalLibrary.updateById = async (globalLibraryId, globalLibrary, result) => {
    try {
       const updateGlobalLibrary = await prismaInstance.globalLibrary.update({

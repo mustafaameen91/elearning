@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/globalLibrary/:id", globalLibrary.findOne);
 
+   app.get("/api/globalTakes", globalLibrary.findAllPaginated);
+
    app.put("/api/globalLibrary/:id", globalLibrary.update);
 
    app.delete("/api/globalLibrary/:id", globalLibrary.delete);

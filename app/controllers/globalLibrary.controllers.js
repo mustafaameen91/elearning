@@ -30,6 +30,21 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findAllPaginated = (req, res) => {
+   let limit = req.query.limit * 1;
+   let page = req.query.page * 1;
+
+   let searchTerm = {
+      skip: page == 1 ? 0 : limit * page,
+      take: limit,
+   };
+
+   GlobalLibrary.getAllPagination(searchTerm, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    GlobalLibrary.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
