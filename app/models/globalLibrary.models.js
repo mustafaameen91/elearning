@@ -71,7 +71,7 @@ GlobalLibrary.getAllPagination = async (searchTerm, result) => {
       const globalCount = await prismaInstance.globalLibrary.count();
       let response = {
          currentPage: searchTerm.page * 1,
-         totalPages: parseInt(globalCount / searchTerm.take),
+         totalPages: Math.round(globalCount / searchTerm.take),
          files: globalLibraries,
       };
       result(null, response);
