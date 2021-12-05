@@ -49,7 +49,7 @@ PromoCode.findById = async (promoCodeId, result) => {
 
 PromoCode.findByCode = async (promo, result) => {
    try {
-      const singlePromoCode = await prismaInstance.promoCode.findUnique({
+      const singlePromoCode = await prismaInstance.promoCode.findMany({
          where: {
             AND: [
                {
@@ -68,7 +68,7 @@ PromoCode.findByCode = async (promo, result) => {
       });
 
       if (singlePromoCode) {
-         result(null, singlePromoCode);
+         result(null, singlePromoCode[0]);
       } else {
          result({
             error: "Not Found",
