@@ -110,6 +110,41 @@ User.login = async (user, result) => {
    }
 };
 
+User.getAllStudents = async (student, result) => {
+   try {
+      const users = await prismaInstance.user.findMany({
+         where: {
+            AND: [
+               {
+                  roleId: 2,
+               },
+               {
+                  userName: {
+                     contains: student.name,
+                  },
+               },
+            ],
+         },
+         take: 10,
+         select: {
+            userName: true,
+            provinceId: true,
+            roleId: true,
+            phone: true,
+            province: true,
+            role: true,
+            password: true,
+            studentInfo: true,
+         },
+      });
+
+      result(null, users);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 User.getAll = async (result) => {
    try {
       const users = await prismaInstance.user.findMany({

@@ -36,6 +36,13 @@ exports.findByRoleId = (req, res) => {
    });
 };
 
+exports.findAllStudents = (req, res) => {
+   User.getAllStudents(req.query, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findAll = (req, res) => {
    User.getAll((err, data) => {
       if (err) res.status(err.code).send(err);
