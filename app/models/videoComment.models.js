@@ -17,7 +17,16 @@ VideoComment.create = async (newVideoComment, result) => {
          data: newVideoComment,
       });
 
-      result(null, videoComment);
+      const allComments = await prismaInstance.videoComment.findMany({
+         where: {
+            videoId: newVideoComment.videoId,
+         },
+         orderBy: {
+            createdAt: "desc",
+         },
+      });
+
+      result(null, allComments);
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
