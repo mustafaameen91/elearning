@@ -57,10 +57,10 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
          where: {
             AND: [
                {
-                  studentId: newStudentCourse.studentId,
+                  studentId: studentCourseData.studentId,
                },
                {
-                  courseId: newStudentCourse.courseId,
+                  courseId: studentCourseData.courseId,
                },
             ],
          },
