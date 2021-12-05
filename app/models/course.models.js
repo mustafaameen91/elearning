@@ -268,7 +268,7 @@ Course.findById = async (courseId, studentId, result) => {
                videoStatus: currentDate >= videoDate ? 1 : 0,
             };
          });
-         console.log(singleCourse);
+
          if (
             singleCourse.StudentCourse.length > 0 &&
             singleCourse.StudentCourse[0]?.statusId == 1
@@ -286,6 +286,7 @@ Course.findById = async (courseId, studentId, result) => {
             singleCourse.isPending = false;
          }
          singleCourse.CourseVideo = data;
+         console.log(singleCourse);
          result(null, singleCourse);
       } else {
          result({
