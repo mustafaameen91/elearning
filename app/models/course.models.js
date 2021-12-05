@@ -176,6 +176,10 @@ Course.findByAllCourses = async (filtered, result) => {
             remainingPrice:
                money.coursePrice *
                money.StudentCourse.filter((stu) => stu.statusId == 1).length,
+
+            platformPriceTotal:
+               money.platformPrice *
+               money.StudentCourse.filter((stu) => stu.statusId == 3).length,
             // totalPrice: money.StudentCourse.reduce(
             //    (pv, cv) => pv + cv.discount,
             //    0
