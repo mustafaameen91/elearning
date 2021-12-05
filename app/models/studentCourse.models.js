@@ -59,7 +59,7 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
 
       const updatePromoCode = await prismaInstance.promoCode.update({
          where: {
-            idPromoCode: parseInt(studentCoursePromo.idPromoCode),
+            idPromoCode: parseInt(studentCoursePromo.promoCodeId),
          },
          data: {
             usedCount: {
@@ -70,7 +70,7 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
       console.log(updatePromoCode);
       const usedCode = await prismaInstance.usedCode.create({
          data: {
-            promoId: parseInt(studentCoursePromo.idPromoCode),
+            promoId: parseInt(studentCoursePromo.promoCodeId),
             userId: parseInt(studentCoursePromo.studentUserId),
          },
       });

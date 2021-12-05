@@ -7,7 +7,7 @@ exports.create = (req, res) => {
       });
    }
 
-   if (req.body.idPromoCode) {
+   if (req.body.promoCodeId) {
       StudentCourse.createWithPromo(req.body, (err, data) => {
          if (err) res.status(err.code).send(err);
          else {
