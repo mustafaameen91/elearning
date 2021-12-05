@@ -67,7 +67,7 @@ PromoCode.findByCode = async (promo, result) => {
          },
       });
 
-      if (singlePromoCode) {
+      if (singlePromoCode.length > 0) {
          result(null, singlePromoCode[0]);
       } else {
          result({
