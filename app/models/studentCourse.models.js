@@ -12,15 +12,17 @@ const StudentCourse = function (studentCourse) {
 };
 
 StudentCourse.create = async (newStudentCourse, result) => {
-   try {
-      const studentCourse = await prismaInstance.studentCourse.create({
-         data: newStudentCourse,
-      });
+   if (req.body.idPromoCode) {
+      try {
+         const studentCourse = await prismaInstance.studentCourse.create({
+            data: newStudentCourse,
+         });
 
-      result(null, studentCourse);
-   } catch (err) {
-      console.log(prismaErrorHandling(err));
-      result(prismaErrorHandling(err), null);
+         result(null, studentCourse);
+      } catch (err) {
+         console.log(prismaErrorHandling(err));
+         result(prismaErrorHandling(err), null);
+      }
    }
 };
 
