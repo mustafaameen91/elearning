@@ -45,19 +45,37 @@ StudentCourse.create = async (newStudentCourse, result) => {
 };
 
 StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
-   let studentCourse = {
+   let studentCourseData = {
       studentId: studentCoursePromo.studentId,
       courseId: studentCoursePromo.courseId,
-      statusId: studentCoursePromo.statusId,
+      statusId: 1,
       distributorId: studentCoursePromo.distributorId,
-      discount: studentCoursePromo.discount,
+      discount: studentCoursePromo.discountAmount,
    };
    try {
       const studentCourse = await prismaInstance.studentCourse.create({
-         data: studentCoursePromo,
+         data: studentCourseData,
       });
 
-      result(null, studentCourse);
+      const updatePromoCode = await prismaInstance.promoCode.update({
+         where: {
+            idPromoCode: parseInt(studentCoursePromo.idPromoCode),
+         },
+         data: {
+            usedCount: {
+               decrement: 1,
+            },
+         },
+      });
+      console.log(updatePromoCode);
+      const usedCode = await prismaInstance.usedCode.create({
+         data: {
+            promoId: parseInt(studentCoursePromo.idPromoCode),
+            userId: parseInt(studentCoursePromo.studentUserId),
+         },
+      });
+
+      result(null, { studentCourse, usedCode, updatePromoCode });
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);

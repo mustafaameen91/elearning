@@ -8,7 +8,12 @@ exports.create = (req, res) => {
    }
 
    if (req.body.idPromoCode) {
-      console.log("not have");
+      StudentCourse.createWithPromo(req.body, (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else {
+            res.send(data);
+         }
+      });
    } else {
       const studentCourse = new StudentCourse({
          studentId: req.body.studentId,
