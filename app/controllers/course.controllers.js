@@ -137,7 +137,28 @@ exports.findOneTeacherId = (req, res) => {
 };
 
 exports.findOneForCourses = (req, res) => {
-   Course.findByAllCourses((err, data) => {
+   let filtered = {};
+
+   if (req.query.dates) {
+      let dates = req.query.dates.split("/");
+      var startDate = new Date(dates[0]);
+      var endDate = new Date(dates[1]);
+
+      filtered.createdAt = {
+         lte: endDate.toISOString(),
+         gte: startDate.toISOString(),
+      };
+   }
+
+   if (req.query.createdBy) {
+      filtered.createdBy = req.query.createdBy * 1;
+   }
+
+   if (req.query.subjectId) {
+      filtered.subjectId = req.query.subjectId * 1;
+   }
+
+   Course.findByAllCourses(filtered, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });

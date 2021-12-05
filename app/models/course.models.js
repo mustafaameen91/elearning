@@ -144,9 +144,10 @@ Course.findByTeacherId = async (teacherId, result) => {
    }
 };
 
-Course.findByAllCourses = async (result) => {
+Course.findByAllCourses = async (filtered, result) => {
    try {
       const courseMoney = await prismaInstance.course.findMany({
+         where: { ...filtered },
          include: {
             StudentCourse: true,
             subject: true,
@@ -162,6 +163,9 @@ Course.findByAllCourses = async (result) => {
             coursePrice: money.coursePrice,
             coursePath: money.coursePath,
             platformPrice: money.platformPrice,
+            createdAt: money.createdAt,
+            createdBy: money.createdBy,
+            subjectId: money.subjectId,
             subject: money.subject,
             class: money.class,
             totalPrice:
