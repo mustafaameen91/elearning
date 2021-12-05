@@ -13,11 +13,31 @@ const StudentCourse = function (studentCourse) {
 
 StudentCourse.create = async (newStudentCourse, result) => {
    try {
-      const studentCourse = await prismaInstance.studentCourse.create({
-         data: newStudentCourse,
+      const findStudentCourse = await prismaInstance.studentCourse.findMany({
+         where: {
+            AND: [
+               {
+                  studentId: newStudentCourse.studentId,
+               },
+               {
+                  courseId: newStudentCourse.courseId,
+               },
+            ],
+         },
       });
+      if (findStudentCourse.length > 0) {
+         const studentCourse = await prismaInstance.studentCourse.create({
+            data: newStudentCourse,
+         });
 
-      result(null, studentCourse);
+         result(null, studentCourse);
+      } else {
+         result({
+            error: "conflict",
+            code: 409,
+            errorMessage: "Found StudentCourse with this Id",
+         });
+      }
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
