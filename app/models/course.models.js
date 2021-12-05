@@ -274,6 +274,7 @@ Course.findById = async (courseId, studentId, result) => {
                unlockAt: video.unlockAt,
                createdAt: video.createdAt,
                videoStatus: currentDate >= videoDate ? 1 : 0,
+               quiz: video.Quiz,
             };
          });
 
