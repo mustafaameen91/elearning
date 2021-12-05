@@ -24,6 +24,9 @@ VideoComment.create = async (newVideoComment, result) => {
          orderBy: {
             createdAt: "desc",
          },
+         include: {
+            user: true,
+         },
       });
 
       result(null, allComments);
