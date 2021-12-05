@@ -84,7 +84,17 @@ PromoCode.findByCode = async (promo, result) => {
 
 PromoCode.getAll = async (result) => {
    try {
-      const promoCodes = await prismaInstance.promoCode.findMany();
+      const promoCodes = await prismaInstance.promoCode.findMany({
+         include: {
+            UsedCode: {
+               include: {
+                  user: true,
+               },
+            },
+            course: true,
+            user: true,
+         },
+      });
       result(null, promoCodes);
    } catch (err) {
       console.log(prismaErrorHandling(err));
