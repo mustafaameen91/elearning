@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/promoCode/:id", promoCode.findOne);
 
+   app.post("/api/checkPromoCode", promoCode.findOneByCode);
+
    app.put("/api/promoCode/:id", promoCode.update);
 
    app.delete("/api/promoCode/:id", promoCode.delete);

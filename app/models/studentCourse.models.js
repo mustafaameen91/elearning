@@ -12,17 +12,35 @@ const StudentCourse = function (studentCourse) {
 };
 
 StudentCourse.create = async (newStudentCourse, result) => {
-   if (req.body.idPromoCode) {
-      try {
-         const studentCourse = await prismaInstance.studentCourse.create({
-            data: newStudentCourse,
-         });
+   try {
+      const studentCourse = await prismaInstance.studentCourse.create({
+         data: newStudentCourse,
+      });
 
-         result(null, studentCourse);
-      } catch (err) {
-         console.log(prismaErrorHandling(err));
-         result(prismaErrorHandling(err), null);
-      }
+      result(null, studentCourse);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
+StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
+   let studentCourse = {
+      studentId: studentCoursePromo.studentId,
+      courseId: studentCoursePromo.courseId,
+      statusId: studentCoursePromo.statusId,
+      distributorId: studentCoursePromo.distributorId,
+      discount: studentCoursePromo.discount,
+   };
+   try {
+      const studentCourse = await prismaInstance.studentCourse.create({
+         data: studentCoursePromo,
+      });
+
+      result(null, studentCourse);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
    }
 };
 

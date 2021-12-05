@@ -47,6 +47,41 @@ PromoCode.findById = async (promoCodeId, result) => {
    }
 };
 
+PromoCode.findByCode = async (promo, result) => {
+   try {
+      const singlePromoCode = await prismaInstance.promoCode.findUnique({
+         where: {
+            AND: [
+               {
+                  code: promo.code,
+               },
+               {
+                  usedCount: {
+                     gt: 1,
+                  },
+               },
+               {
+                  courseId: promo.courseId,
+               },
+            ],
+         },
+      });
+
+      if (singlePromoCode) {
+         result(null, singlePromoCode);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found PromoCode with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 PromoCode.getAll = async (result) => {
    try {
       const promoCodes = await prismaInstance.promoCode.findMany();

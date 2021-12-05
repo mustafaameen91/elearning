@@ -7,20 +7,23 @@ exports.create = (req, res) => {
       });
    }
 
-   const studentCourse = new StudentCourse({
-      studentId: req.body.studentId,
-      courseId: req.body.courseId,
-      statusId: 1,
-      distributorId: req.body.distributorId,
-      discount: req.body.discount,
-   });
+   if (req.body.idPromoCode) {
+      const studentCourse = new StudentCourse({
+         studentId: req.body.studentId,
+         courseId: req.body.courseId,
+         statusId: 1,
+         distributorId: req.body.distributorId,
+         discount: req.body.discount,
+      });
 
-   StudentCourse.create(studentCourse, (err, data) => {
-      if (err) res.status(err.code).send(err);
-      else {
-         res.send(data);
-      }
-   });
+      StudentCourse.create(studentCourse, (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else {
+            res.send(data);
+         }
+      });
+   } else {
+   }
 };
 
 exports.findAll = (req, res) => {
