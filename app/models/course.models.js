@@ -210,15 +210,7 @@ Course.findById = async (courseId, studentId, result) => {
                },
             },
             Library: true,
-            CourseVideo: {
-               include: {
-                  Quiz: {
-                     include: {
-                        Choice: true,
-                     },
-                  },
-               },
-            },
+            CourseVideo: true,
             Homework: {
                include: {
                   user: {
@@ -274,7 +266,6 @@ Course.findById = async (courseId, studentId, result) => {
                unlockAt: video.unlockAt,
                createdAt: video.createdAt,
                videoStatus: currentDate >= videoDate ? 1 : 0,
-               quiz: video.Quiz[0],
             };
          });
 

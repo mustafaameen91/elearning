@@ -31,6 +31,13 @@ CourseVideo.findById = async (courseVideoId, result) => {
          where: {
             idCourseVideo: JSON.parse(courseVideoId),
          },
+         include: {
+            Quiz: {
+               include: {
+                  Choice: true,
+               },
+            },
+         },
       });
 
       if (singleCourseVideo) {
