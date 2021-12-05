@@ -210,7 +210,15 @@ Course.findById = async (courseId, studentId, result) => {
                },
             },
             Library: true,
-            CourseVideo: true,
+            CourseVideo: {
+               include: {
+                  Quiz: {
+                     include: {
+                        Choice: true,
+                     },
+                  },
+               },
+            },
             Homework: {
                include: {
                   user: {
