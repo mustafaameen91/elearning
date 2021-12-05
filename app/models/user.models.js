@@ -150,6 +150,7 @@ User.getByRoleId = async (roleId, result) => {
             roleId: JSON.parse(roleId),
          },
          select: {
+            idUser: true,
             userName: true,
             provinceId: true,
             roleId: true,

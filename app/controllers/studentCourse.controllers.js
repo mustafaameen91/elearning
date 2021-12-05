@@ -10,7 +10,7 @@ exports.create = (req, res) => {
    const studentCourse = new StudentCourse({
       studentId: req.body.studentId,
       courseId: req.body.courseId,
-      statusId: req.body.statusId,
+      statusId: 1,
       distributorId: req.body.distributorId,
       discount: req.body.discount,
    });

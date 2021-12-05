@@ -160,7 +160,7 @@ model UsedCode {
 
 model PromoCode {
   idPromoCode    Int        @id @default(autoincrement())
-  code           String     @db.VarChar(220)
+  code           String     @unique @db.VarChar(220)
   usedCount      Int
   discountAmount Float
   user           User       @relation(fields: [userId], references: [idUser])
