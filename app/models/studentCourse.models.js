@@ -25,7 +25,7 @@ StudentCourse.create = async (newStudentCourse, result) => {
             ],
          },
       });
-      if (findStudentCourse.length > 0) {
+      if (findStudentCourse.length == 0) {
          const studentCourse = await prismaInstance.studentCourse.create({
             data: newStudentCourse,
          });
