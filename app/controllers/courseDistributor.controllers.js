@@ -34,6 +34,13 @@ exports.findOne = (req, res) => {
    });
 };
 
+exports.findOneByDistributorId = (req, res) => {
+   CourseDistributor.findByDistributorId(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({

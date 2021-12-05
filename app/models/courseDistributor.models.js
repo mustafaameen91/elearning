@@ -45,6 +45,29 @@ CourseDistributor.findById = async (courseDistributorId, result) => {
    }
 };
 
+CourseDistributor.findByDistributorId = async (distributorId, result) => {
+   try {
+      const courseDistributor = await prismaInstance.courseDistributor.findMany(
+         {
+            where: {
+               user: {
+                  idUser: JSON.parse(distributorId),
+               },
+            },
+            include: {
+               course: true,
+               user: true,
+            },
+         }
+      );
+
+      result(null, courseDistributor);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 CourseDistributor.getAll = async (result) => {
    try {
       const courseDistributors =
