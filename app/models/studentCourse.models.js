@@ -53,29 +53,50 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
       discount: studentCoursePromo.discountAmount,
    };
    try {
-      const studentCourse = await prismaInstance.studentCourse.create({
-         data: studentCourseData,
-      });
-
-      const updatePromoCode = await prismaInstance.promoCode.update({
+      const findStudentCourse = await prismaInstance.studentCourse.findMany({
          where: {
-            idPromoCode: parseInt(studentCoursePromo.promoCodeId),
-         },
-         data: {
-            usedCount: {
-               decrement: 1,
-            },
-         },
-      });
-      console.log(updatePromoCode);
-      const usedCode = await prismaInstance.usedCode.create({
-         data: {
-            promoId: parseInt(studentCoursePromo.promoCodeId),
-            userId: parseInt(studentCoursePromo.studentUserId),
+            AND: [
+               {
+                  studentId: newStudentCourse.studentId,
+               },
+               {
+                  courseId: newStudentCourse.courseId,
+               },
+            ],
          },
       });
 
-      result(null, { studentCourse, usedCode, updatePromoCode });
+      if (findStudentCourse.length == 0) {
+         const studentCourse = await prismaInstance.studentCourse.create({
+            data: studentCourseData,
+         });
+
+         const updatePromoCode = await prismaInstance.promoCode.update({
+            where: {
+               idPromoCode: parseInt(studentCoursePromo.promoCodeId),
+            },
+            data: {
+               usedCount: {
+                  decrement: 1,
+               },
+            },
+         });
+         console.log(updatePromoCode);
+         const usedCode = await prismaInstance.usedCode.create({
+            data: {
+               promoId: parseInt(studentCoursePromo.promoCodeId),
+               userId: parseInt(studentCoursePromo.studentUserId),
+            },
+         });
+
+         result(null, { studentCourse, usedCode, updatePromoCode });
+      } else {
+         result({
+            error: "conflict",
+            code: 409,
+            errorMessage: "Found StudentCourse with this Id",
+         });
+      }
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
