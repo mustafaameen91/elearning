@@ -13,7 +13,7 @@ exports.create = (req, res) => {
          courseId: req.body.courseId,
          statusId: 1,
          distributorId: req.body.distributorId,
-         discount: req.body.discount,
+         discount: 0,
       });
 
       StudentCourse.create(studentCourse, (err, data) => {
