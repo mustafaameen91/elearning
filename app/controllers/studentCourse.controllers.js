@@ -8,6 +8,8 @@ exports.create = (req, res) => {
    }
 
    if (req.body.idPromoCode) {
+      console.log("not have");
+   } else {
       const studentCourse = new StudentCourse({
          studentId: req.body.studentId,
          courseId: req.body.courseId,
@@ -22,7 +24,6 @@ exports.create = (req, res) => {
             res.send(data);
          }
       });
-   } else {
    }
 };
 
