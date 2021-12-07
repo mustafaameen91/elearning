@@ -65,11 +65,12 @@ DistributorInfo.updateById = async (
    result
 ) => {
    try {
-      const updateDistributorInfo =
-         await prismaInstance.rodistributorInfole.update({
+      const updateDistributorInfo = await prismaInstance.distributorInfo.update(
+         {
             where: { idDistributor: JSON.parse(distributorInfoId) },
             data: distributorInfo,
-         });
+         }
+      );
       result(null, updateDistributorInfo);
    } catch (error) {
       console.log(prismaErrorHandling(error));
