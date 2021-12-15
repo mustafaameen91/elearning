@@ -244,7 +244,7 @@ model Homework {
   courseId         Int
   user             User             @relation(fields: [createdBy], references: [idUser])
   createdBy        Int
-  homeworkType     Int
+  homeworkType     Int              @default(1)
   createdAt        DateTime         @default(now())
   HomeworkAnswer   HomeworkAnswer[]
 }
