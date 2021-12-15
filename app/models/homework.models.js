@@ -8,6 +8,7 @@ const Homework = function (homework) {
    this.homeworkSubTitle = homework.homeworkSubTitle;
    this.homeworkPath = homework.homeworkPath;
    this.courseId = homework.courseId;
+   this.homeworkType = homework.homeworkType;
    this.createdBy = homework.createdBy;
 };
 

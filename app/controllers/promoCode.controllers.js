@@ -23,6 +23,21 @@ exports.create = (req, res) => {
    });
 };
 
+exports.createMany = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   PromoCode.createManyCodes(req.body, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else {
+         res.send(data);
+      }
+   });
+};
+
 exports.findAll = (req, res) => {
    PromoCode.getAll((err, data) => {
       if (err) res.status(err.code).send(err);

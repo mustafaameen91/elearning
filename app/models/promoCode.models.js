@@ -24,6 +24,19 @@ PromoCode.create = async (newPromoCode, result) => {
    }
 };
 
+PromoCode.createManyCodes = async (newPromoCode, result) => {
+   try {
+      const promoCode = await prismaInstance.promoCode.createMany({
+         data: newPromoCode,
+      });
+
+      result(null, promoCode);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 PromoCode.findById = async (promoCodeId, result) => {
    try {
       const singlePromoCode = await prismaInstance.promoCode.findUnique({

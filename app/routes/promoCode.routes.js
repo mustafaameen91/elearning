@@ -3,6 +3,8 @@ module.exports = (app) => {
 
    app.post("/api/addPromoCode", promoCode.create);
 
+   app.post("/api/addManyPromoCode", promoCode.createMany);
+
    app.get("/api/promoCodes", promoCode.findAll);
 
    app.get("/api/promoCode/:id", promoCode.findOne);

@@ -12,6 +12,7 @@ exports.create = (req, res) => {
       homeworkSubTitle: req.body.homeworkSubTitle,
       homeworkPath: req.body.homeworkPath,
       courseId: req.body.courseId,
+      homeworkType: req.body.homeworkType,
       createdBy: req.body.createdBy,
    });
 
