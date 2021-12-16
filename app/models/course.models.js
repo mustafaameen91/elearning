@@ -152,6 +152,7 @@ Course.findByAllCourses = async (filtered, result) => {
             StudentCourse: true,
             subject: true,
             class: true,
+            user: true,
          },
       });
       let countMoney = courseMoney.map((money) => {

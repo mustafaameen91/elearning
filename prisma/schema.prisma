@@ -81,6 +81,7 @@ model StudentInfo {
   schoolName    String          @db.VarChar(220)
   grade         Float
   dob           String          @db.VarChar(220)
+  photoPath     String          @db.VarChar(220)
   class         Class           @relation(fields: [classId], references: [idClass])
   classId       Int
   user          User            @relation(fields: [userId], references: [idUser])
