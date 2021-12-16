@@ -35,6 +35,10 @@ Course.getByClassId = async (classId, result) => {
          where: {
             classId: parseInt(classId),
          },
+         include: {
+            user: true,
+            class: true,
+         },
       });
 
       const lastAddCourse = await prismaInstance.course.findMany({
