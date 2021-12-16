@@ -9,6 +9,8 @@ module.exports = (app) => {
 
    app.get("/api/promoCode/:id", promoCode.findOne);
 
+   app.get("/api/teacherPromo/:id", promoCode.findOneByTeacherId);
+
    app.post("/api/checkPromoCode", promoCode.findOneByCode);
 
    app.put("/api/promoCode/:id", promoCode.update);

@@ -45,6 +45,13 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findOneByTeacherId = (req, res) => {
+   PromoCode.findByIdTeacher(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    PromoCode.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
