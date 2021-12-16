@@ -169,6 +169,7 @@ Course.findByAllCourses = async (filtered, result) => {
             subjectId: money.subjectId,
             subject: money.subject,
             class: money.class,
+            user: money.user,
             totalPrice:
                money.coursePrice *
                money.StudentCourse.filter(
