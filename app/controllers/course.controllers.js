@@ -122,6 +122,13 @@ exports.findByClassId = (req, res) => {
    });
 };
 
+exports.findOneByTeacherId = (req, res) => {
+   Course.findByIdTeacher(req.params.id, req.teacherId, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    Course.findById(req.params.id, req.studentId, (err, data) => {
       if (err) res.status(err.code).send(err);

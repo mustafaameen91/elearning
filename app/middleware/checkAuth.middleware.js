@@ -6,6 +6,8 @@ module.exports = (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_KEY);
       if (decoded.roleId == 2) {
          req.studentId = decoded.idUser;
+      } else if (decoded.roleId == 3) {
+         req.teacherId = decoded.idUser;
       } else {
          req.studentId = -1;
       }

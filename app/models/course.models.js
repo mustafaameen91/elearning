@@ -213,6 +213,109 @@ Course.findByAllCourses = async (filtered, result) => {
    }
 };
 
+Course.findByIdTeacher = async (courseId, teacherId, result) => {
+   console.log(teacherId);
+   try {
+      const singleCourse = await prismaInstance.course.findUnique({
+         where: {
+            idCourse: JSON.parse(courseId),
+         },
+         include: {
+            user: {
+               select: {
+                  idUser: true,
+                  userName: true,
+                  phone: true,
+               },
+            },
+            Library: true,
+            CourseVideo: {
+               include: {
+                  Quiz: {
+                     include: {
+                        Choice: true,
+                     },
+                  },
+               },
+            },
+            Homework: {
+               include: {
+                  user: {
+                     select: {
+                        idUser: true,
+                        userName: true,
+                        phone: true,
+                     },
+                  },
+               },
+            },
+            StudentCourse: {
+               include: {
+                  status: true,
+                  student: true,
+               },
+            },
+            CourseDistributor: {
+               include: {
+                  user: {
+                     select: {
+                        idUser: true,
+                        userName: true,
+                        phone: true,
+                        provinceId: true,
+                        province: true,
+                        distributorInfo: true,
+                     },
+                  },
+               },
+            },
+         },
+      });
+
+      if (singleCourse) {
+         let currentDate = new Date();
+         currentDate.setHours(0, 0, 0, 0);
+         let data = singleCourse.CourseVideo.map((video) => {
+            let videoDate = new Date(video.unlockAt);
+            videoDate.setHours(0, 0, 0, 0);
+            return {
+               idCourseVideo: video.idCourseVideo,
+               videoTitle: video.videoTitle,
+               videoLink: video.videoLink,
+               videoDescription: video.videoDescription,
+               courseId: video.courseId,
+               createdBy: video.createdBy,
+               unlockAt: video.unlockAt,
+               createdAt: video.createdAt,
+               videoStatus: currentDate >= videoDate ? 1 : 0,
+               quiz: video.Quiz[0],
+            };
+         });
+
+         if (singleCourse.createdBy == teacherId) {
+            singleCourse.enrolled = true;
+            singleCourse.isPending = false;
+         } else {
+            singleCourse.enrolled = false;
+            singleCourse.isPending = false;
+         }
+
+         singleCourse.CourseVideo = data;
+         console.log(singleCourse);
+         result(null, singleCourse);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Course with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Course.findById = async (courseId, studentId, result) => {
    console.log(studentId);
    try {
