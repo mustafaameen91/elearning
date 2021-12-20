@@ -4,6 +4,10 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const history = require("connect-history-api-fallback");
+require("dotenv").config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require("twilio")(accountSid, authToken);
 
 app.use(cors());
 app.use(express.json());
@@ -63,6 +67,28 @@ app.get("/api/attachment/:file", function (request, response) {
       response.contentType(contentType);
       response.send(data);
    });
+});
+
+app.post(`/api/sendSms`, (req, res) => {
+   try {
+      console.log(req.body);
+      client.messages
+         .create({
+            body: `${req.body.message}`,
+            from: "+12542745154",
+            to: `+964${req.body.phone}`,
+         })
+         .then((message) => {
+            res.send({ message: "message sent" });
+            console.log(message.sid);
+         })
+         .catch((e) => {
+            res.status(400).send(e);
+         });
+   } catch (err) {
+      res.status(400).send(err);
+      console.error(err);
+   }
 });
 
 require("./app/routes/user.routes.js")(app);
