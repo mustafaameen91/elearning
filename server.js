@@ -91,6 +91,20 @@ app.post(`/api/sendSms`, (req, res) => {
    }
 });
 
+app.post("/api/sendNotification", (req, res) => {
+   var message = {
+      app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+      headings: { en: `${req.body.title}` },
+      contents: {
+         en: `${req.body.content}`,
+      },
+      included_segments: ["Subscribed Users"],
+   };
+
+   notification(message);
+   res.send({ text: "message send" });
+});
+
 require("./app/routes/user.routes.js")(app);
 require("./app/routes/role.routes.js")(app);
 require("./app/routes/province.routes.js")(app);
