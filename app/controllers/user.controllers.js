@@ -43,6 +43,13 @@ exports.findAllStudents = (req, res) => {
    });
 };
 
+exports.findByPhoneNumber = (req, res) => {
+   User.getByPhoneNumber(req.query.phone, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findAll = (req, res) => {
    User.getAll((err, data) => {
       if (err) res.status(err.code).send(err);

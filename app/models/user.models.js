@@ -145,6 +145,26 @@ User.getAllStudents = async (student, result) => {
    }
 };
 
+User.getByPhoneNumber = async (phone, result) => {
+   try {
+      const findUserPhone = await prismaInstance.user.findMany({
+         where: { phone: phone },
+      });
+      if (findUserPhone.length > 0) {
+         result(null, findUserPhone[0]);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found User with this Id",
+         });
+      }
+   } catch (error) {
+      console.log(prismaErrorHandling(error));
+      result(prismaErrorHandling(error), null);
+   }
+};
+
 User.getAll = async (result) => {
    try {
       const users = await prismaInstance.user.findMany({

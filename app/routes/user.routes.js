@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/users", user.findAll);
 
+   app.get("/api/userPhone", user.findByPhoneNumber);
+
    app.get("/api/students", user.findAllStudents);
 
    app.get("/api/userRoles/:roleId", user.findByRoleId);
