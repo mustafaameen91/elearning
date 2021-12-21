@@ -21,6 +21,33 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
    }
 };
 
+CourseDistributor.findByIdOfCourse = async (courseId, result) => {
+   try {
+      const singleCourseDistributor =
+         await prismaInstance.courseDistributor.findMany({
+            where: {
+               courseId: parseInt(courseId),
+            },
+            include: {
+               user: true,
+            },
+         });
+
+      if (singleCourseDistributor.length > 0) {
+         result(null, singleCourseDistributor);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Course Distributor with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 CourseDistributor.findById = async (courseDistributorId, result) => {
    try {
       const singleCourseDistributor =
@@ -52,6 +79,36 @@ CourseDistributor.findByDistributorId = async (distributorId, result) => {
             where: {
                user: {
                   idUser: JSON.parse(distributorId),
+               },
+            },
+            include: {
+               course: true,
+               user: true,
+            },
+         }
+      );
+
+      result(null, courseDistributor);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
+CourseDistributor.findByTeacherDistributor = async (
+   distributorId,
+   teacherId,
+   result
+) => {
+   try {
+      const courseDistributor = await prismaInstance.courseDistributor.findMany(
+         {
+            where: {
+               user: {
+                  idUser: JSON.parse(distributorId),
+               },
+               course: {
+                  createdBy: parseInt(teacherId),
                },
             },
             include: {

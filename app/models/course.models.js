@@ -138,6 +138,12 @@ Course.findByTeacherId = async (teacherId, result) => {
             remainingPrice:
                money.coursePrice *
                money.StudentCourse.filter((stu) => stu.statusId == 1).length,
+            enrolledStudents: money.StudentCourse.filter(
+               (stu) => stu.statusId == 2 || stu.statusId == 3
+            ).length,
+            pendingStudents: money.StudentCourse.filter(
+               (stu) => stu.statusId == 1
+            ),
             // totalPrice: money.StudentCourse.reduce(
             //    (pv, cv) => pv + cv.discount,
             //    0
