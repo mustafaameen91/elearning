@@ -77,7 +77,14 @@ StudentInfo.findByUserId = async (userId, result) => {
 StudentInfo.getAll = async (result) => {
    try {
       const students = await prismaInstance.studentInfo.findMany({
-         include: { user: true, class: true },
+         include: {
+            user: {
+               include: {
+                  StudentCourse: true,
+               },
+            },
+            class: true,
+         },
       });
       result(null, students);
    } catch (err) {
