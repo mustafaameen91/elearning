@@ -212,13 +212,16 @@ model CourseDistributor {
 enum DistributorStatus {
   PENDING
   ACCEPTED
-  REGECTED
+  CANCELLED
 }
 
 model UserSession {
-  idUserSession Int  @id @default(autoincrement())
-  user          User @relation(fields: [studentId], references: [idUser])
+  idUserSession Int      @id @default(autoincrement())
+  user          User     @relation(fields: [studentId], references: [idUser])
   studentId     Int
+  deviceId      String   @unique @db.VarChar(220)
+  createdAt     DateTime @default(now())
+
 }
 
 model Favorites {

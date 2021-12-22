@@ -61,7 +61,7 @@ User.login = async (user, result) => {
    try {
       const loginUser = await prismaInstance.user.findUnique({
          where: {
-            phone: user.phone,
+            AND: [{ phone: user.phone }, { canLogin: true }],
          },
          include: {
             province: true,
@@ -84,6 +84,8 @@ User.login = async (user, result) => {
             ).toString(CryptoJS.enc.Utf8) === user.password
          ) {
             delete loginUser.password;
+            const findUserSession = await prismaInstance.userSession.findMany();
+            console.log(loginUser);
             result(null, loginUser);
          } else {
             result(

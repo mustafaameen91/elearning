@@ -105,6 +105,9 @@ CourseDistributor.findByTeacherDistributor = async (teacherId, result) => {
                   createdBy: parseInt(teacherId),
                },
             },
+            orderBy: {
+               distributorStatus: "desc",
+            },
             include: {
                course: true,
                user: true,
