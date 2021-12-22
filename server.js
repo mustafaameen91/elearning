@@ -5,6 +5,7 @@ const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const history = require("connect-history-api-fallback");
 require("dotenv").config();
+const notification = require("./app/notifications/notification.js");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
@@ -92,6 +93,7 @@ app.post(`/api/sendSms`, (req, res) => {
 });
 
 app.post("/api/sendNotification", (req, res) => {
+   console.log(req.body.title);
    var message = {
       app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
       headings: { en: `${req.body.title}` },

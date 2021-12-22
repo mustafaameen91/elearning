@@ -199,12 +199,19 @@ model Course {
 }
 
 model CourseDistributor {
-  idCourseDistributor Int      @id @default(autoincrement())
-  course              Course   @relation(fields: [courseId], references: [idCourse])
+  idCourseDistributor Int               @id @default(autoincrement())
+  course              Course            @relation(fields: [courseId], references: [idCourse])
   courseId            Int
-  user                User     @relation(fields: [distributorId], references: [idUser])
+  user                User              @relation(fields: [distributorId], references: [idUser])
   distributorId       Int
-  createdAt           DateTime @default(now())
+  distributorStatus   DistributorStatus @default(PENDING)
+  createdAt           DateTime          @default(now())
+}
+
+enum DistributorStatus {
+  PENDING
+  ACCEPTED
+  REGECTED
 }
 
 model Favorites {
