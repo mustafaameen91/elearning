@@ -59,7 +59,7 @@ User.findById = async (userId, result) => {
 
 User.login = async (user, result) => {
    try {
-      const loginUser = await prismaInstance.user.findUnique({
+      const loginUser = await prismaInstance.user.findMany({
          where: {
             AND: [{ phone: user.phone }, { canLogin: true }],
          },
@@ -76,17 +76,20 @@ User.login = async (user, result) => {
          },
       });
 
-      if (loginUser) {
+      if (loginUser.length > 0) {
          if (
             CryptoJS.AES.decrypt(
-               loginUser.password,
+               loginUser[0].password,
                process.env.SECRET_KEY
             ).toString(CryptoJS.enc.Utf8) === user.password
          ) {
-            delete loginUser.password;
-            const findUserSession = await prismaInstance.userSession.findMany();
-            console.log(loginUser);
-            result(null, loginUser);
+            delete loginUser[0].password;
+            const findUserSession = await prismaInstance.userSession.findMany({
+               where: { studentId: loginUser[0].idUser },
+            });
+
+            console.log(findUserSession);
+            result(null, loginUser[0]);
          } else {
             result(
                {

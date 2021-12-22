@@ -62,7 +62,7 @@ exports.update = (req, res) => {
          message: "Content can not be empty!",
       });
    }
-
+   console.log(new CourseDistributor(req.body));
    CourseDistributor.updateById(
       req.params.id,
       new CourseDistributor(req.body),
