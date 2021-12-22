@@ -10,6 +10,7 @@ const User = function (user) {
    this.phone = user.phone;
    this.provinceId = user.provinceId;
    this.roleId = user.roleId;
+   this.canLogin = user.canLogin;
 };
 
 User.create = async (newUser, result) => {
@@ -176,6 +177,7 @@ User.getAll = async (result) => {
             province: true,
             role: true,
             password: true,
+            canLogin: true,
          },
       });
 
@@ -212,6 +214,12 @@ User.getByRoleId = async (roleId, result) => {
             phone: true,
             province: true,
             role: true,
+            canLogin: true,
+         },
+         include: {
+            teacherInfo: true,
+            studentInfo: true,
+            distributorInfo: true,
          },
       });
 

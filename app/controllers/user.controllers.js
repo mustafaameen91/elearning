@@ -19,6 +19,7 @@ exports.create = (req, res) => {
       phone: req.body.phone,
       provinceId: req.body.provinceId * 1,
       roleId: req.body.roleId,
+      canLogin: Boolean(req.body.canLogin),
    });
 
    User.create(user, (err, data) => {

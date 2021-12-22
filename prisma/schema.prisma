@@ -19,6 +19,7 @@ model User {
   provinceId            Int
   role                  Role                   @relation(fields: [roleId], references: [idRole])
   roleId                Int
+  canLogin              Boolean                @default(true)
   distributorInfo       DistributorInfo?
   teacherInfo           TeacherInfo?
   studentInfo           StudentInfo?
