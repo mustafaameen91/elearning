@@ -218,6 +218,7 @@ User.getByRoleId = async (roleId, result) => {
             teacherInfo: true,
             studentInfo: true,
             distributorInfo: true,
+            StudentCourse: true,
          },
       });
 
