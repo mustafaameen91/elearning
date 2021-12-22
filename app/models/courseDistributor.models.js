@@ -6,6 +6,7 @@ const {
 const CourseDistributor = function (courseDistributor) {
    this.courseId = courseDistributor.courseId;
    this.distributorId = courseDistributor.distributorId;
+   this.distributorStatus = courseDistributor.distributorStatus;
 };
 
 CourseDistributor.create = async (newCourseDistributor, result) => {
@@ -95,18 +96,11 @@ CourseDistributor.findByDistributorId = async (distributorId, result) => {
    }
 };
 
-CourseDistributor.findByTeacherDistributor = async (
-   distributorId,
-   teacherId,
-   result
-) => {
+CourseDistributor.findByTeacherDistributor = async (teacherId, result) => {
    try {
       const courseDistributor = await prismaInstance.courseDistributor.findMany(
          {
             where: {
-               user: {
-                  idUser: JSON.parse(distributorId),
-               },
                course: {
                   createdBy: parseInt(teacherId),
                },

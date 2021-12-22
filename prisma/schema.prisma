@@ -41,6 +41,7 @@ model User {
   Subject               Subject[]
   Favorites             Favorites[]
   CourseDistributor     CourseDistributor[]
+  UserSession           UserSession[]
 }
 
 model Role {
@@ -212,6 +213,12 @@ enum DistributorStatus {
   PENDING
   ACCEPTED
   REGECTED
+}
+
+model UserSession {
+  idUserSession Int  @id @default(autoincrement())
+  user          User @relation(fields: [studentId], references: [idUser])
+  studentId     Int
 }
 
 model Favorites {

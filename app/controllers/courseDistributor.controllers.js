@@ -10,6 +10,7 @@ exports.create = (req, res) => {
    const courseDistributor = new CourseDistributor({
       courseId: req.body.courseId,
       distributorId: req.body.distributorId,
+      distributorStatus: req.body.distributorStatus,
    });
 
    CourseDistributor.create(courseDistributor, (err, data) => {
@@ -42,14 +43,10 @@ exports.findOne = (req, res) => {
 };
 
 exports.findOneByTeacherDistributor = (req, res) => {
-   CourseDistributor.findByTeacherDistributor(
-      req.params.id,
-      req.teacherId,
-      (err, data) => {
-         if (err) res.status(err.code).send(err);
-         else res.send(data);
-      }
-   );
+   CourseDistributor.findByTeacherDistributor(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
 };
 
 exports.findOneByDistributorId = (req, res) => {
