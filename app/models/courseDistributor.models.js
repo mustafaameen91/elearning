@@ -139,7 +139,6 @@ CourseDistributor.updateById = async (
    result
 ) => {
    try {
-      console.log(courseDistributor);
       const updateCourseDistributor =
          await prismaInstance.courseDistributor.update({
             where: { idCourseDistributor: JSON.parse(courseDistributorId) },
