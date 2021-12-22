@@ -215,8 +215,6 @@ User.getByRoleId = async (roleId, result) => {
             province: true,
             role: true,
             canLogin: true,
-         },
-         include: {
             teacherInfo: true,
             studentInfo: true,
             distributorInfo: true,
