@@ -53,8 +53,11 @@ TeacherInfo.getAll = async (result) => {
          include: {
             user: {
                include: {
-                  AssistanceTeachers: true,
-                  AssistanceTeacher: true,
+                  AssistanceTeacher: {
+                     include: {
+                        assistance: true,
+                     },
+                  },
                },
             },
          },
