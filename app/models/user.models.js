@@ -123,11 +123,18 @@ User.login = async (user, result) => {
                      result(null, loginUser[0]);
                   }
                } else {
+                  const findAdmin = await prismaInstance.user.findMany({
+                     where: {
+                        roleId: 1,
+                     },
+                  });
+                  let adminDetails = findAdmin[0];
                   result(
                      {
                         error: "Too many Logins",
                         code: 405,
                         errorMessage: "Too many Logins with this phone!!",
+                        phone: adminDetails.phone,
                      },
                      null
                   );
