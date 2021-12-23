@@ -97,6 +97,13 @@ User.login = async (user, result) => {
                         },
                      });
                   if (findWithPlayerId) {
+                     const updateStudent = await prismaInstance.user.update({
+                        where: {
+                           idUser: loginUser[0].idUser,
+                        },
+                        data: { playerId: user.playerId },
+                     });
+                     console.log(updateStudent);
                      result(null, loginUser[0]);
                   } else {
                      const addDeviceId =
@@ -119,10 +126,24 @@ User.login = async (user, result) => {
                      null
                   );
                }
+            } else if (
+               loginUser[0].roleId == 3 ||
+               loginUser[0].roleId == 4 ||
+               loginUser[0].roleId == 6
+            ) {
+               const updateUser = await prismaInstance.user.update({
+                  where: {
+                     idUser: loginUser[0].idUser,
+                  },
+                  data: {
+                     playerId: user.playerId,
+                  },
+               });
+               console.log(updateUser);
+               result(null, loginUser[0]);
             } else {
+               result(null, loginUser[0]);
             }
-
-            console.log(findUserSession);
          } else {
             result(
                {
