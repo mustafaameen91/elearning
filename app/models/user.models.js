@@ -299,7 +299,7 @@ User.logoutStudent = async (userId, result) => {
    try {
       console.log(userId);
       const updateUser = await prismaInstance.user.update({
-         where: { idUser: parseInt(userId) },
+         where: { idUser: parseInt(userId.userId) },
          data: { canLogin: true },
       });
       result(null, updateUser);
