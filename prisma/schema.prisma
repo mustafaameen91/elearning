@@ -20,6 +20,7 @@ model User {
   role                  Role                   @relation(fields: [roleId], references: [idRole])
   roleId                Int
   canLogin              Boolean                @default(true)
+  playerId              String                 @default("0") @db.VarChar(220)
   distributorInfo       DistributorInfo?
   teacherInfo           TeacherInfo?
   studentInfo           StudentInfo?
@@ -44,6 +45,12 @@ model User {
   UserSession           UserSession[]
   AssistanceTeacher     AssistanceTeacher[]    @relation("teacher")
   AssistanceTeachers    AssistanceTeacher[]    @relation("assistance")
+}
+
+model Avatar {
+  idAvatar  Int      @id @default(autoincrement())
+  imagePath String   @db.VarChar(220)
+  createdAt DateTime @default(now())
 }
 
 model Role {
