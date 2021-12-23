@@ -93,7 +93,7 @@ User.login = async (user, result) => {
                   const findWithPlayerId =
                      await prismaInstance.userSession.findUnique({
                         where: {
-                           deviceId: loginUser[0].playerId,
+                           deviceId: user.playerId,
                         },
                      });
                   if (findWithPlayerId) {
