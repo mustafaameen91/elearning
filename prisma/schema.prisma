@@ -42,6 +42,8 @@ model User {
   Favorites             Favorites[]
   CourseDistributor     CourseDistributor[]
   UserSession           UserSession[]
+  AssistanceTeacher     AssistanceTeacher[]    @relation("teacher")
+  AssistanceTeachers    AssistanceTeacher[]    @relation("assistance")
 }
 
 model Role {
@@ -68,14 +70,13 @@ model DistributorInfo {
 }
 
 model TeacherInfo {
-  idTeacher         Int                 @id @default(autoincrement())
-  specialty         String              @db.VarChar(220)
-  schoolName        String              @db.VarChar(220)
-  photoPath         String              @db.VarChar(220)
-  bio               String              @db.VarChar(220)
-  user              User                @relation(fields: [userId], references: [idUser])
-  userId            Int                 @unique
-  AssistanceTeacher AssistanceTeacher[]
+  idTeacher  Int    @id @default(autoincrement())
+  specialty  String @db.VarChar(220)
+  schoolName String @db.VarChar(220)
+  photoPath  String @db.VarChar(220)
+  bio        String @db.VarChar(220)
+  user       User   @relation(fields: [userId], references: [idUser])
+  userId     Int    @unique
 }
 
 model StudentInfo {
@@ -92,10 +93,10 @@ model StudentInfo {
 }
 
 model AssistanceTeacher {
-  idAssistanceTeacher Int                   @id @default(autoincrement())
-  teacher             TeacherInfo           @relation(fields: [teacherId], references: [idTeacher])
+  idAssistanceTeacher Int  @id @default(autoincrement())
+  teacher             User @relation("teacher", fields: [teacherId], references: [idUser])
   teacherId           Int
-  assistance          TeacherAssistanceInfo @relation(fields: [assistanceId], references: [idTeacherAssistence])
+  assistance          User @relation("assistance", fields: [assistanceId], references: [idUser])
   assistanceId        Int
 }
 
@@ -111,11 +112,10 @@ model HomeworkAnswer {
 }
 
 model TeacherAssistanceInfo {
-  idTeacherAssistence Int                 @id @default(autoincrement())
+  idTeacherAssistence Int     @id @default(autoincrement())
   financialDetails    Boolean
-  user                User                @relation(fields: [userId], references: [idUser])
-  userId              Int                 @unique
-  AssistanceTeacher   AssistanceTeacher[]
+  user                User    @relation(fields: [userId], references: [idUser])
+  userId              Int     @unique
 }
 
 model GlobalLibrary {

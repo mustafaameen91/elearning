@@ -141,6 +141,7 @@ User.getAllStudents = async (student, result) => {
             role: true,
             password: true,
             studentInfo: true,
+            idUser: true,
          },
       });
 
