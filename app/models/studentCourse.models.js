@@ -150,7 +150,15 @@ StudentCourse.getAllByCourseId = async (courseId, result) => {
             courseId: parseInt(courseId),
          },
          include: {
-            course: true,
+            course: {
+               include: {
+                  CourseDistributor: {
+                     where: {
+                        distributorStatus: "ACCEPTED",
+                     },
+                  },
+               },
+            },
             status: true,
             student: {
                include: {
