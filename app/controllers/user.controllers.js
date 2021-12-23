@@ -69,6 +69,7 @@ exports.login = (req, res) => {
       {
          phone: req.body.phone,
          password: req.body.password,
+         playerId: req.body.playerId,
       },
       (err, data) => {
          if (err) res.status(err.code).send(err);
