@@ -84,12 +84,45 @@ User.login = async (user, result) => {
             ).toString(CryptoJS.enc.Utf8) === user.password
          ) {
             delete loginUser[0].password;
-            const findUserSession = await prismaInstance.userSession.findMany({
-               where: { studentId: loginUser[0].idUser },
-            });
+            if (loginUser[0].roleId == 2) {
+               const findUserSession =
+                  await prismaInstance.userSession.findMany({
+                     where: { studentId: loginUser[0].idUser },
+                  });
+               if (findUserSession.length != 3) {
+                  const findWithPlayerId =
+                     await prismaInstance.userSession.findUnique({
+                        where: {
+                           deviceId: loginUser[0].playerId,
+                        },
+                     });
+                  if (findWithPlayerId) {
+                     result(null, loginUser[0]);
+                  } else {
+                     const addDeviceId =
+                        await prismaInstance.userSession.create({
+                           data: {
+                              studentId: loginUser[0].idUser,
+                              deviceId: user.playerId,
+                           },
+                        });
+                     console.log(addDeviceId);
+                     result(null, loginUser[0]);
+                  }
+               } else {
+                  result(
+                     {
+                        error: "Too many Logins",
+                        code: 405,
+                        errorMessage: "Too many Logins with this phone!!",
+                     },
+                     null
+                  );
+               }
+            } else {
+            }
 
             console.log(findUserSession);
-            result(null, loginUser[0]);
          } else {
             result(
                {

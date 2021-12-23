@@ -49,7 +49,15 @@ TeacherInfo.findById = async (teacherInfoId, result) => {
 
 TeacherInfo.getAll = async (result) => {
    try {
-      const teacherInfos = await prismaInstance.teacherInfo.findMany();
+      const teacherInfos = await prismaInstance.teacherInfo.findMany({
+         include: {
+            user: {
+               include: {
+                  AssistanceTeachers: true,
+               },
+            },
+         },
+      });
       result(null, teacherInfos);
    } catch (err) {
       console.log(prismaErrorHandling(err));
