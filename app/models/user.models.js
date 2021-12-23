@@ -101,7 +101,7 @@ User.login = async (user, result) => {
                         where: {
                            idUser: loginUser[0].idUser,
                         },
-                        data: { playerId: user.playerId },
+                        data: { playerId: user.playerId, canLogin: false },
                      });
                      console.log(updateStudent);
                      result(null, loginUser[0]);
@@ -113,6 +113,12 @@ User.login = async (user, result) => {
                               deviceId: user.playerId,
                            },
                         });
+                     const updateStudent = await prismaInstance.user.update({
+                        where: {
+                           idUser: loginUser[0].idUser,
+                        },
+                        data: { playerId: user.playerId, canLogin: false },
+                     });
                      console.log(addDeviceId);
                      result(null, loginUser[0]);
                   }
@@ -286,6 +292,19 @@ User.getByRoleId = async (roleId, result) => {
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
+   }
+};
+
+User.logoutStudent = async (userId, result) => {
+   try {
+      const updateUser = await prismaInstance.user.update({
+         where: { idUser: JSON.parse(userId) },
+         data: { canLogin: true },
+      });
+      result(null, updateUser);
+   } catch (error) {
+      console.log(prismaErrorHandling(error));
+      result(prismaErrorHandling(error), null);
    }
 };
 
