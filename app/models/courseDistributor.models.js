@@ -78,9 +78,16 @@ CourseDistributor.findByDistributorId = async (distributorId, result) => {
       const courseDistributor = await prismaInstance.courseDistributor.findMany(
          {
             where: {
-               user: {
-                  idUser: JSON.parse(distributorId),
-               },
+               AND: [
+                  {
+                     user: {
+                        idUser: JSON.parse(distributorId),
+                     },
+                  },
+                  {
+                     distributorStatus: "ACCEPTED",
+                  },
+               ],
             },
             include: {
                course: true,
