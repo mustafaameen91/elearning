@@ -41,7 +41,10 @@ exports.findAll = (req, res) => {
 
 exports.findAllByCourseIdAndDist = (req, res) => {
    StudentCourse.findByIdDistAndCourse(
-      { distributorId: req.query.distributorId, courseId: req.query.courseId },
+      {
+         distributorId: parseInt(req.query.distributorId),
+         courseId: parseInt(req.query.courseId),
+      },
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
