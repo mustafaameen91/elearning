@@ -301,6 +301,9 @@ Course.findByIdTeacher = async (courseId, teacherId, result) => {
          if (singleCourse.createdBy == teacherId) {
             singleCourse.enrolled = true;
             singleCourse.isPending = false;
+         } else if (singleCourse.coursePrice == 0) {
+            singleCourse.enrolled = true;
+            singleCourse.isPending = false;
          } else {
             singleCourse.enrolled = false;
             singleCourse.isPending = false;
