@@ -318,11 +318,29 @@ User.logoutStudent = async (userId, result) => {
 
 User.updateById = async (userId, user, result) => {
    try {
-      const updateUser = await prismaInstance.user.update({
-         where: { idUser: JSON.parse(userId) },
-         data: user,
+      const findUser = await prismaInstance.user.findUnique({
+         where: {
+            idUser: parseInt(userId),
+         },
       });
-      result(null, updateUser);
+      if (findUser.roleId == 2) {
+         const updateUser = await prismaInstance.user.update({
+            where: { idUser: JSON.parse(userId) },
+            data: user,
+         });
+         const deleteMany = await prismaInstance.userSession.deleteMany({
+            where: {
+               studentId: parseInt(userId),
+            },
+         });
+         result(null, updateUser);
+      } else {
+         const updateUser = await prismaInstance.user.update({
+            where: { idUser: JSON.parse(userId) },
+            data: user,
+         });
+         result(null, updateUser);
+      }
    } catch (error) {
       console.log(prismaErrorHandling(error));
       result(prismaErrorHandling(error), null);
