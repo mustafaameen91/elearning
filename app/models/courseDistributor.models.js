@@ -30,7 +30,11 @@ CourseDistributor.findByIdOfCourse = async (courseId, result) => {
                courseId: parseInt(courseId),
             },
             include: {
-               user: true,
+               user: {
+                  include: {
+                     province: true,
+                  },
+               },
             },
          });
 
