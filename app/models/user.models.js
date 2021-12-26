@@ -323,7 +323,7 @@ User.updateById = async (userId, user, result) => {
             idUser: parseInt(userId),
          },
       });
-      if (findUser.roleId == 2) {
+      if (findUser.roleId == 2 && user.canLogin == true) {
          const updateUser = await prismaInstance.user.update({
             where: { idUser: JSON.parse(userId) },
             data: user,
