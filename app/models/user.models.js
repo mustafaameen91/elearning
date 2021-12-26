@@ -333,6 +333,7 @@ User.updateById = async (userId, user, result) => {
                studentId: parseInt(userId),
             },
          });
+         console.log(deleteMany);
          result(null, updateUser);
       } else {
          const updateUser = await prismaInstance.user.update({
