@@ -334,6 +334,7 @@ User.updateById = async (userId, user, result) => {
             },
          });
          console.log(deleteMany);
+         console.log(user);
          result(null, updateUser);
       } else {
          const updateUser = await prismaInstance.user.update({
