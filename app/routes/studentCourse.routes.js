@@ -9,6 +9,11 @@ module.exports = (app) => {
 
    app.get("/api/checkCourseStatus", studentCourse.findByStudentId);
 
+   app.get(
+      "/api/distributorCourseDetails",
+      studentCourse.findAllByCourseIdAndDist
+   );
+
    app.get("/api/courseDetails/:id", studentCourse.findAllByCourseId);
 
    app.get(

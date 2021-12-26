@@ -39,6 +39,16 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findAllByCourseIdAndDist = (req, res) => {
+   StudentCourse.findByIdDistAndCourse(
+      { distributorId: req.query.distributorId, courseId: req.query.courseId },
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      }
+   );
+};
+
 exports.findAllByCourseId = (req, res) => {
    StudentCourse.getAllByCourseId(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);

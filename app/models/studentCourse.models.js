@@ -143,6 +143,42 @@ StudentCourse.findById = async (studentCourseId, result) => {
    }
 };
 
+StudentCourse.findByIdDistAndCourse = async (details, result) => {
+   try {
+      const singleStudentCourse = await prismaInstance.studentCourse.findMany({
+         where: {
+            AND: [
+               {
+                  courseId: details.courseId,
+               },
+               {
+                  distributorId: details.distributorId,
+               },
+            ],
+         },
+         include: {
+            course: true,
+            status: true,
+            student: true,
+            distributor: true,
+         },
+      });
+
+      if (singleStudentCourse) {
+         result(null, singleStudentCourse);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found StudentCourse with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentCourse.getAllByCourseId = async (courseId, result) => {
    try {
       const studentCourses = await prismaInstance.studentCourse.findMany({
