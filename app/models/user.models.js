@@ -39,6 +39,9 @@ User.findById = async (userId, result) => {
             phone: true,
             province: true,
             role: true,
+            teacherInfo: true,
+            studentInfo: true,
+            distributorInfo: true,
          },
       });
 
