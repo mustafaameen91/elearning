@@ -81,7 +81,7 @@ model TeacherInfo {
   specialty  String @db.VarChar(220)
   schoolName String @db.VarChar(220)
   photoPath  String @db.VarChar(220)
-  bio        String @db.VarChar(220)
+  bio        String @db.Text
   user       User   @relation(fields: [userId], references: [idUser])
   userId     Int    @unique
 }
