@@ -159,7 +159,11 @@ StudentCourse.findByIdDistAndCourse = async (details, result) => {
          include: {
             course: true,
             status: true,
-            student: true,
+            student: {
+               include: {
+                  user: true,
+               },
+            },
             distributor: true,
          },
       });
