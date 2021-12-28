@@ -14,8 +14,10 @@ const StudentInfo = function (studentInfo) {
 
 StudentInfo.create = async (newStudentInfo, result) => {
    try {
-      const studentInfo = await prismaInstance.studentInfo.create({
-         data: newStudentInfo,
+      const studentInfo = await prismaInstance.studentInfo.upsert({
+         where: { userId: newStudentInfo.userId },
+         update: newStudentInfo,
+         create: newStudentInfo,
       });
 
       result(null, studentInfo);

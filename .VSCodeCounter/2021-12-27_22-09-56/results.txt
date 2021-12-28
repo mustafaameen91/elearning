@@ -1,0 +1,119 @@
+Date : 2021-12-27 22:09:56
+Directory : /Users/MAC2019/Desktop/elearning/app
+Total : 90 files,  5999 codes, 14 comments, 949 blanks, all 6962 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         90 |      5,999 |         14 |        949 |      6,962 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                     |         90 |      5,999 |         14 |        949 |      6,962 |
+| controllers                                                                           |         29 |      1,946 |          6 |        329 |      2,281 |
+| middleware                                                                            |          2 |         67 |          0 |         10 |         77 |
+| models                                                                                |         29 |      3,660 |          8 |        377 |      4,045 |
+| notifications                                                                         |          1 |         27 |          0 |          6 |         33 |
+| routes                                                                                |         29 |        299 |          0 |        227 |        526 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                              | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| /Users/MAC2019/Desktop/elearning/app/controllers/assistanceTeacher.controllers.js     | JavaScript |         61 |          0 |         10 |         71 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/avatar.controllers.js                | JavaScript |         52 |          0 |         10 |         62 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/choice.controllers.js                | JavaScript |         54 |          0 |         10 |         64 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/class.controllers.js                 | JavaScript |         53 |          0 |         10 |         63 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/course.controllers.js                | JavaScript |        164 |          6 |         30 |        200 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/courseDistributor.controllers.js     | JavaScript |         76 |          0 |         12 |         88 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/courseVideo.controllers.js           | JavaScript |         61 |          0 |         10 |         71 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/distributorInfo.controllers.js       | JavaScript |         64 |          0 |         10 |         74 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/favorites.controllers.js             | JavaScript |         59 |          0 |         11 |         70 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/globalLibrary.controllers.js         | JavaScript |         76 |          0 |         13 |         89 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/homework.controllers.js              | JavaScript |         57 |          0 |         10 |         67 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/homeworkAnswer.controllers.js        | JavaScript |         62 |          0 |         10 |         72 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/library.controllers.js               | JavaScript |         57 |          0 |         10 |         67 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/promoCode.controllers.js             | JavaScript |         81 |          0 |         14 |         95 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/province.controllers.js              | JavaScript |         52 |          0 |         10 |         62 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/quiz.controllers.js                  | JavaScript |         54 |          0 |         10 |         64 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/reportComment.controllers.js         | JavaScript |         60 |          0 |         10 |         70 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/role.controllers.js                  | JavaScript |         52 |          0 |         10 |         62 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/status.controllers.js                | JavaScript |         52 |          0 |         10 |         62 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/studentAchievement.controllers.js    | JavaScript |         63 |          0 |         10 |         73 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/studentCourse.controllers.js         | JavaScript |        104 |          0 |         13 |        117 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/studentInfo.controllers.js           | JavaScript |         67 |          0 |         11 |         78 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/subject.controllers.js               | JavaScript |         55 |          0 |         10 |         65 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/teacherAssistanceInfo.controllers.js | JavaScript |         63 |          0 |         10 |         73 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/teacherInfo.controllers.js           | JavaScript |         60 |          0 |         10 |         70 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/usedCode.controllers.js              | JavaScript |         53 |          0 |         10 |         63 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/user.controllers.js                  | JavaScript |        105 |          0 |         14 |        119 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/videoAttachment.controllers.js       | JavaScript |         62 |          0 |         10 |         72 |
+| /Users/MAC2019/Desktop/elearning/app/controllers/videoComment.controllers.js          | JavaScript |         67 |          0 |         11 |         78 |
+| /Users/MAC2019/Desktop/elearning/app/middleware/checkAuth.middleware.js               | JavaScript |         20 |          0 |          2 |         22 |
+| /Users/MAC2019/Desktop/elearning/app/middleware/handleError.middleware.js             | JavaScript |         47 |          0 |          8 |         55 |
+| /Users/MAC2019/Desktop/elearning/app/models/assistanceTeacher.models.js               | JavaScript |         91 |          0 |         11 |        102 |
+| /Users/MAC2019/Desktop/elearning/app/models/avatar.models.js                          | JavaScript |         81 |          0 |         11 |         92 |
+| /Users/MAC2019/Desktop/elearning/app/models/choice.models.js                          | JavaScript |         83 |          0 |         11 |         94 |
+| /Users/MAC2019/Desktop/elearning/app/models/class.models.js                           | JavaScript |         89 |          0 |         11 |        100 |
+| /Users/MAC2019/Desktop/elearning/app/models/course.models.js                          | JavaScript |        460 |          8 |         27 |        495 |
+| /Users/MAC2019/Desktop/elearning/app/models/courseDistributor.models.js               | JavaScript |        173 |          0 |         17 |        190 |
+| /Users/MAC2019/Desktop/elearning/app/models/courseVideo.models.js                     | JavaScript |         95 |          0 |         11 |        106 |
+| /Users/MAC2019/Desktop/elearning/app/models/distributorInfo.models.js                 | JavaScript |         96 |          0 |         11 |        107 |
+| /Users/MAC2019/Desktop/elearning/app/models/favorites.models.js                       | JavaScript |        118 |          0 |         13 |        131 |
+| /Users/MAC2019/Desktop/elearning/app/models/globalLibrary.models.js                   | JavaScript |        112 |          0 |         12 |        124 |
+| /Users/MAC2019/Desktop/elearning/app/models/homework.models.js                        | JavaScript |         86 |          0 |         11 |         97 |
+| /Users/MAC2019/Desktop/elearning/app/models/homeworkAnswer.models.js                  | JavaScript |         90 |          0 |         11 |        101 |
+| /Users/MAC2019/Desktop/elearning/app/models/library.models.js                         | JavaScript |         86 |          0 |         11 |         97 |
+| /Users/MAC2019/Desktop/elearning/app/models/promoCode.models.js                       | JavaScript |        160 |          0 |         17 |        177 |
+| /Users/MAC2019/Desktop/elearning/app/models/province.models.js                        | JavaScript |         81 |          0 |         11 |         92 |
+| /Users/MAC2019/Desktop/elearning/app/models/quiz.models.js                            | JavaScript |         83 |          0 |         11 |         94 |
+| /Users/MAC2019/Desktop/elearning/app/models/reportComment.models.js                   | JavaScript |         85 |          0 |         11 |         96 |
+| /Users/MAC2019/Desktop/elearning/app/models/role.models.js                            | JavaScript |         81 |          0 |         11 |         92 |
+| /Users/MAC2019/Desktop/elearning/app/models/status.models.js                          | JavaScript |         81 |          0 |         11 |         92 |
+| /Users/MAC2019/Desktop/elearning/app/models/studentAchievement.models.js              | JavaScript |         95 |          0 |         11 |        106 |
+| /Users/MAC2019/Desktop/elearning/app/models/studentCourse.models.js                   | JavaScript |        263 |          0 |         21 |        284 |
+| /Users/MAC2019/Desktop/elearning/app/models/studentInfo.models.js                     | JavaScript |        121 |          0 |         13 |        134 |
+| /Users/MAC2019/Desktop/elearning/app/models/subject.models.js                         | JavaScript |         88 |          0 |         11 |         99 |
+| /Users/MAC2019/Desktop/elearning/app/models/teacherAssistanceInfo.models.js           | JavaScript |         92 |          0 |         11 |        103 |
+| /Users/MAC2019/Desktop/elearning/app/models/teacherInfo.models.js                     | JavaScript |         99 |          0 |         11 |        110 |
+| /Users/MAC2019/Desktop/elearning/app/models/usedCode.models.js                        | JavaScript |         82 |          0 |         11 |         93 |
+| /Users/MAC2019/Desktop/elearning/app/models/user.models.js                            | JavaScript |        358 |          0 |         20 |        378 |
+| /Users/MAC2019/Desktop/elearning/app/models/videoAttachment.models.js                 | JavaScript |         94 |          0 |         11 |        105 |
+| /Users/MAC2019/Desktop/elearning/app/models/videoComment.models.js                    | JavaScript |        137 |          0 |         17 |        154 |
+| /Users/MAC2019/Desktop/elearning/app/notifications/notification.js                    | JavaScript |         27 |          0 |          6 |         33 |
+| /Users/MAC2019/Desktop/elearning/app/routes/assistanceTeacher.routes.js               | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/avatar.routes.js                          | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/choice.routes.js                          | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/class.routes.js                           | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/course.routes.js                          | JavaScript |         15 |          0 |         12 |         27 |
+| /Users/MAC2019/Desktop/elearning/app/routes/courseDistributor.routes.js               | JavaScript |         19 |          0 |         10 |         29 |
+| /Users/MAC2019/Desktop/elearning/app/routes/courseVideo.routes.js                     | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/distributorInfo.routes.js                 | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/favorites.routes.js                       | JavaScript |         10 |          0 |          8 |         18 |
+| /Users/MAC2019/Desktop/elearning/app/routes/globalLibrary.routes.js                   | JavaScript |         10 |          0 |          8 |         18 |
+| /Users/MAC2019/Desktop/elearning/app/routes/homework.routes.js                        | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/homeworkAnswer.routes.js                  | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/library.routes.js                         | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/promoCode.routes.js                       | JavaScript |         12 |          0 |         10 |         22 |
+| /Users/MAC2019/Desktop/elearning/app/routes/province.routes.js                        | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/quiz.routes.js                            | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/reportComment.routes.js                   | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/role.routes.js                            | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/status.routes.js                          | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/studentAchievement.routes.js              | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/studentCourse.routes.js                   | JavaScript |         19 |          0 |         11 |         30 |
+| /Users/MAC2019/Desktop/elearning/app/routes/studentInfo.routes.js                     | JavaScript |         10 |          0 |          8 |         18 |
+| /Users/MAC2019/Desktop/elearning/app/routes/subject.routes.js                         | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/teacherAssistanceInfo.routes.js           | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/teacherInfo.routes.js                     | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/usedCode.routes.js                        | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/user.routes.js                            | JavaScript |         14 |          0 |         12 |         26 |
+| /Users/MAC2019/Desktop/elearning/app/routes/videoAttachment.routes.js                 | JavaScript |          9 |          0 |          7 |         16 |
+| /Users/MAC2019/Desktop/elearning/app/routes/videoComment.routes.js                    | JavaScript |         10 |          0 |          8 |         18 |
+| Total                                                                                 |            |      5,999 |         14 |        949 |      6,962 |
++---------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
