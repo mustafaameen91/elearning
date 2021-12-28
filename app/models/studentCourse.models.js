@@ -124,7 +124,14 @@ StudentCourse.findByIdStudentId = async (studentId, result) => {
          where: {
             AND: [
                {
-                  studentId: parseInt(studentId),
+                  student: {
+                     userId: parseInt(studentId),
+                  },
+               },
+               {
+                  statusId: {
+                     not: 1,
+                  },
                },
             ],
          },
