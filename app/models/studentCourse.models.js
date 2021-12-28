@@ -118,6 +118,39 @@ StudentCourse.getByStudentId = async (courseId, studentId, result) => {
    }
 };
 
+StudentCourse.findByIdStudentId = async (studentId, result) => {
+   try {
+      const singleStudentCourse = await prismaInstance.studentCourse.findMany({
+         where: {
+            AND: [
+               {
+                  studentId: parseInt(studentId),
+               },
+               {
+                  statusId: {
+                     not: 1,
+                  },
+               },
+            ],
+         },
+         include: {
+            course: true,
+            student: {
+               include: {
+                  user: true,
+               },
+            },
+            status: true,
+            distributor: true,
+         },
+      });
+      result(null, singleStudentCourse);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentCourse.findById = async (studentCourseId, result) => {
    try {
       const singleStudentCourse = await prismaInstance.studentCourse.findUnique(
