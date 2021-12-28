@@ -126,11 +126,6 @@ StudentCourse.findByIdStudentId = async (studentId, result) => {
                {
                   studentId: parseInt(studentId),
                },
-               {
-                  statusId: {
-                     not: 1,
-                  },
-               },
             ],
          },
          include: {
