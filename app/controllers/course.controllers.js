@@ -129,6 +129,13 @@ exports.findOneByTeacherId = (req, res) => {
    });
 };
 
+exports.findOneWithoutAuth = (req, res) => {
+   Course.findByIdWithoutAuth(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    Course.findById(req.params.id, req.studentId, (err, data) => {
       if (err) res.status(err.code).send(err);

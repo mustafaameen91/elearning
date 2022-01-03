@@ -8,6 +8,8 @@ module.exports = (app) => {
 
    app.get("/api/course/:id", checkAuth, course.findOne);
 
+   app.get("/api/singleCourse/:id", course.findOneWithoutAuth);
+
    app.get("/api/courseTeacher/:id", checkAuth, course.findOneByTeacherId);
 
    app.get("/api/courseMoney/:id", course.findOneTeacherId);
