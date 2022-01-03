@@ -326,7 +326,6 @@ Course.findByIdTeacher = async (courseId, teacherId, result) => {
 };
 
 Course.findByIdWithoutAuth = async (courseId, result) => {
-   console.log(studentId);
    try {
       const singleCourse = await prismaInstance.course.findUnique({
          where: {
