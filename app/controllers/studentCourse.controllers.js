@@ -65,6 +65,13 @@ exports.findStudentCourses = (req, res) => {
    });
 };
 
+exports.findForStudent = (req, res) => {
+   StudentCourse.getForStudent(req.params.studentId, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findByStudentId = (req, res) => {
    StudentCourse.getByStudentId(
       req.query.courseId,
