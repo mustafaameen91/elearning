@@ -44,7 +44,11 @@ PromoCode.findByIdTeacher = async (teacherId, result) => {
             userId: parseInt(teacherId),
          },
          include: {
-            UsedCode: true,
+            UsedCode: {
+               include: {
+                  user: true,
+               },
+            },
          },
       });
 
