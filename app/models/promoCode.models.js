@@ -43,6 +43,9 @@ PromoCode.findByIdTeacher = async (teacherId, result) => {
          where: {
             userId: parseInt(teacherId),
          },
+         include: {
+            UsedCode: true,
+         },
       });
 
       if (singlePromoCode) {
@@ -93,7 +96,7 @@ PromoCode.findByCode = async (promo, result) => {
                },
                {
                   usedCount: {
-                     gt: 1,
+                     gt: 0,
                   },
                },
                {
