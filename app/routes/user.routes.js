@@ -19,6 +19,8 @@ module.exports = (app) => {
 
    app.put("/api/user/:id", user.update);
 
+   app.put("/api/resetPassword", user.updatePassword);
+
    app.delete("/api/user/:id", user.delete);
 
    app.delete("/api/users", user.deleteAll);

@@ -90,6 +90,26 @@ exports.logout = (req, res) => {
    });
 };
 
+exports.updatePassword = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   User.updatePasswordById(
+      req.body.phone,
+      CryptoJS.AES.encrypt(
+         req.body.password,
+         process.env.SECRET_KEY
+      ).toString(),
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      }
+   );
+};
+
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({

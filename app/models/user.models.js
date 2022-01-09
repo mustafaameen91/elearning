@@ -177,14 +177,31 @@ User.login = async (user, result) => {
             );
          }
       } else {
-         result(
-            {
-               error: "Not Found",
-               code: 404,
-               errorMessage: "Not Found User with this phone",
+         const loginUserFalse = await prismaInstance.user.findMany({
+            where: {
+               AND: [{ phone: user.phone }, { canLogin: false }],
             },
-            null
-         );
+         });
+         if (loginUserFalse.length > 0) {
+            result(
+               {
+                  error: "Too many Logins",
+                  code: 405,
+                  errorMessage: "Too many Logins with this phone!!",
+                  phone: adminDetails.phone,
+               },
+               null
+            );
+         } else {
+            result(
+               {
+                  error: "Not Found",
+                  code: 404,
+                  errorMessage: "Not Found User with this phone",
+               },
+               null
+            );
+         }
       }
    } catch (err) {
       console.log(prismaErrorHandling(err));
@@ -318,6 +335,20 @@ User.logoutStudent = async (userId, result) => {
          where: { idUser: parseInt(userId.userId) },
          data: { canLogin: true },
       });
+      result(null, updateUser);
+   } catch (error) {
+      console.log(prismaErrorHandling(error));
+      result(prismaErrorHandling(error), null);
+   }
+};
+
+User.updatePasswordById = async (phone, password, result) => {
+   try {
+      const updateUser = await prismaInstance.user.update({
+         where: { phone: phone },
+         data: { password: password },
+      });
+
       result(null, updateUser);
    } catch (error) {
       console.log(prismaErrorHandling(error));
