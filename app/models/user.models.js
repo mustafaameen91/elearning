@@ -132,13 +132,11 @@ User.login = async (user, result) => {
                      result(null, loginUser[0]);
                   }
                } else {
-                  console.log("findAdmin");
                   const findAdmin = await prismaInstance.user.findMany({
                      where: {
                         roleId: 1,
                      },
                   });
-                  console.log(findAdmin);
                   let adminDetails = findAdmin[0];
                   result(
                      {
@@ -185,6 +183,12 @@ User.login = async (user, result) => {
             },
          });
          if (loginUserFalse.length > 0) {
+            const findAdmin = await prismaInstance.user.findMany({
+               where: {
+                  roleId: 1,
+               },
+            });
+            let adminDetails = findAdmin[0];
             result(
                {
                   error: "Too many Logins",
