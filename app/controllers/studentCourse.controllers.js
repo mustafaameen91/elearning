@@ -14,6 +14,21 @@ exports.create = (req, res) => {
             res.send(data);
          }
       });
+   } else if (req.body.statusId) {
+      const studentCourse = new StudentCourse({
+         studentId: req.body.studentId,
+         courseId: req.body.courseId,
+         statusId: req.body.statusId,
+         distributorId: req.body.distributorId,
+         discount: 0,
+      });
+
+      StudentCourse.create(studentCourse, (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else {
+            res.send(data);
+         }
+      });
    } else {
       const studentCourse = new StudentCourse({
          studentId: req.body.studentId,
