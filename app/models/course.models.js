@@ -49,6 +49,7 @@ Course.getByClassId = async (classId, result) => {
          include: {
             user: true,
             class: true,
+            StudentCourse: true,
          },
          take: 5,
       });
@@ -67,9 +68,25 @@ Course.getByClassId = async (classId, result) => {
          take: 5,
       });
 
+      let courseData = lastAddCourse.map((course) => {
+         return {
+            ...course,
+            pendingStudents: course.StudentCourse.filter((student) => {
+               if (student.studentId == 1) {
+                  return student;
+               }
+            }).length,
+            enrolledStudents: course.StudentCourse.filter((student) => {
+               if (student.studentId != 1) {
+                  return student;
+               }
+            }).length,
+         };
+      });
+
       let data = {
          subjects: subjects,
-         recentlyCourses: lastAddCourse,
+         recentlyCourses: courseData,
          featuredCourses: ratingCourse,
       };
       console.log(data);
