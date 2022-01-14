@@ -76,7 +76,8 @@ app.post(`/api/sendSms`, (req, res) => {
       client.messages
          .create({
             body: `${req.body.message}`,
-            from: "+12542745154",
+            // from: "+12542745154",
+            messagingServiceSid: "MG3019028a456cc810853981233a43037c",
             to: `+964${req.body.phone}`,
          })
          .then((message) => {
