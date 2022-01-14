@@ -131,10 +131,28 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
             CourseVideo: true,
             PromoCode: true,
             CourseDistributor: true,
+            StudentCourse: true,
          },
       });
-      console.log(courses);
-      result(null, courses);
+
+      let courseData = courses.map((course) => {
+         return {
+            ...course,
+            pendingStudents: course.StudentCourse.filter((student) => {
+               if (student.studentId == 1) {
+                  return student;
+               }
+            }).length,
+            enrolledStudents: course.StudentCourse.filter((student) => {
+               if (student.studentId != 1) {
+                  return student;
+               }
+            }).length,
+         };
+      });
+
+      console.log(courseData);
+      result(null, courseData);
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
