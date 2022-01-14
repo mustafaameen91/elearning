@@ -362,7 +362,22 @@ Course.findByIdTeacher = async (courseId, teacherId, result) => {
          }
 
          singleCourse.CourseVideo = data;
-         console.log(singleCourse);
+
+         (singleCourse.pendingStudents = singleCourse.StudentCourse.filter(
+            (student) => {
+               if (student.studentId == 1) {
+                  return student;
+               }
+            }
+         ).length),
+            (singleCourse.enrolledStudents = singleCourse.StudentCourse.filter(
+               (student) => {
+                  if (student.studentId != 1) {
+                     return student;
+                  }
+               }
+            ).length),
+            console.log(singleCourse);
          result(null, singleCourse);
       } else {
          result({
