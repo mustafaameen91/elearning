@@ -132,6 +132,7 @@ User.login = async (user, result) => {
                      result(null, loginUser[0]);
                   }
                } else {
+                  console.log("findAdmin");
                   const findAdmin = await prismaInstance.user.findMany({
                      where: {
                         roleId: 1,
