@@ -45,6 +45,8 @@ model User {
   UserSession           UserSession[]
   AssistanceTeacher     AssistanceTeacher[]    @relation("teacher")
   AssistanceTeachers    AssistanceTeacher[]    @relation("assistance")
+  WatchVideos           WatchVideos[]
+  CourseRating          CourseRating[]
 }
 
 model Avatar {
@@ -204,6 +206,7 @@ model Course {
   StudentAchievements StudentAchievement[]
   Favorites           Favorites[]
   CourseDistributor   CourseDistributor[]
+  CourseRating        CourseRating[]
 }
 
 model CourseDistributor {
@@ -289,6 +292,7 @@ model CourseVideo {
   VideoAttachment  VideoAttachment[]
   VideoComment     VideoComment[]
   Quiz             Quiz[]
+  WatchVideos      WatchVideos[]
 }
 
 model VideoAttachment {
@@ -361,4 +365,22 @@ model Status {
   idStatus      Int             @id @default(autoincrement())
   statusName    String          @db.VarChar(220)
   StudentCourse StudentCourse[]
+}
+
+model WatchVideos {
+  idWatch   Int         @id @default(autoincrement())
+  user      User        @relation(fields: [userId], references: [idUser])
+  userId    Int
+  video     CourseVideo @relation(fields: [videoId], references: [idCourseVideo])
+  videoId   Int
+  createdAt DateTime    @default(now())
+}
+
+model CourseRating {
+  idCourseRating Int      @id @default(autoincrement())
+  course         Course   @relation(fields: [courseId], references: [idCourse])
+  courseId       Int
+  user           User     @relation(fields: [userId], references: [idUser])
+  userId         Int
+  createdAt      DateTime @default(now())
 }
