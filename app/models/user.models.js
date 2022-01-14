@@ -137,6 +137,7 @@ User.login = async (user, result) => {
                         roleId: 1,
                      },
                   });
+                  console.log(findAdmin);
                   let adminDetails = findAdmin[0];
                   result(
                      {

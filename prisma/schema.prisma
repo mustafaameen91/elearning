@@ -382,5 +382,6 @@ model CourseRating {
   courseId       Int
   user           User     @relation(fields: [userId], references: [idUser])
   userId         Int
+  rate           Int
   createdAt      DateTime @default(now())
 }

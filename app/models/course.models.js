@@ -552,6 +552,7 @@ Course.findById = async (courseId, studentId, result) => {
          }
          singleCourse.CourseVideo = data;
          console.log(singleCourse);
+
          result(null, singleCourse);
       } else {
          result({
