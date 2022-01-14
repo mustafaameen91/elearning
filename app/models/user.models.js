@@ -10,7 +10,7 @@ const User = function (user) {
    this.phone = user.phone;
    this.provinceId = user.provinceId;
    this.roleId = user.roleId;
-   this.canLogin = 1;
+   this.canLogin = true;
 };
 
 User.create = async (newUser, result) => {
