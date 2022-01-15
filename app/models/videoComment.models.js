@@ -43,7 +43,13 @@ VideoComment.findByVideoId = async (commentVideoId, result) => {
             videoId: JSON.parse(commentVideoId),
          },
          include: {
-            user: true,
+            user: {
+               include: {
+                  studentInfo: true,
+                  teacherInfo: true,
+                  distributorInfo: true,
+               },
+            },
          },
       });
 
