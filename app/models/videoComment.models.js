@@ -25,7 +25,13 @@ VideoComment.create = async (newVideoComment, result) => {
             createdAt: "desc",
          },
          include: {
-            user: true,
+            user: {
+               include: {
+                  distributorInfo: true,
+                  teacherInfo: true,
+                  studentInfo: true,
+               },
+            },
          },
       });
 
