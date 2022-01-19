@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/avatar/:id", avatar.findOne);
 
+   app.get("/api/avatar/:id", avatar.checkVersion);
+
    app.put("/api/avatar/:id", avatar.update);
 
    app.delete("/api/avatar/:id", avatar.delete);
