@@ -6,6 +6,7 @@ const {
 const CourseVideo = function (courseVideo) {
    this.videoTitle = courseVideo.videoTitle;
    this.videoLink = courseVideo.videoLink;
+   this.secondVideoLink = courseVideo.secondVideoLink;
    this.videoDescription = courseVideo.videoDescription;
    this.courseId = courseVideo.courseId;
    this.createdBy = courseVideo.createdBy;

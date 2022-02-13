@@ -47,6 +47,7 @@ model User {
   AssistanceTeachers    AssistanceTeacher[]    @relation("assistance")
   WatchVideos           WatchVideos[]
   CourseRating          CourseRating[]
+  StudentGroup          StudentGroup[]
 }
 
 model Avatar {
@@ -207,6 +208,7 @@ model Course {
   Favorites           Favorites[]
   CourseDistributor   CourseDistributor[]
   CourseRating        CourseRating[]
+  Group               Group[]
 }
 
 model CourseDistributor {
@@ -282,6 +284,7 @@ model CourseVideo {
   idCourseVideo    Int               @id @default(autoincrement())
   videoTitle       String            @db.VarChar(220)
   videoLink        String            @db.VarChar(220)
+  secondVideoLink  String            @default("link") @db.VarChar(220)
   videoDescription String            @db.VarChar(220)
   course           Course            @relation(fields: [courseId], references: [idCourse])
   courseId         Int
@@ -384,4 +387,25 @@ model CourseRating {
   userId         Int
   rate           Int
   createdAt      DateTime @default(now())
+}
+
+model Group {
+  idGroup   Int      @id @default(autoincrement())
+  groupName String   @db.VarChar(220)
+  course    Course   @relation(fields: [courseId], references: [idCourse])
+  courseId  Int
+  createdAt DateTime @default(now())
+}
+
+model StudentGroup {
+  idStudentGroup Int      @id @default(autoincrement())
+  user           User     @relation(fields: [studentId], references: [idUser])
+  studentId      Int
+  createdAt      DateTime @default(now())
+}
+
+model Setting {
+  idSetting Int     @id @default(autoincrement())
+  inReview  Boolean
+  lang      String  @db.VarChar(220)
 }

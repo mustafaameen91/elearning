@@ -67,6 +67,14 @@ exports.findByFilterCourse = (req, res) => {
       };
    }
 
+   /* 
+   group table
+   groupName  courseId
+
+   student group 
+   studentId groupId
+   */
+
    if (req.query.createdBy) {
       filtered.createdBy = req.query.createdBy * 1;
    }
@@ -74,6 +82,11 @@ exports.findByFilterCourse = (req, res) => {
    if (req.query.subjectId) {
       filtered.subjectId = req.query.subjectId * 1;
    }
+
+   if (req.query.classId) {
+      filtered.classId = req.query.classId * 1;
+   }
+
    if (req.query.createdAt) {
       if (req.query.createdAt.length > 0) {
          console.log(JSON.parse(req.query.createdAt));

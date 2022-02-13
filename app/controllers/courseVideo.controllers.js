@@ -10,6 +10,7 @@ exports.create = (req, res) => {
    const courseVideo = new CourseVideo({
       videoTitle: req.body.videoTitle,
       videoLink: req.body.videoLink,
+      secondVideoLink: req.body.secondVideoLink,
       videoDescription: req.body.videoDescription,
       courseId: req.body.courseId,
       createdBy: req.body.createdBy,

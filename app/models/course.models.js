@@ -126,6 +126,7 @@ Course.getByFilterCourse = async (filtered, limit, order, result) => {
             ...filtered,
          },
          include: {
+            class: true,
             Library: true,
             Homework: true,
             CourseVideo: true,

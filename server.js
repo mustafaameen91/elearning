@@ -139,6 +139,9 @@ require("./app/routes/courseDistributor.routes.js")(app);
 require("./app/routes/avatar.routes.js")(app);
 require("./app/routes/courseRating.routes.js")(app);
 require("./app/routes/watchVideos.routes.js")(app);
+require("./app/routes/group.routes.js")(app);
+require("./app/routes/studentGroup.routes.js")(app);
+require("./app/routes/setting.routes.js")(app);
 
 const staticFileMiddleware = express.static(__dirname + "/dist");
 app.use(staticFileMiddleware);
