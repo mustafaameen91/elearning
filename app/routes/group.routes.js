@@ -5,6 +5,8 @@ module.exports = (app) => {
 
    app.get("/api/groups", group.findAll);
 
+   app.get("/api/courseGroups/:id", group.findAllByCourseId);
+
    app.get("/api/group/:id", group.findOne);
 
    app.put("/api/group/:id", group.update);

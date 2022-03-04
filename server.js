@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const http = require("http");
+const ytdl = require("ytdl-core");
 const history = require("connect-history-api-fallback");
 require("dotenv").config();
 const notification = require("./app/notifications/notification.js");
@@ -42,6 +44,15 @@ app.post("/api/upload", function (req, res) {
       if (err) return res.status(500).send(err);
 
       res.send({ imagePath: `attachment/${photoName}.${ext}` });
+   });
+});
+
+app.post("/api/uploadFromUrl", function (req, res) {
+   let s = ytdl("http://www.youtube.com/watch?v=aqz-KE-bpKQ").pipe(
+      fs.createWriteStream("/app/videos/video.mp4")
+   );
+   s.on("close", function () {
+      console.log("end");
    });
 });
 
@@ -106,6 +117,34 @@ app.post("/api/sendNotification", (req, res) => {
 
    notification(message);
    res.send({ text: "message send" });
+});
+
+app.get("/test", function (req, res) {
+   res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/api/videoStream/:name", function (req, res) {
+   const range = req.headers.range;
+   let videoName = req.params.name;
+   console.log(range);
+   if (!range) {
+      res.status(400).send("Requires Range header");
+   }
+   const videoPath = `${videoName}`;
+   const videoSize = fs.statSync(`${videoName}`).size;
+   const CHUNK_SIZE = 10 ** 6;
+   const start = Number(range.replace(/\D/g, ""));
+   const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+   const contentLength = end - start + 1;
+   const headers = {
+      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": contentLength,
+      "Content-Type": "video/mp4",
+   };
+   res.writeHead(206, headers);
+   const videoStream = fs.createReadStream(videoPath, { start, end });
+   videoStream.pipe(res);
 });
 
 require("./app/routes/user.routes.js")(app);

@@ -21,6 +21,29 @@ Group.create = async (newGroup, result) => {
    }
 };
 
+Group.findByIdCourseId = async (courseId, result) => {
+   try {
+      const courseGroup = await prismaInstance.group.findMany({
+         where: {
+            courseId: JSON.parse(courseId),
+         },
+      });
+
+      if (courseGroup) {
+         result(null, courseGroup);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Group with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Group.findById = async (groupId, result) => {
    try {
       const singleGroup = await prismaInstance.group.findUnique({

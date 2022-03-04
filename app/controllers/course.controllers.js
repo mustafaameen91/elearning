@@ -67,13 +67,7 @@ exports.findByFilterCourse = (req, res) => {
       };
    }
 
-   /* 
-   group table
-   groupName  courseId
-
-   student group 
-   studentId groupId
-   */
+   
 
    if (req.query.createdBy) {
       filtered.createdBy = req.query.createdBy * 1;
