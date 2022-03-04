@@ -167,21 +167,22 @@ app.get("/api/videoStream/:name", function (req, res) {
    // videoStream.pipe(res);
    let videoName = req.params.name;
    const videoPath = `${__dirname}/app/videos/${videoName}`;
-   fs.readFile(videoPath, function (err, data) {
-      if (err) {
-         console.log(err);
-      }
-      console.log(data);
-      res.writeHead(200, {
-         "Content-Type": "video/mp4",
-         "accept-ranges": "bytes",
-         "access-control-expose-headers": "origin, range",
-      });
+   res.sendFile(videoPath);
+   // fs.readFile(videoPath, function (err, data) {
+   //    if (err) {
+   //       console.log(err);
+   //    }
+   //    console.log(data);
+   //    res.writeHead(200, {
+   //       "Content-Type": "video/mp4",
+   //       "accept-ranges": "bytes",
+   //       "access-control-expose-headers": "origin, range",
+   //    });
 
-      // res.writeHead(200, { "content-length": "origin, range" });
-      res.write(data);
-      res.end();
-   });
+   //    // res.writeHead(200, { "content-length": "origin, range" });
+   //    res.write(data);
+   //    res.end();
+   // });
 });
 
 require("./app/routes/user.routes.js")(app);
