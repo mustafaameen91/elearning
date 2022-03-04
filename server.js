@@ -171,6 +171,7 @@ app.get("/api/videoStream/:name", function (req, res) {
       if (err) {
          console.log(err);
       }
+      console.log(data);
       res.writeHead(200, { "Content-Type": "video/mp4" });
       res.write(data);
       res.end();
