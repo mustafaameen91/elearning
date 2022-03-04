@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/studentGroup/:id", studentGroup.findOne);
 
+   app.get("/api/groupStudents/:id", studentGroup.findOneByGroupId);
+
    app.put("/api/studentGroup/:id", studentGroup.update);
 
    app.delete("/api/studentGroup/:id", studentGroup.delete);

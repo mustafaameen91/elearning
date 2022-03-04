@@ -21,6 +21,29 @@ StudentGroup.create = async (newStudentGroup, result) => {
    }
 };
 
+StudentGroup.findByIdGroup = async (studentGroupId, result) => {
+   try {
+      const singleStudentGroup = await prismaInstance.studentGroup.findUnique({
+         where: {
+            idStudentGroup: JSON.parse(studentGroupId),
+         },
+      });
+
+      if (singleStudentGroup) {
+         result(null, singleStudentGroup);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found StudentGroup with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentGroup.findById = async (studentGroupId, result) => {
    try {
       const singleStudentGroup = await prismaInstance.studentGroup.findUnique({

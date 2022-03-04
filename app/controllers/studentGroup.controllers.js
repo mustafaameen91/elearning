@@ -27,6 +27,13 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findOneByGroupId = (req, res) => {
+   StudentGroup.findByIdGroup(req.params.id, (err, data) => {
+      if (err) res.studentGroup(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    StudentGroup.findById(req.params.id, (err, data) => {
       if (err) res.studentGroup(err.code).send(err);

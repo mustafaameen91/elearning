@@ -390,17 +390,20 @@ model CourseRating {
 }
 
 model Group {
-  idGroup   Int      @id @default(autoincrement())
-  groupName String   @db.VarChar(220)
-  course    Course   @relation(fields: [courseId], references: [idCourse])
-  courseId  Int
-  createdAt DateTime @default(now())
+  idGroup      Int            @id @default(autoincrement())
+  groupName    String         @db.VarChar(220)
+  course       Course         @relation(fields: [courseId], references: [idCourse])
+  courseId     Int
+  createdAt    DateTime       @default(now())
+  StudentGroup StudentGroup[]
 }
 
 model StudentGroup {
   idStudentGroup Int      @id @default(autoincrement())
   user           User     @relation(fields: [studentId], references: [idUser])
   studentId      Int
+  group          Group    @relation(fields: [groupId], references: [idGroup])
+  groupId        Int
   createdAt      DateTime @default(now())
 }
 
