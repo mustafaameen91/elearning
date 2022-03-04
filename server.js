@@ -169,8 +169,6 @@ app.get("/api/videoStream/:name", function (req, res) {
    const videoPath = `${__dirname}/app/videos/${videoName}`;
    res.writeHead(200, {
       "Content-Type": "video/mp4",
-      "accept-ranges": "bytes",
-      "access-control-expose-headers": "origin, range",
    });
    res.sendFile(videoPath);
    // fs.readFile(videoPath, function (err, data) {
