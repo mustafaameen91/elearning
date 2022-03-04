@@ -27,17 +27,16 @@ Group.findByIdCourseId = async (courseId, result) => {
          where: {
             courseId: JSON.parse(courseId),
          },
+         include: {
+            StudentGroup: {
+               include: {
+                  user: true,
+               },
+            },
+         },
       });
 
-      if (courseGroup) {
-         result(null, courseGroup);
-      } else {
-         result({
-            error: "Not Found",
-            code: 404,
-            errorMessage: "Not Found Group with this Id",
-         });
-      }
+      result(null, courseGroup);
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);

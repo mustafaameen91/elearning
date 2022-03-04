@@ -48,10 +48,12 @@ app.post("/api/upload", function (req, res) {
 });
 
 app.post("/api/uploadFromUrl", function (req, res) {
-   let s = ytdl("http://www.youtube.com/watch?v=aqz-KE-bpKQ").pipe(
+   let videoName = generateRandomName(5, 10);
+   console.log(videoName);
+   let videoDownload = ytdl("http://www.youtube.com/watch?v=aqz-KE-bpKQ").pipe(
       fs.createWriteStream("/app/videos/video.mp4")
    );
-   s.on("close", function () {
+   videoDownload.on("close", function () {
       console.log("end");
    });
 });
@@ -126,12 +128,12 @@ app.get("/test", function (req, res) {
 app.get("/api/videoStream/:name", function (req, res) {
    const range = req.headers.range;
    let videoName = req.params.name;
-   console.log(range);
    if (!range) {
       res.status(400).send("Requires Range header");
    }
-   const videoPath = `${videoName}`;
-   const videoSize = fs.statSync(`${videoName}`).size;
+   const videoPath = `${__dirname}/app/videos/${videoName}`;
+   console.log(videoPath);
+   const videoSize = fs.statSync(`${videoPath}`).size;
    const CHUNK_SIZE = 10 ** 6;
    const start = Number(range.replace(/\D/g, ""));
    const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
