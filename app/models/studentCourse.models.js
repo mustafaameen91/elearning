@@ -239,7 +239,11 @@ StudentCourse.getAllByCourseId = async (courseId, result) => {
                include: {
                   user: {
                      include: {
-                        StudentGroup: true,
+                        StudentGroup: {
+                           include: {
+                              group: true,
+                           },
+                        },
                      },
                   },
                },
