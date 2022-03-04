@@ -11,6 +11,10 @@ const notification = require("./app/notifications/notification.js");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require("twilio")(accountSid, authToken);
+const {
+   prismaErrorHandling,
+   prismaInstance,
+} = require("./app/middleware/handleError.middleware.js");
 
 app.use(cors());
 app.use(express.json());
@@ -49,11 +53,22 @@ app.post("/api/upload", function (req, res) {
 
 app.post("/api/uploadFromUrl", function (req, res) {
    let videoName = generateRandomName(5, 10);
-   console.log(videoName);
-   let videoDownload = ytdl("http://www.youtube.com/watch?v=aqz-KE-bpKQ").pipe(
-      fs.createWriteStream("/app/videos/video.mp4")
+   let courseVideoId = req.body.courseVideoId;
+   let videoDownload = ytdl(req.body.videoUrl).pipe(
+      fs.createWriteStream(`${__dirname}/app/videos/${videoName}.mp4`)
    );
-   videoDownload.on("close", function () {
+   videoDownload.on("close", async function () {
+      try {
+         const updateCourseVideo = await prismaInstance.courseVideo.update({
+            where: { idCourseVideo: JSON.parse(courseVideoId) },
+            data: { secondVideoLink: `${videoName}.mp4` },
+         });
+         res.send({ message: updateCourseVideo });
+      } catch (error) {
+         console.log(prismaErrorHandling(error));
+         res.status(400).send({ error: prismaErrorHandling(error) });
+      }
+
       console.log("end");
    });
 });
