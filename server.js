@@ -143,9 +143,11 @@ app.get("/test", function (req, res) {
 app.get("/api/videoStream/:name", function (req, res) {
    const range = req.headers.range;
    let videoName = req.params.name;
+   console.log(req.headers);
    if (!range) {
       res.status(400).send("Requires Range header");
    }
+
    const videoPath = `${__dirname}/app/videos/${videoName}`;
    console.log(videoPath);
    const videoSize = fs.statSync(`${videoPath}`).size;
