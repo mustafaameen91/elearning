@@ -141,29 +141,37 @@ app.get("/test", function (req, res) {
 });
 
 app.get("/api/videoStream/:name", function (req, res) {
-   const range = req.headers.range;
-   let videoName = req.params.name;
-   console.log(req.headers);
-   if (!range) {
-      res.status(400).send("Requires Range header");
-   }
+   // const range = req.headers.range;
+   // let videoName = req.params.name;
+   // console.log(req.headers);
+   // if (!range) {
+   //    res.status(400).send("Requires Range header");
+   // }
 
+   // const videoPath = `${__dirname}/app/videos/${videoName}`;
+   // console.log(videoPath);
+   // const videoSize = fs.statSync(`${videoPath}`).size;
+   // const CHUNK_SIZE = 10 ** 6;
+   // const start = Number(range.replace(/\D/g, ""));
+   // console.log(start);
+   // const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+   // const contentLength = end - start + 1;
+   // const headers = {
+   //    "Content-Range": `bytes ${start}-${end}/${videoSize}`,
+   //    "Accept-Ranges": "bytes",
+   //    "Content-Length": contentLength,
+   //    "Content-Type": "video/mp4",
+   // };
+   // res.writeHead(206, headers);
+   // const videoStream = fs.createReadStream(videoPath, { start, end });
+   // videoStream.pipe(res);
+   let videoName = req.params.name;
    const videoPath = `${__dirname}/app/videos/${videoName}`;
-   console.log(videoPath);
-   const videoSize = fs.statSync(`${videoPath}`).size;
-   const CHUNK_SIZE = 10 ** 6;
-   const start = Number(range.replace(/\D/g, ""));
-   const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
-   const contentLength = end - start + 1;
-   const headers = {
-      "Content-Range": `bytes ${start}-${end}/${videoSize}`,
-      "Accept-Ranges": "bytes",
-      "Content-Length": contentLength,
-      "Content-Type": "video/mp4",
-   };
-   res.writeHead(206, headers);
-   const videoStream = fs.createReadStream(videoPath, { start, end });
-   videoStream.pipe(res);
+   fs.readFile(videoPath, function (err, data) {
+      res.writeHead(200, { "Content-Type": "video/mp4" });
+      res.write(data);
+      res.end();
+   });
 });
 
 require("./app/routes/user.routes.js")(app);
