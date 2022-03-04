@@ -13,7 +13,7 @@ Group.create = async (newGroup, result) => {
       const group = await prismaInstance.group.create({
          data: newGroup,
       });
-
+      console.log(group);
       result(null, group);
    } catch (err) {
       console.log(prismaErrorHandling(err));
