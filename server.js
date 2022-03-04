@@ -167,9 +167,6 @@ app.get("/api/videoStream/:name", function (req, res) {
    // videoStream.pipe(res);
    let videoName = req.params.name;
    const videoPath = `${__dirname}/app/videos/${videoName}`;
-   res.writeHead(200, {
-      "Content-Type": "video/mp4",
-   });
    res.sendFile(videoPath);
    // fs.readFile(videoPath, function (err, data) {
    //    if (err) {
