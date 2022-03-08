@@ -91,6 +91,7 @@ exports.findAllByCourseIdForNotification = (req, res) => {
                contents: {
                   en: `${req.body.content}`,
                },
+               included_segments: ["Subscribed Users"],
                include_player_ids: playerIds,
             };
             if (playerIds.length > 0) {
