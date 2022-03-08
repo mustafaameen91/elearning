@@ -20,6 +20,7 @@ exports.create = (req, res) => {
       provinceId: req.body.provinceId * 1,
       roleId: req.body.roleId,
       canLogin: Boolean(req.body.canLogin),
+      countryCode: req.body.countryCode,
    });
 
    User.create(user, (err, data) => {

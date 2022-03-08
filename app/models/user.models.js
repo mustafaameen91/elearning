@@ -11,6 +11,7 @@ const User = function (user) {
    this.provinceId = user.provinceId;
    this.roleId = user.roleId;
    this.canLogin = true;
+   this.countryCode = user.countryCode;
 };
 
 User.create = async (newUser, result) => {
