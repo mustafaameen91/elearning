@@ -16,6 +16,7 @@ exports.create = (req, res) => {
       createdBy: req.body.createdBy,
       unlockAt: req.body.unlockAt,
       secondVideoLink: req.body.secondVideoLink,
+      videoPhoto: req.body.videoPhoto,
    });
 
    CourseVideo.create(courseVideo, (err, data) => {

@@ -12,6 +12,7 @@ const CourseVideo = function (courseVideo) {
    this.createdBy = courseVideo.createdBy;
    this.unlockAt = courseVideo.unlockAt;
    this.secondVideoLink = courseVideo.secondVideoLink;
+   this.videoPhoto = courseVideo.videoPhoto;
 };
 
 CourseVideo.create = async (newCourseVideo, result) => {
