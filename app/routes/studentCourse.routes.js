@@ -5,6 +5,11 @@ module.exports = (app) => {
 
    app.get("/api/studentCourses", studentCourse.findAll);
 
+   app.post(
+      "/api/studentCoursesNotification",
+      studentCourse.findAllByCourseIdForNotification
+   );
+
    app.get("/api/studentCourse/:id", studentCourse.findOne);
 
    app.get("/api/studentIdCourse/:id", studentCourse.findAllByStudentId);

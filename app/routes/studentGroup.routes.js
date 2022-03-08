@@ -5,6 +5,8 @@ module.exports = (app) => {
 
    app.get("/api/studentGroups", studentGroup.findAll);
 
+   app.post("/api/sendNotificationGroup", studentGroup.findAllByGroupId);
+
    app.get("/api/studentGroup/:id", studentGroup.findOne);
 
    app.get("/api/groupStudents/:id", studentGroup.findOneByGroupId);

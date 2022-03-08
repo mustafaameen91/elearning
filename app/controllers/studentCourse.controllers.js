@@ -1,4 +1,5 @@
 const StudentCourse = require("../models/studentCourse.models.js");
+const notification = require("../notifications/notification.js");
 
 exports.create = (req, res) => {
    if (!req.body) {
@@ -65,6 +66,44 @@ exports.findAllByCourseIdAndDist = (req, res) => {
          else res.send(data);
       }
    );
+};
+exports.findAllByCourseIdForNotification = (req, res) => {
+   StudentCourse.getAllByCourseIdForNotification(req.body.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else {
+         if (data.length > 0) {
+            let players = data.filter((student) => {
+               return (
+                  student.student.user.playerId != "" ||
+                  student.student.user.playerId != null ||
+                  student.student.user.playerId != undefined ||
+                  student.student.user.playerId != "undefined"
+               );
+            });
+
+            let playerIds = players.map((player) => {
+               return player.student.user.playerId;
+            });
+
+            var message = {
+               app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+               headings: { en: `${req.body.title}` },
+               contents: {
+                  en: `${req.body.content}`,
+               },
+               include_player_ids: playerIds,
+            };
+            if (playerIds.length > 0) {
+               notification(message);
+               res.send({ text: "notification send" });
+            }
+         } else {
+            res.status(404).send({
+               text: "no students found to send notification",
+            });
+         }
+      }
+   });
 };
 
 exports.findAllByCourseId = (req, res) => {

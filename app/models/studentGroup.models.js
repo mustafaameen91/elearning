@@ -44,6 +44,24 @@ StudentGroup.findByIdGroup = async (studentGroupId, result) => {
    }
 };
 
+StudentGroup.findByIdOfGroup = async (groupId, result) => {
+   try {
+      const studentGroup = await prismaInstance.studentGroup.findMany({
+         where: {
+            groupId: JSON.parse(groupId),
+         },
+         include: {
+            user: true,
+         },
+      });
+
+      result(null, studentGroup);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 StudentGroup.findById = async (studentGroupId, result) => {
    try {
       const singleStudentGroup = await prismaInstance.studentGroup.findUnique({
