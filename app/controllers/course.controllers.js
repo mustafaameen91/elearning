@@ -67,8 +67,6 @@ exports.findByFilterCourse = (req, res) => {
       };
    }
 
-   
-
    if (req.query.createdBy) {
       filtered.createdBy = req.query.createdBy * 1;
    }
