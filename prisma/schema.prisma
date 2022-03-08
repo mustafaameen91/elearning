@@ -290,6 +290,7 @@ model CourseVideo {
   courseId         Int
   user             User              @relation(fields: [createdBy], references: [idUser])
   createdBy        Int
+  videoPhoto       String            @default("photo") @db.VarChar(220)
   unlockAt         DateTime          @default(now())
   createdAt        DateTime          @default(now())
   VideoAttachment  VideoAttachment[]

@@ -106,7 +106,7 @@ app.post(`/api/sendSms`, (req, res) => {
             body: `${req.body.message}`,
             from: "Kattwa",
             messagingServiceSid: "MG3019028a456cc810853981233a43037c",
-            to: `+964${req.body.phone}`,
+            to: `${req.body.phone}`,
          })
          .then((message) => {
             res.send({ message: "message sent" });
