@@ -174,6 +174,15 @@ Course.findByTeacherId = async (teacherId, result) => {
          },
       });
       let countMoney = courseMoney.map((money) => {
+         let studentDiscounts = money.StudentCourse.reduce(
+            (pv, cv) => pv + cv.discount,
+            0
+         );
+         let studentTotalPrice =
+            money.coursePrice *
+            money.StudentCourse.filter(
+               (stu) => stu.statusId == 2 || stu.statusId == 3
+            ).length;
          return {
             idCourse: money.idCourse,
             courseTitle: money.courseTitle,
@@ -184,11 +193,7 @@ Course.findByTeacherId = async (teacherId, result) => {
             platformPrice: money.platformPrice,
             subject: money.subject,
             class: money.class,
-            totalPrice:
-               money.coursePrice *
-               money.StudentCourse.filter(
-                  (stu) => stu.statusId == 2 || stu.statusId == 3
-               ).length,
+            totalPrice: studentTotalPrice - studentDiscounts,
             remainingPrice:
                money.coursePrice *
                money.StudentCourse.filter((stu) => stu.statusId == 1).length,
@@ -198,10 +203,7 @@ Course.findByTeacherId = async (teacherId, result) => {
             pendingStudents: money.StudentCourse.filter(
                (stu) => stu.statusId == 1
             ),
-            studentDiscount: money.StudentCourse.reduce(
-               (pv, cv) => pv + cv.discount,
-               0
-            ),
+            studentDiscount: studentDiscounts,
             // totalPrice: money.StudentCourse.reduce(
             //    (pv, cv) => pv + cv.discount,
             //    0
