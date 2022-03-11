@@ -45,9 +45,9 @@ StudentCourse.create = async (newStudentCourse, result) => {
 
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
-               headings: { en: `${req.body.title}` },
+               headings: { en: `انظمام لكورس جديد` },
                contents: {
-                  en: `${req.body.content}`,
+                  en: `مبروك تم انظمامك للكورس`,
                },
                include_player_ids: [playerIds],
             };
