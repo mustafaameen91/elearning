@@ -45,7 +45,9 @@ Homework.create = async (newHomework, result) => {
             }
          });
          console.log("students ======================", students);
-         let playerIds = students.map((student) => student.user.playerId);
+         let playerIds = students.map(
+            (student) => student.student.user.playerId
+         );
 
          let players = playerIds.filter((player) => {
             if (player != null || player != undefined || player != "") {
