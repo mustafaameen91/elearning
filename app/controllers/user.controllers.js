@@ -118,7 +118,7 @@ exports.update = (req, res) => {
       });
    }
 
-   User.updateById(req.params.id, new User(req.body), (err, data) => {
+   User.updateById(req.params.id, req.body, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
