@@ -42,12 +42,17 @@ StudentCourse.create = async (newStudentCourse, result) => {
          console.log("info -------------", studentCourse);
          if (singleStudent.length > 0) {
             let playerIds = singleStudent[0].user.playerId;
+            let course = await prismaInstance.course.findUnique({
+               where: {
+                  idCourse: parseInt(studentCourse.courseId),
+               },
+            });
             console.log("student-----------------", playerIds);
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
-               headings: { en: `انظمام لكورس جديد` },
+               headings: { en: `انضمام لكورس جديد` },
                contents: {
-                  en: `مبروك تم انظمامك للكورس`,
+                  en: `مبروك تم تسجيلك بالكورس  ${course.courseTitle}  بانتظار موافقة الاستاذ`,
                },
                include_player_ids: [playerIds],
             };
