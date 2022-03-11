@@ -451,6 +451,8 @@ Course.findByIdWithoutAuth = async (courseId, result) => {
          },
       });
 
+      console.log(singleCourse);
+
       if (singleCourse) {
          result(null, singleCourse);
       } else {
