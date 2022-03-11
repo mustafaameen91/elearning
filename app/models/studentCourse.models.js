@@ -408,7 +408,7 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
       });
       const singleStudent = await prismaInstance.studentInfo.findMany({
          where: {
-            idStudent: JSON.parse(studentCourse.studentId),
+            idStudent: JSON.parse(updateStudentCourse.studentId),
          },
          include: {
             user: true,
