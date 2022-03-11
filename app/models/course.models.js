@@ -198,6 +198,10 @@ Course.findByTeacherId = async (teacherId, result) => {
             pendingStudents: money.StudentCourse.filter(
                (stu) => stu.statusId == 1
             ),
+            studentDiscount: money.StudentCourse.reduce(
+               (pv, cv) => pv + cv.discount,
+               0
+            ),
             // totalPrice: money.StudentCourse.reduce(
             //    (pv, cv) => pv + cv.discount,
             //    0
