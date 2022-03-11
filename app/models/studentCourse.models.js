@@ -50,9 +50,9 @@ StudentCourse.create = async (newStudentCourse, result) => {
             console.log("student-----------------", playerIds);
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
-               headings: { en: `انضمام لكورس جديد` },
+               headings: { en: `تسجيل بكورس جديد` },
                contents: {
-                  en: `مبروك تم تسجيلك بالكورس  ${course.courseTitle}  بانتظار موافقة الاستاذ`,
+                  en: `مبروك تم تسجيلك بكورس    ${course.courseTitle}  بانتظار موافقة الاستاذ ،`,
                },
                include_player_ids: [playerIds],
             };
