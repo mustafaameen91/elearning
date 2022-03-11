@@ -2,6 +2,7 @@ const {
    prismaErrorHandling,
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
+const notification = require("./../notifications/notification.js");
 
 const StudentCourse = function (studentCourse) {
    this.studentId = studentCourse.studentId;
@@ -26,9 +27,32 @@ StudentCourse.create = async (newStudentCourse, result) => {
          },
       });
       if (findStudentCourse.length == 0) {
+         const singleStudent = await prismaInstance.studentInfo.findMany({
+            where: {
+               idStudent: JSON.parse(newStudentCourse.studentId),
+            },
+            include: {
+               user: true,
+            },
+         });
+
          const studentCourse = await prismaInstance.studentCourse.create({
             data: newStudentCourse,
          });
+         console.log(studentCourse);
+         if (singleStudent.length > 0) {
+            let playerIds = singleStudent[0].playerId;
+
+            var message = {
+               app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+               headings: { en: `${req.body.title}` },
+               contents: {
+                  en: `${req.body.content}`,
+               },
+               include_player_ids: [playerIds],
+            };
+            notification(message);
+         }
 
          result(null, studentCourse);
       } else {
