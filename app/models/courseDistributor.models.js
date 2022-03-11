@@ -41,7 +41,17 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
             },
             include_player_ids: [playerIds],
          };
+
+         var teacherMessage = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `تم استلام طلب توزيع` },
+            contents: {
+               en: `ارسل لك ${distributor.userName} طلب لتوزيع كورس ${course.courseTitle}`,
+            },
+            include_player_ids: [course.user.playerId],
+         };
          notification(message);
+         notification(teacherMessage);
       }
 
       result(null, courseDistributor);
