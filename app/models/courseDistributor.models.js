@@ -23,7 +23,6 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
       });
 
       if (distributor) {
-         let playerIds = distributor.playerId;
          let course = await prismaInstance.course.findUnique({
             where: {
                idCourse: parseInt(newCourseDistributor.courseId),
@@ -32,16 +31,6 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
                user: true,
             },
          });
-
-         var message = {
-            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
-            headings: { en: `تم ارسال الطلب` },
-            contents: {
-               en: `بانتظار موافقة ${course.user.userName} , لتبدأ بتوزيع ${course.courseTitle}`,
-            },
-            include_player_ids: [playerIds],
-         };
-
          var teacherMessage = {
             app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
             headings: { en: `تم استلام طلب توزيع` },
@@ -50,7 +39,6 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
             },
             include_player_ids: [course.user.playerId],
          };
-         notification(message);
          notification(teacherMessage);
       }
 
