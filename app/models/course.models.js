@@ -170,6 +170,7 @@ Course.findByTeacherId = async (teacherId, result) => {
             StudentCourse: true,
             subject: true,
             class: true,
+            PromoCode: {},
          },
       });
       let countMoney = courseMoney.map((money) => {
@@ -542,6 +543,7 @@ Course.findById = async (courseId, studentId, result) => {
                idCourseVideo: video.idCourseVideo,
                videoTitle: video.videoTitle,
                videoLink: video.videoLink,
+               secondVideoLink: video.secondVideoLink,
                videoDescription: video.videoDescription,
                courseId: video.courseId,
                createdBy: video.createdBy,
