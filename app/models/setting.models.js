@@ -47,7 +47,7 @@ Setting.findById = async (settingId, result) => {
 Setting.getVersion = async (result) => {
    try {
       const settings = await prismaInstance.setting.findMany();
-      result(null, settings[0].version);
+      result(null, { version: settings[0].version });
    } catch (err) {
       console.log(prismaErrorHandling(err));
       result(prismaErrorHandling(err), null);
