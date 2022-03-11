@@ -374,10 +374,11 @@ User.updateById = async (userId, user, result) => {
       if (findUser.roleId == 2 && user.canLogin == true) {
          const updateUser = await prismaInstance.user.update({
             where: { idUser: JSON.parse(userId) },
-            data: user,
+            data: {
+               canLogin: user.canLogin,
+            },
          });
          console.log("updateUser------------", updateUser);
-
          const deleteMany = await prismaInstance.userSession.deleteMany({
             where: {
                studentId: parseInt(userId),
