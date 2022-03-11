@@ -36,7 +36,7 @@ CourseDistributor.findByIdOfCourseAndDist = async (
                      courseId: parseInt(courseId),
                   },
                   {
-                     distributorId: distributorId,
+                     distributorId: parseInt(distributorId),
                   },
                ],
             },
