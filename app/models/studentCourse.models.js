@@ -39,10 +39,10 @@ StudentCourse.create = async (newStudentCourse, result) => {
          const studentCourse = await prismaInstance.studentCourse.create({
             data: newStudentCourse,
          });
-         console.log(studentCourse);
+         console.log("info -------------", studentCourse);
          if (singleStudent.length > 0) {
-            let playerIds = singleStudent[0].playerId;
-
+            let playerIds = singleStudent[0].user.playerId;
+            console.log("student-----------------", playerIds);
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
                headings: { en: `انظمام لكورس جديد` },
