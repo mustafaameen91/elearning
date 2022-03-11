@@ -416,11 +416,11 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
          },
       });
 
-      if (singleStudent.length > 0 && studentCourse.statusId == 2) {
+      if (singleStudent.length > 0 && updateStudentCourse.statusId == 2) {
          let playerIds = singleStudent[0].user.playerId;
          let course = await prismaInstance.course.findUnique({
             where: {
-               idCourse: parseInt(studentCourse.courseId),
+               idCourse: parseInt(updateStudentCourse.courseId),
             },
          });
          var message = {
