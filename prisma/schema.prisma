@@ -413,4 +413,5 @@ model Setting {
   idSetting Int     @id @default(autoincrement())
   inReview  Boolean
   lang      String  @db.VarChar(220)
+  version   String  @default("1.0.0") @db.VarChar(220)
 }

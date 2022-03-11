@@ -34,7 +34,7 @@ exports.findOne = (req, res) => {
 };
 
 exports.checkVersion = (req, res) => {
-   res.send({ version: "1.0.1" });
+   res.send({ version: "1.0.0" });
 };
 
 exports.update = (req, res) => {
