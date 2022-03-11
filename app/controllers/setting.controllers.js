@@ -10,6 +10,7 @@ exports.create = (req, res) => {
    const setting = new Setting({
       inReview: req.body.inReview,
       lang: req.body.lang,
+      version: req.body.version,
    });
 
    Setting.create(setting, (err, data) => {

@@ -6,6 +6,7 @@ const {
 const Setting = function (setting) {
    this.inReview = setting.inReview;
    this.lang = setting.lang;
+   this.version = setting.version;
 };
 
 Setting.create = async (newSetting, result) => {
