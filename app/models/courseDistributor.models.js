@@ -22,6 +22,41 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
    }
 };
 
+CourseDistributor.findByIdOfCourseAndDist = async (
+   distributorId,
+   courseId,
+   result
+) => {
+   try {
+      const singleCourseDistributor =
+         await prismaInstance.courseDistributor.findMany({
+            where: {
+               AND: [
+                  {
+                     courseId: parseInt(courseId),
+                  },
+                  {
+                     distributorId: distributorId,
+                  },
+               ],
+            },
+         });
+
+      if (singleCourseDistributor.length > 0) {
+         result(null, { found: true });
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Course Distributor with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 CourseDistributor.findByIdOfCourse = async (courseId, result) => {
    try {
       const singleCourseDistributor =

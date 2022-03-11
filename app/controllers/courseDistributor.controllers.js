@@ -28,6 +28,17 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findOneByCourseIdAndDist = (req, res) => {
+   CourseDistributor.findByIdOfCourseAndDist(
+      req.query.distributorId,
+      req.query.courseId,
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      }
+   );
+};
+
 exports.findOneByCourseId = (req, res) => {
    CourseDistributor.findByIdOfCourse(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);

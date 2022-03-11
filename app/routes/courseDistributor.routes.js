@@ -10,6 +10,8 @@ module.exports = (app) => {
 
    app.get("/api/courseDistributors/:id", courseDistributor.findOneByCourseId);
 
+   app.get("/api/checkDistributor", courseDistributor.findOneByCourseIdAndDist);
+
    app.get(
       "/api/distributorCourse/:id",
       courseDistributor.findOneByDistributorId
