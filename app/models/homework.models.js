@@ -2,6 +2,7 @@ const {
    prismaErrorHandling,
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
+const notification = require("./../notifications/notification.js");
 
 const Homework = function (homework) {
    this.homeworkTitle = homework.homeworkTitle;
@@ -17,6 +18,50 @@ Homework.create = async (newHomework, result) => {
       const homework = await prismaInstance.homework.create({
          data: newHomework,
       });
+
+      let studentsCourse = await prismaInstance.course.findUnique({
+         where: {
+            idCourse: parseInt(homework.courseId),
+         },
+         include: {
+            StudentCourse: {
+               include: {
+                  student: {
+                     include: {
+                        user: true,
+                     },
+                  },
+               },
+            },
+         },
+      });
+
+      if (studentsCourse.StudentCourse.length > 0) {
+         let students = studentsCourse.StudentCourse.filter((student) => {
+            if (student.statusId != 1) {
+               return student;
+            }
+         });
+         let playerIds = students.map((student) => student.user.playerId);
+
+         let players = playerIds.filter((player) => {
+            if (player != null || player != undefined || player != "") {
+               return player;
+            }
+         });
+
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `تم اضافة واجب جديد` },
+            contents: {
+               en: `تم اضافة واجب جديد الى كورس ${studentsCourse.courseTitle}`,
+            },
+            include_player_ids: players,
+         };
+         if (players.length > 0) {
+            notification(message);
+         }
+      }
 
       result(null, homework);
    } catch (err) {
