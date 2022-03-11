@@ -18,6 +18,52 @@ Library.create = async (newLibrary, result) => {
          data: newLibrary,
       });
 
+      let studentsCourse = await prismaInstance.course.findUnique({
+         where: {
+            idCourse: parseInt(library.courseId),
+         },
+         include: {
+            StudentCourse: {
+               include: {
+                  student: {
+                     include: {
+                        user: true,
+                     },
+                  },
+               },
+            },
+         },
+      });
+
+      if (studentsCourse.StudentCourse.length > 0) {
+         let students = studentsCourse.StudentCourse.filter((student) => {
+            if (student.statusId != 1) {
+               return student;
+            }
+         });
+         let playerIds = students.map(
+            (student) => student.student.user.playerId
+         );
+
+         let players = playerIds.filter((player) => {
+            if (player != null || player != undefined || player != "") {
+               return player;
+            }
+         });
+
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `نزلت ملزمة جديدة` },
+            contents: {
+               en: `نزلت ملزمة جديدة بكورس ${studentsCourse.courseTitle} ، روح اقراها ياشاطر`,
+            },
+            include_player_ids: players,
+         };
+         if (players.length > 0) {
+            notification(message);
+         }
+      }
+
       result(null, library);
    } catch (err) {
       console.log(prismaErrorHandling(err));

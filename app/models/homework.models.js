@@ -36,15 +36,12 @@ Homework.create = async (newHomework, result) => {
          },
       });
 
-      console.log("studentsCourse ======================", studentsCourse);
-
       if (studentsCourse.StudentCourse.length > 0) {
          let students = studentsCourse.StudentCourse.filter((student) => {
             if (student.statusId != 1) {
                return student;
             }
          });
-         console.log("students ======================", students);
          let playerIds = students.map(
             (student) => student.student.user.playerId
          );
