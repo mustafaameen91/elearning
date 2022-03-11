@@ -39,7 +39,6 @@ StudentCourse.create = async (newStudentCourse, result) => {
          const studentCourse = await prismaInstance.studentCourse.create({
             data: newStudentCourse,
          });
-         console.log("info -------------", studentCourse);
          if (singleStudent.length > 0) {
             let playerIds = singleStudent[0].user.playerId;
             let course = await prismaInstance.course.findUnique({
@@ -47,7 +46,6 @@ StudentCourse.create = async (newStudentCourse, result) => {
                   idCourse: parseInt(studentCourse.courseId),
                },
             });
-            console.log("student-----------------", playerIds);
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
                headings: { en: `تسجيل بكورس جديد` },
@@ -96,9 +94,36 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
       });
 
       if (findStudentCourse.length == 0) {
+         const singleStudent = await prismaInstance.studentInfo.findMany({
+            where: {
+               idStudent: JSON.parse(newStudentCourse.studentId),
+            },
+            include: {
+               user: true,
+            },
+         });
+
          const studentCourse = await prismaInstance.studentCourse.create({
             data: studentCourseData,
          });
+
+         if (singleStudent.length > 0) {
+            let playerIds = singleStudent[0].user.playerId;
+            let course = await prismaInstance.course.findUnique({
+               where: {
+                  idCourse: parseInt(studentCourse.courseId),
+               },
+            });
+            var message = {
+               app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+               headings: { en: `تسجيل بكورس جديد` },
+               contents: {
+                  en: `مبروك تم تسجيلك بكورس    ${course.courseTitle}   ، بانتظار موافقة الاستاذ`,
+               },
+               include_player_ids: [playerIds],
+            };
+            notification(message);
+         }
 
          const updatePromoCode = await prismaInstance.promoCode.update({
             where: {
@@ -381,6 +406,33 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
          where: { idStudentCourse: JSON.parse(studentCourseId) },
          data: studentCourse,
       });
+      const singleStudent = await prismaInstance.studentInfo.findMany({
+         where: {
+            idStudent: JSON.parse(studentCourse.studentId),
+         },
+         include: {
+            user: true,
+         },
+      });
+
+      if (singleStudent.length > 0 && studentCourse.statusId == 2) {
+         let playerIds = singleStudent[0].user.playerId;
+         let course = await prismaInstance.course.findUnique({
+            where: {
+               idCourse: parseInt(studentCourse.courseId),
+            },
+         });
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `راح تضمن المية` },
+            contents: {
+               en: `وافق الاستاذ على انضمامك لكورس ${course.courseTitle} ، هسة تكدر تشوف درسك`,
+            },
+            include_player_ids: [playerIds],
+         };
+         notification(message);
+      }
+
       result(null, updateStudentCourse);
    } catch (error) {
       console.log(prismaErrorHandling(error));
