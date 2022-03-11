@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/setting/:id", setting.findOne);
 
+   app.get("/api/getVersion", setting.checkVersion);
+
    app.put("/api/setting/:id", setting.update);
 
    app.delete("/api/setting/:id", setting.delete);

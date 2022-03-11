@@ -33,10 +33,6 @@ exports.findOne = (req, res) => {
    });
 };
 
-exports.checkVersion = (req, res) => {
-   res.send({ version: "1.0.0" });
-};
-
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({

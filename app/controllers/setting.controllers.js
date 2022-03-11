@@ -27,6 +27,13 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.checkVersion = (req, res) => {
+   Setting.getVersion((err, data) => {
+      if (err) res.setting(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    Setting.findById(req.params.id, (err, data) => {
       if (err) res.setting(err.code).send(err);
