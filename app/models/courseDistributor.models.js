@@ -217,6 +217,36 @@ CourseDistributor.updateById = async (
             where: { idCourseDistributor: JSON.parse(courseDistributorId) },
             data: courseDistributor,
          });
+
+      let distributor = await prismaInstance.user.findUnique({
+         where: {
+            idUser: updateCourseDistributor.distributorId,
+         },
+      });
+
+      if (
+         distributor &&
+         updateCourseDistributor.distributorStatus == "ACCEPTED"
+      ) {
+         let course = await prismaInstance.course.findUnique({
+            where: {
+               idCourse: parseInt(updateCourseDistributor.courseId),
+            },
+            include: {
+               user: true,
+            },
+         });
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `قبول طلب` },
+            contents: {
+               en: `وافق ${course.user.userName} على طلب توزيعك لكورس ${course.courseTitle}`,
+            },
+            include_player_ids: [distributor.playerId],
+         };
+         notification(message);
+      }
+
       result(null, updateCourseDistributor);
    } catch (error) {
       console.log(prismaErrorHandling(error));
