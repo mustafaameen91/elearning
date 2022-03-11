@@ -2,6 +2,7 @@ const {
    prismaErrorHandling,
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
+const notification = require("./../notifications/notification.js");
 
 const CourseDistributor = function (courseDistributor) {
    this.courseId = courseDistributor.courseId;
@@ -14,6 +15,34 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
       const courseDistributor = await prismaInstance.courseDistributor.create({
          data: newCourseDistributor,
       });
+
+      let distributor = await prismaInstance.user.findUnique({
+         where: {
+            idUser: parseInt(newCourseDistributor.distributorId),
+         },
+      });
+
+      if (distributor) {
+         let playerIds = distributor.playerId;
+         let course = await prismaInstance.course.findUnique({
+            where: {
+               idCourse: parseInt(newCourseDistributor.courseId),
+            },
+            include: {
+               user: true,
+            },
+         });
+
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `تم ارسال الطلب` },
+            contents: {
+               en: `بانتظار موافقة ${course.user.userName} , لتبدأ بتوزيع ${course.courseTitle}`,
+            },
+            include_player_ids: [playerIds],
+         };
+         notification(message);
+      }
 
       result(null, courseDistributor);
    } catch (err) {
