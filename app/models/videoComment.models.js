@@ -9,6 +9,7 @@ const VideoComment = function (videoComment) {
    this.videoId = videoComment.videoId;
    this.parentId = videoComment.parentId;
    this.createdBy = videoComment.createdBy;
+   this.createdAt = new Date();
 };
 
 VideoComment.create = async (newVideoComment, result) => {
