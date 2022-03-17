@@ -11,8 +11,9 @@ const VideoComment = function (videoComment) {
    this.createdBy = videoComment.createdBy;
    this.createdAt = new Date();
 };
-
 VideoComment.create = async (newVideoComment, result) => {
+   console.log(newVideoComment);
+
    try {
       const videoComment = await prismaInstance.videoComment.create({
          data: newVideoComment,
