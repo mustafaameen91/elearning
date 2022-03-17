@@ -337,11 +337,12 @@ User.getByRoleId = async (roleId, result) => {
 
 User.logoutStudent = async (userId, result) => {
    try {
-      console.log(userId);
+      console.log("user to be logout", userId);
       const updateUser = await prismaInstance.user.update({
          where: { idUser: parseInt(userId.userId) },
          data: { canLogin: true },
       });
+      console.log(updateUser);
       result(null, updateUser);
    } catch (error) {
       console.log(prismaErrorHandling(error));
@@ -364,7 +365,6 @@ User.updatePasswordById = async (phone, password, result) => {
 };
 
 User.updateById = async (userId, user, result) => {
-   console.log(user);
    try {
       const findUser = await prismaInstance.user.findUnique({
          where: {

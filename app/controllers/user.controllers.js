@@ -112,7 +112,6 @@ exports.updatePassword = (req, res) => {
 };
 
 exports.update = (req, res) => {
-   console.log(req.body);
    if (!req.body) {
       res.status(400).send({
          message: "Content can not be empty!",
