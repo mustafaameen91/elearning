@@ -13,7 +13,7 @@ exports.create = (req, res) => {
       videoId: req.body.videoId,
       parentId: req.body.parentId,
       createdBy: req.body.createdBy,
-      createdAt: new Date(),
+      createdAt: new Date().toLocaleDateString(),
    });
 
    VideoComment.create(videoComment, (err, data) => {
