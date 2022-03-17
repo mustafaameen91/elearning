@@ -39,7 +39,10 @@ StudentCourse.create = async (newStudentCourse, result) => {
          const studentCourse = await prismaInstance.studentCourse.create({
             data: newStudentCourse,
          });
-         if (singleStudent.length > 0) {
+         if (
+            singleStudent.length > 0 &&
+            singleStudent[0]?.user.canLogin == false
+         ) {
             let playerIds = singleStudent[0].user.playerId;
             let course = await prismaInstance.course.findUnique({
                where: {
@@ -107,7 +110,10 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
             data: studentCourseData,
          });
 
-         if (singleStudent.length > 0) {
+         if (
+            singleStudent.length > 0 &&
+            singleStudent[0]?.user.canLogin == false
+         ) {
             let playerIds = singleStudent[0].user.playerId;
             let course = await prismaInstance.course.findUnique({
                where: {
@@ -445,7 +451,7 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
       if (
          singleStudent.length > 0 &&
          updateStudentCourse.statusId == 2 &&
-         singleStudent.user.canLogin == false
+         singleStudent[0]?.user.canLogin == false
       ) {
          let playerIds = singleStudent[0].user.playerId;
 
