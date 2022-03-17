@@ -432,6 +432,7 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
          data: studentCourse,
       });
       console.log("updated--------", updateStudentCourse);
+
       const singleStudent = await prismaInstance.studentInfo.findMany({
          where: {
             idStudent: JSON.parse(updateStudentCourse.studentId),
@@ -441,13 +442,19 @@ StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
          },
       });
 
-      if (singleStudent.length > 0 && updateStudentCourse.statusId == 2) {
+      if (
+         singleStudent.length > 0 &&
+         updateStudentCourse.statusId == 2 &&
+         singleStudent.user.canLogin == false
+      ) {
          let playerIds = singleStudent[0].user.playerId;
+
          let course = await prismaInstance.course.findUnique({
             where: {
                idCourse: parseInt(updateStudentCourse.courseId),
             },
          });
+
          var message = {
             app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
             headings: { en: `راح تضمن المية` },
