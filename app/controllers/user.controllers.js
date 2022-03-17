@@ -119,6 +119,11 @@ exports.update = (req, res) => {
       });
    }
 
+   req.body.password = CryptoJS.AES.encrypt(
+      req.body.password,
+      process.env.SECRET_KEY
+   ).toString();
+
    User.updateById(req.params.id, req.body, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);

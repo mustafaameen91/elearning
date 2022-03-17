@@ -364,6 +364,7 @@ User.updatePasswordById = async (phone, password, result) => {
 };
 
 User.updateById = async (userId, user, result) => {
+   console.log(user);
    try {
       const findUser = await prismaInstance.user.findUnique({
          where: {
