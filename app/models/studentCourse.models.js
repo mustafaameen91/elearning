@@ -321,6 +321,11 @@ StudentCourse.getAllByCourseId = async (courseId, result) => {
          include: {
             course: {
                include: {
+                  subject: {
+                     include: {
+                        class: true,
+                     },
+                  },
                   CourseDistributor: {
                      where: {
                         distributorStatus: "ACCEPTED",

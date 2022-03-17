@@ -134,7 +134,15 @@ PromoCode.getAll = async (result) => {
                   user: true,
                },
             },
-            course: true,
+            course: {
+               include: {
+                  subject: {
+                     include: {
+                        class: true,
+                     },
+                  },
+               },
+            },
             user: true,
          },
       });

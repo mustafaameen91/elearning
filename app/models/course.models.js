@@ -483,6 +483,11 @@ Course.findById = async (courseId, studentId, result) => {
             idCourse: JSON.parse(courseId),
          },
          include: {
+            subject: {
+               include: {
+                  class: true,
+               },
+            },
             user: {
                select: {
                   idUser: true,
@@ -612,7 +617,11 @@ Course.getAll = async (result) => {
    try {
       const courses = await prismaInstance.course.findMany({
          include: {
-            subject: true,
+            subject: {
+               include: {
+                  class: true,
+               },
+            },
             CourseVideo: true,
          },
       });
