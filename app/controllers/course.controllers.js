@@ -23,6 +23,8 @@ exports.create = (req, res) => {
       createdBy: req.body.createdBy,
       subjectId: req.body.subjectId,
       platformPrice: req.body.platformPrice,
+      teleChannel: req.body.teleChannel,
+      iapId: req.body.iapId,
    });
 
    Course.create(course, (err, data) => {

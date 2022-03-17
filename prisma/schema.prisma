@@ -192,6 +192,8 @@ model Course {
   courseRate          Float                @default(0.0)
   coursePrice         Float
   platformPrice       Float
+  teleChannel         String               @default("https://t.me/kattwa") @db.VarChar(220)
+  iapId               String               @default("") @db.VarChar(220)
   coursePath          String               @db.VarChar(220)
   class               Class                @relation(fields: [classId], references: [idClass])
   classId             Int

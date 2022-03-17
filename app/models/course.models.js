@@ -13,6 +13,8 @@ const Course = function (course) {
    this.coursePath = course.coursePath;
    this.subjectId = course.subjectId;
    this.platformPrice = course.platformPrice;
+   this.teleChannel = course.teleChannel;
+   this.iapId = course.iapId;
 };
 
 Course.create = async (newCourse, result) => {
@@ -188,6 +190,8 @@ Course.findByTeacherId = async (teacherId, result) => {
             courseTitle: money.courseTitle,
             courseDescription: money.courseDescription,
             courseRate: money.courseRate,
+            teleChannel: money.teleChannel,
+            aipId: money.aipId,
             coursePrice: money.coursePrice,
             coursePath: money.coursePath,
             platformPrice: money.platformPrice,
@@ -235,6 +239,8 @@ Course.findByAllCourses = async (filtered, result) => {
             courseTitle: money.courseTitle,
             courseDescription: money.courseDescription,
             courseRate: money.courseRate,
+            teleChannel: money.teleChannel,
+            aipId: money.aipId,
             coursePrice: money.coursePrice,
             coursePath: money.coursePath,
             platformPrice: money.platformPrice,
