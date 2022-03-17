@@ -622,7 +622,11 @@ Course.getAll = async (result) => {
                   class: true,
                },
             },
-            CourseVideo: true,
+            CourseVideo: {
+               include: {
+                  VideoComment: true,
+               },
+            },
          },
       });
       result(null, courses);

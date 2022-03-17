@@ -321,6 +321,7 @@ StudentCourse.getAllByCourseId = async (courseId, result) => {
          include: {
             course: {
                include: {
+                  user: true,
                   subject: {
                      include: {
                         class: true,
