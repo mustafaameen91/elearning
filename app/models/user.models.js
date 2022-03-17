@@ -278,6 +278,7 @@ User.getAll = async (result) => {
    try {
       const users = await prismaInstance.user.findMany({
          select: {
+            idUser: true,
             userName: true,
             provinceId: true,
             roleId: true,
