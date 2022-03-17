@@ -81,15 +81,14 @@ User.login = async (user, result) => {
       });
       console.log(loginUser);
 
-      console.log(
-         "password : ",
-         CryptoJS.AES.decrypt(
-            loginUser[0].password,
-            process.env.SECRET_KEY
-         ).toString(CryptoJS.enc.Utf8)
-      );
-
       if (loginUser.length > 0) {
+         console.log(
+            "password : ",
+            CryptoJS.AES.decrypt(
+               loginUser[0].password,
+               process.env.SECRET_KEY
+            ).toString(CryptoJS.enc.Utf8)
+         );
          if (
             CryptoJS.AES.decrypt(
                loginUser[0].password,
