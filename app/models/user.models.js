@@ -79,6 +79,7 @@ User.login = async (user, result) => {
             },
          },
       });
+      console.log(loginUser);
 
       if (loginUser.length > 0) {
          console.log(
