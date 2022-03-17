@@ -406,6 +406,25 @@ StudentCourse.getStudentCourses = async (studentId, result) => {
    }
 };
 
+StudentCourse.updateByIdManyStatus = async (studentStatus, result) => {
+   let studentIds = JSON.parse(studentStatus.studentIds);
+
+   try {
+      const updateStudentCourse = await prismaInstance.studentCourse.updateMany(
+         {
+            where: { studentId: { in: studentIds } },
+            data: { statusId: studentStatus.statusId },
+         }
+      );
+
+      console.log("updated--------", updateStudentCourse);
+      result(null, updateStudentCourse);
+   } catch (error) {
+      console.log(prismaErrorHandling(error));
+      result(prismaErrorHandling(error), null);
+   }
+};
+
 StudentCourse.updateById = async (studentCourseId, studentCourse, result) => {
    try {
       const updateStudentCourse = await prismaInstance.studentCourse.update({

@@ -32,6 +32,8 @@ module.exports = (app) => {
 
    app.put("/api/studentCourse/:id", studentCourse.update);
 
+   app.put("/api/studentStatus", studentCourse.updateManyStatus);
+
    app.delete("/api/studentCourse/:id", studentCourse.delete);
 
    app.delete("/api/studentCourses", studentCourse.deleteAll);

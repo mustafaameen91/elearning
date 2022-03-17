@@ -151,6 +151,19 @@ exports.findOne = (req, res) => {
    });
 };
 
+exports.updateManyStatus = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   StudentCourse.updateByIdManyStatus(req.body, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.update = (req, res) => {
    if (!req.body) {
       res.status(400).send({
