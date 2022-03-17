@@ -85,6 +85,7 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
+   console.log("hit user logout student");
    User.logoutStudent({ userId: req.body.idUser }, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
