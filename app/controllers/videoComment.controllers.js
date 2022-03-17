@@ -1,4 +1,7 @@
 const VideoComment = require("../models/videoComment.models.js");
+const { formatISO } = require("date-fns");
+
+const date = formatISO(new Date());
 
 exports.create = (req, res) => {
    if (!req.body) {
@@ -6,14 +9,14 @@ exports.create = (req, res) => {
          message: "Content can not be empty!",
       });
    }
-
+   console.log(date);
    const videoComment = new VideoComment({
       userComment: req.body.userComment,
       commentTime: req.body.commentTime,
       videoId: req.body.videoId,
       parentId: req.body.parentId,
       createdBy: req.body.createdBy,
-      createdAt: new Date().toLocaleDateString(),
+      createdAt: date,
    });
 
    VideoComment.create(videoComment, (err, data) => {

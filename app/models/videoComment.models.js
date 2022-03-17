@@ -2,6 +2,9 @@ const {
    prismaErrorHandling,
    prismaInstance,
 } = require("./../middleware/handleError.middleware.js");
+const { formatISO } = require("date-fns");
+
+const date = formatISO(new Date());
 
 const VideoComment = function (videoComment) {
    this.userComment = videoComment.userComment;
@@ -9,7 +12,7 @@ const VideoComment = function (videoComment) {
    this.videoId = videoComment.videoId;
    this.parentId = videoComment.parentId;
    this.createdBy = videoComment.createdBy;
-   this.createdAt = new Date().toLocaleDateString();
+   this.createdAt = date;
 };
 VideoComment.create = async (newVideoComment, result) => {
    console.log(newVideoComment);
