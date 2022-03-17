@@ -17,6 +17,7 @@ exports.create = (req, res) => {
    });
 
    VideoComment.create(videoComment, (err, data) => {
+      console.log("time zone : ", videoComment);
       if (err) res.status(err.code).send(err);
       else {
          res.send(data);
