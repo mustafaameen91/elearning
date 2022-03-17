@@ -66,6 +66,7 @@ exports.findOne = (req, res) => {
    });
 };
 exports.login = (req, res) => {
+   console.log(req.body);
    User.login(
       {
          phone: req.body.phone,
