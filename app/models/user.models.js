@@ -86,7 +86,7 @@ User.login = async (user, result) => {
          CryptoJS.AES.decrypt(
             loginUser[0].password,
             process.env.SECRET_KEY
-         ).toString()
+         ).toString(CryptoJS.enc.Utf8)
       );
 
       if (loginUser.length > 0) {
