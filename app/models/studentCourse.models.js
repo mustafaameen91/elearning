@@ -99,7 +99,7 @@ StudentCourse.createWithPromo = async (studentCoursePromo, result) => {
       if (findStudentCourse.length == 0) {
          const singleStudent = await prismaInstance.studentInfo.findMany({
             where: {
-               idStudent: JSON.parse(newStudentCourse.studentId),
+               idStudent: JSON.parse(studentCourseData.studentId),
             },
             include: {
                user: true,
