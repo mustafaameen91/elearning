@@ -322,7 +322,7 @@ model VideoComment {
   parentId       Int
   user           User            @relation(fields: [createdBy], references: [idUser])
   createdBy      Int
-  createdAt      DateTime        @default(now())
+  createdAt      DateTime        @default(now()) @db.Timestamp(0)
   reportComment  reportComment[]
 }
 
