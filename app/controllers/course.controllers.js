@@ -179,6 +179,10 @@ exports.findOneForCourses = (req, res) => {
       filtered.subjectId = req.query.subjectId * 1;
    }
 
+   if (req.query.classId) {
+      filtered.classId = req.query.classId * 1;
+   }
+
    Course.findByAllCourses(filtered, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
