@@ -128,7 +128,11 @@ VideoComment.getAll = async (result) => {
             user: true,
             courseVideo: {
                include: {
-                  course: true,
+                  course: {
+                     include: {
+                        class: true,
+                     },
+                  },
                },
             },
          },
