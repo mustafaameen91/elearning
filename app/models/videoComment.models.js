@@ -123,7 +123,16 @@ VideoComment.findById = async (videoCommentId, result) => {
 
 VideoComment.getAll = async (result) => {
    try {
-      const videoComments = await prismaInstance.videoComment.findMany();
+      const videoComments = await prismaInstance.videoComment.findMany({
+         include: {
+            user: true,
+            courseVideo: {
+               include: {
+                  course: true,
+               },
+            },
+         },
+      });
       result(null, videoComments);
    } catch (err) {
       console.log(prismaErrorHandling(err));
