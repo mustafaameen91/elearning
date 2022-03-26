@@ -1,4 +1,4 @@
-const HomeworkAnswer = require("../models/homeworkAnswer.models.js");
+const HomeworkMark = require("../models/homeworkMark.models.js");
 
 exports.create = (req, res) => {
    if (!req.body) {
@@ -7,13 +7,13 @@ exports.create = (req, res) => {
       });
    }
 
-   const homeworkAnswer = new HomeworkAnswer({
-      homeworkId: req.body.homeworkId,
+   const homeworkMark = new HomeworkMark({
       userId: req.body.userId,
-      answerPath: req.body.answerPath,
+      homeworkId: req.body.homeworkId,
+      mark: req.body.mark,
    });
 
-   HomeworkAnswer.create(homeworkAnswer, (err, data) => {
+   HomeworkMark.create(homeworkMark, (err, data) => {
       if (err) res.status(err.code).send(err);
       else {
          res.send(data);
@@ -22,14 +22,14 @@ exports.create = (req, res) => {
 };
 
 exports.findAll = (req, res) => {
-   HomeworkAnswer.getAll((err, data) => {
+   HomeworkMark.getAll((err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
 };
 
 exports.findOne = (req, res) => {
-   HomeworkAnswer.findById(req.params.id, (err, data) => {
+   HomeworkMark.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
@@ -42,9 +42,9 @@ exports.update = (req, res) => {
       });
    }
 
-   HomeworkAnswer.updateById(
+   HomeworkMark.updateById(
       req.params.id,
-      new HomeworkAnswer(req.body),
+      new HomeworkMark(req.body),
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
@@ -53,18 +53,16 @@ exports.update = (req, res) => {
 };
 
 exports.delete = (req, res) => {
-   HomeworkAnswer.remove(req.params.id, (err, data) => {
+   HomeworkMark.remove(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
-      else res.send({ message: `Homework Answer was deleted successfully!` });
+      else res.send({ message: `HomeworkMark was deleted successfully!` });
    });
 };
 
 exports.deleteAll = (req, res) => {
-   HomeworkAnswer.removeAll((err, data) => {
+   HomeworkMark.removeAll((err, data) => {
       if (err) res.status(err.code).send(err);
       else
-         res.send({
-            message: `All Homework Answers were deleted successfully!`,
-         });
+         res.send({ message: `All HomeworkMarks were deleted successfully!` });
    });
 };

@@ -32,23 +32,61 @@ function generateRandomName(length, patientId) {
    }
    return result;
 }
+app.post("/api/uploadVideo", function (req, res) {
+   if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send("No files were uploaded.");
+   }
+
+   let uploadedFile = req.files.video;
+   let photoName = generateRandomName(5, 20);
+   var filename = uploadedFile.name;
+   var ext = filename.substr(filename.lastIndexOf(".") + 1);
+   let imagePath = `${__dirname}/app/videos/${photoName}.${ext}`;
+   uploadedFile.mv(imagePath, function (err) {
+      if (err) return res.status(500).send(err);
+      res.send({ videoPath: `videoStream/${photoName}.${ext}` });
+   });
+});
 
 app.post("/api/upload", function (req, res) {
    if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send("No files were uploaded.");
    }
+   console.log(req.files);
 
-   let uploadedFile = req.files.attachment;
-   let photoName = generateRandomName(5, 3);
-   var filename = uploadedFile.name;
-   var ext = filename.substr(filename.lastIndexOf(".") + 1);
-   let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
+   let uploadedFiles = [];
 
-   uploadedFile.mv(imagePath, function (err) {
-      if (err) return res.status(500).send(err);
+   if (req.files.files.length > 1) {
+      req.files.files.forEach((file, index) => {
+         let uploadedFile = file;
+         let photoName = generateRandomName(5, index + 1);
+         var filename = uploadedFile.name;
+         var ext = filename.substr(filename.lastIndexOf(".") + 1);
+         let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
+         uploadedFiles.push(
+            new Promise((resolve) => {
+               uploadedFile.mv(imagePath, function (err) {
+                  if (err) return res.status(500).send(err);
+                  resolve({ imagePath: `attachments/${photoName}.${ext}` });
+               });
+            })
+         );
+      });
 
-      res.send({ imagePath: `attachment/${photoName}.${ext}` });
-   });
+      Promise.all(uploadedFiles).then((images) => {
+         res.send({ images: images });
+      });
+   } else {
+      let uploadedFile = req.files.files;
+      let photoName = generateRandomName(5, 20);
+      var filename = uploadedFile.name;
+      var ext = filename.substr(filename.lastIndexOf(".") + 1);
+      let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
+      uploadedFile.mv(imagePath, function (err) {
+         if (err) return res.status(500).send(err);
+         res.send({ imagePath: `attachments/${photoName}.${ext}` });
+      });
+   }
 });
 
 app.post("/api/uploadFromUrl", function (req, res) {
@@ -219,6 +257,7 @@ require("./app/routes/watchVideos.routes.js")(app);
 require("./app/routes/group.routes.js")(app);
 require("./app/routes/studentGroup.routes.js")(app);
 require("./app/routes/setting.routes.js")(app);
+require("./app/routes/homeworkMark.routes.js")(app);
 
 const staticFileMiddleware = express.static(__dirname + "/dist");
 app.use(staticFileMiddleware);

@@ -10,6 +10,7 @@ const Homework = function (homework) {
    this.homeworkPath = homework.homeworkPath;
    this.courseId = homework.courseId;
    this.homeworkType = homework.homeworkType;
+   this.expireDate = homework.expireDate;
    this.createdBy = homework.createdBy;
 };
 

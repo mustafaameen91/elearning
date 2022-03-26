@@ -49,6 +49,7 @@ model User {
   WatchVideos           WatchVideos[]
   CourseRating          CourseRating[]
   StudentGroup          StudentGroup[]
+  HomeWorkMark          HomeWorkMark[]
 }
 
 model Avatar {
@@ -118,8 +119,18 @@ model HomeworkAnswer {
   user             User     @relation(fields: [userId], references: [idUser])
   userId           Int
   answerPath       String
-  mark             Float    @default(0)
   createdAt        DateTime @default(now())
+}
+
+model HomeWorkMark {
+  idHomeworkMark Int      @id @default(autoincrement())
+  user           User     @relation(fields: [userId], references: [idUser])
+  userId         Int
+  homework       Homework @relation(fields: [homeworkId], references: [idHomework])
+  homeworkId     Int
+  mark           Int
+  createdAt      DateTime @default(now())
+
 }
 
 model TeacherAssistanceInfo {
@@ -280,7 +291,9 @@ model Homework {
   createdBy        Int
   homeworkType     Int              @default(1)
   createdAt        DateTime         @default(now())
+  expireDate       DateTime         @default(now())
   HomeworkAnswer   HomeworkAnswer[]
+  HomeWorkMark     HomeWorkMark[]
 }
 
 model CourseVideo {

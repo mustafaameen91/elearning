@@ -7,7 +7,6 @@ const HomeworkAnswer = function (homeworkAnswer) {
    this.homeworkId = homeworkAnswer.homeworkId;
    this.userId = homeworkAnswer.userId;
    this.answerPath = homeworkAnswer.answerPath;
-   this.mark = homeworkAnswer.mark;
 };
 
 HomeworkAnswer.create = async (newHomeworkAnswer, result) => {
