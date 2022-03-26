@@ -105,6 +105,7 @@ User.login = async (user, result) => {
             ).toString(CryptoJS.enc.Utf8) === user.password
          ) {
             result(null, loginUser[0]);
+            console.log(loginUser[0]);
             // delete loginUser[0].password;
             // if (loginUser[0].roleId == 2) {
             //    const findUserSession =
