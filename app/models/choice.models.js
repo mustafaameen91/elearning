@@ -22,6 +22,19 @@ Choice.create = async (newChoice, result) => {
    }
 };
 
+Choice.createMulti = async (newChoices, result) => {
+   try {
+      const choice = await prismaInstance.choice.createMany({
+         data: newChoices,
+      });
+
+      result(null, choice);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Choice.findById = async (choiceId, result) => {
    try {
       const singleChoice = await prismaInstance.choice.findUnique({
@@ -62,6 +75,24 @@ Choice.updateById = async (choiceId, choice, result) => {
          data: choice,
       });
       result(null, updateChoice);
+   } catch (error) {
+      console.log(prismaErrorHandling(error));
+      result(prismaErrorHandling(error), null);
+   }
+};
+
+Choice.updateMulti = async (choiceIds, choices, result) => {
+   try {
+      choiceIds.map((choiceId, index) => {
+         const updateChoice = prismaInstance.choice.updateMany({
+            where: { idChoice: JSON.parse(choiceId) },
+            data: { questionChoice: choices[index] },
+         });
+
+         console.log(updateChoice);
+      });
+
+      result(null, { message: "updated" });
    } catch (error) {
       console.log(prismaErrorHandling(error));
       result(prismaErrorHandling(error), null);

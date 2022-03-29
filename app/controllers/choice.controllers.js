@@ -21,6 +21,21 @@ exports.create = (req, res) => {
    });
 };
 
+exports.createMultiChoice = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   Choice.createMulti(req.body, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else {
+         res.send(data);
+      }
+   });
+};
+
 exports.findAll = (req, res) => {
    Choice.getAll((err, data) => {
       if (err) res.status(err.code).send(err);
@@ -43,6 +58,18 @@ exports.update = (req, res) => {
    }
 
    Choice.updateById(req.params.id, new Choice(req.body), (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
+exports.updateMultiByIds = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+   Choice.updateMulti(req.body.choiceIds, req.body.choices, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
