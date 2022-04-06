@@ -77,7 +77,7 @@ app.post("/api/upload", function (req, res) {
          res.send({ images: images });
       });
    } else {
-      let uploadedFile = req.files.files;
+      let uploadedFile = req.files.attachment;
       let photoName = generateRandomName(5, 20);
       var filename = uploadedFile.name;
       var ext = filename.substr(filename.lastIndexOf(".") + 1);
