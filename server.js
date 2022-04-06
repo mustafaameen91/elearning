@@ -67,7 +67,7 @@ app.post("/api/upload", function (req, res) {
             new Promise((resolve) => {
                uploadedFile.mv(imagePath, function (err) {
                   if (err) return res.status(500).send(err);
-                  resolve({ imagePath: `attachments/${photoName}.${ext}` });
+                  resolve({ imagePath: `attachment/${photoName}.${ext}` });
                });
             })
          );
@@ -84,7 +84,7 @@ app.post("/api/upload", function (req, res) {
       let imagePath = `${__dirname}/app/attachments/${photoName}.${ext}`;
       uploadedFile.mv(imagePath, function (err) {
          if (err) return res.status(500).send(err);
-         res.send({ imagePath: `attachments/${photoName}.${ext}` });
+         res.send({ imagePath: `attachment/${photoName}.${ext}` });
       });
    }
 });
