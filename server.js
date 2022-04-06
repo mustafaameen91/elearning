@@ -56,7 +56,7 @@ app.post("/api/upload", function (req, res) {
 
    let uploadedFiles = [];
 
-   if (req.files.files.length > 1) {
+   if (req.files.files?.length > 1) {
       req.files.files.forEach((file, index) => {
          let uploadedFile = file;
          let photoName = generateRandomName(5, index + 1);
