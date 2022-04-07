@@ -72,6 +72,7 @@ User.login = async (user, result) => {
             role: true,
             distributorInfo: true,
             teacherInfo: true,
+            TeacherAssistanceInfo: true,
             studentInfo: {
                include: {
                   class: true,
