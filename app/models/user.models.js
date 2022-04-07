@@ -27,6 +27,37 @@ User.create = async (newUser, result) => {
    }
 };
 
+User.findByIdForHome = async (userId, result) => {
+   try {
+      const singleUser = await prismaInstance.user.findUnique({
+         where: {
+            idUser: JSON.parse(userId),
+         },
+         include: {
+            Course: {
+               include: {
+                  StudentCourse: true,
+                  CourseVideo: true,
+               },
+            },
+         },
+      });
+
+      if (singleUser) {
+         result(null, singleUser);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found User with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 User.findById = async (userId, result) => {
    try {
       const singleUser = await prismaInstance.user.findUnique({
