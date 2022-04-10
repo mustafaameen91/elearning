@@ -45,6 +45,7 @@ exports.findAllByGroupId = (req, res) => {
                   student.user.playerId != "" ||
                   student.user.playerId != null ||
                   student.user.playerId != "0" ||
+                  student.student.user.playerId != 0 ||
                   student.user.playerId != undefined ||
                   student.user.playerId != "undefined"
                );
