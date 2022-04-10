@@ -147,80 +147,80 @@ User.login = async (user, result) => {
          ) {
             result(null, loginUser[0]);
             console.log(loginUser[0]);
-            // delete loginUser[0].password;
-            // if (loginUser[0].roleId == 2) {
-            //    const findUserSession =
-            //       await prismaInstance.userSession.findMany({
-            //          where: { studentId: loginUser[0].idUser },
-            //       });
-            //    if (findUserSession.length != 3) {
-            //       const findWithPlayerId =
-            //          await prismaInstance.userSession.findUnique({
-            //             where: {
-            //                deviceId: user.playerId,
-            //             },
-            //          });
-            //       if (findWithPlayerId) {
-            //          const updateStudent = await prismaInstance.user.update({
-            //             where: {
-            //                idUser: loginUser[0].idUser,
-            //             },
-            //             data: { playerId: user.playerId, canLogin: false },
-            //          });
-            //          console.log(updateStudent);
-            //          result(null, loginUser[0]);
-            //       } else {
-            //          const addDeviceId =
-            //             await prismaInstance.userSession.create({
-            //                data: {
-            //                   studentId: loginUser[0].idUser,
-            //                   deviceId: user.playerId,
-            //                },
-            //             });
-            //          const updateStudent = await prismaInstance.user.update({
-            //             where: {
-            //                idUser: loginUser[0].idUser,
-            //             },
-            //             data: { playerId: user.playerId, canLogin: false },
-            //          });
-            //          console.log(addDeviceId);
-            //          result(null, loginUser[0]);
-            //       }
-            //    } else {
-            //       const findAdmin = await prismaInstance.user.findMany({
-            //          where: {
-            //             roleId: 1,
-            //          },
-            //       });
-            //       let adminDetails = findAdmin[0];
-            //       result(
-            //          {
-            //             error: "Too many Logins",
-            //             code: 405,
-            //             errorMessage: "Too many Logins with this phone!!",
-            //             phone: adminDetails.phone,
-            //          },
-            //          null
-            //       );
-            //    }
-            // } else if (
-            //    loginUser[0].roleId == 3 ||
-            //    loginUser[0].roleId == 4 ||
-            //    loginUser[0].roleId == 6
-            // ) {
-            //    const updateUser = await prismaInstance.user.update({
-            //       where: {
-            //          idUser: loginUser[0].idUser,
-            //       },
-            //       data: {
-            //          playerId: user.playerId,
-            //       },
-            //    });
-            //    console.log(updateUser);
-            //    result(null, loginUser[0]);
-            // } else {
-            //    result(null, loginUser[0]);
-            // }
+            delete loginUser[0].password;
+            if (loginUser[0].roleId == 2 && loginUser[0].idUser != 90) {
+               const findUserSession =
+                  await prismaInstance.userSession.findMany({
+                     where: { studentId: loginUser[0].idUser },
+                  });
+               if (findUserSession.length != 3) {
+                  const findWithPlayerId =
+                     await prismaInstance.userSession.findUnique({
+                        where: {
+                           deviceId: user.playerId,
+                        },
+                     });
+                  if (findWithPlayerId) {
+                     const updateStudent = await prismaInstance.user.update({
+                        where: {
+                           idUser: loginUser[0].idUser,
+                        },
+                        data: { playerId: user.playerId, canLogin: false },
+                     });
+                     console.log(updateStudent);
+                     result(null, loginUser[0]);
+                  } else {
+                     const addDeviceId =
+                        await prismaInstance.userSession.create({
+                           data: {
+                              studentId: loginUser[0].idUser,
+                              deviceId: user.playerId,
+                           },
+                        });
+                     const updateStudent = await prismaInstance.user.update({
+                        where: {
+                           idUser: loginUser[0].idUser,
+                        },
+                        data: { playerId: user.playerId, canLogin: false },
+                     });
+                     console.log(addDeviceId);
+                     result(null, loginUser[0]);
+                  }
+               } else {
+                  const findAdmin = await prismaInstance.user.findMany({
+                     where: {
+                        roleId: 1,
+                     },
+                  });
+                  let adminDetails = findAdmin[0];
+                  result(
+                     {
+                        error: "Too many Logins",
+                        code: 405,
+                        errorMessage: "Too many Logins with this phone!!",
+                        phone: adminDetails.phone,
+                     },
+                     null
+                  );
+               }
+            } else if (
+               loginUser[0].roleId == 3 ||
+               loginUser[0].roleId == 4 ||
+               loginUser[0].roleId == 6
+            ) {
+               const updateUser = await prismaInstance.user.update({
+                  where: {
+                     idUser: loginUser[0].idUser,
+                  },
+                  data: {
+                     playerId: user.playerId,
+                  },
+               });
+               console.log(updateUser);
+               result(null, loginUser[0]);
+            } else {
+               result(null, loginUser[0]);
+            }
          } else {
             result(
                {
