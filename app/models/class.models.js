@@ -50,6 +50,11 @@ Class.findById = async (classId, result) => {
 Class.getAll = async (result) => {
    try {
       const classes = await prismaInstance.class.findMany({
+         where: {
+            idClass: {
+               not: 9,
+            },
+         },
          include: {
             Subject: true,
          },
