@@ -76,6 +76,7 @@ exports.findAllByCourseIdForNotification = (req, res) => {
                return (
                   student.student.user.playerId != "" ||
                   student.student.user.playerId != null ||
+                  student.student.user.playerId != "0" ||
                   student.student.user.playerId != undefined ||
                   student.student.user.playerId != "undefined"
                );
