@@ -44,6 +44,7 @@ exports.findAllByGroupId = (req, res) => {
                return (
                   student.user.playerId != "" ||
                   student.user.playerId != null ||
+                  student.user.playerId != "0" ||
                   student.user.playerId != undefined ||
                   student.user.playerId != "undefined"
                );
@@ -52,6 +53,8 @@ exports.findAllByGroupId = (req, res) => {
             let playerIds = players.map((player) => {
                return player.user.playerId;
             });
+
+            console.log(playerIds);
 
             var message = {
                app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
