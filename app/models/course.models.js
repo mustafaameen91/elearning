@@ -513,6 +513,11 @@ Course.findById = async (courseId, studentId, result) => {
             },
             Homework: {
                include: {
+                  HomeWorkMark: {
+                     where: {
+                        userId: studentId,
+                     },
+                  },
                   user: {
                      select: {
                         idUser: true,
