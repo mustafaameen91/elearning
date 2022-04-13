@@ -28,6 +28,17 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findOneForStudent = (req, res) => {
+   HomeworkAnswer.findByIdForStudent(
+      req.params.userId,
+      req.params.homeworkId,
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      }
+   );
+};
+
 exports.findOne = (req, res) => {
    HomeworkAnswer.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);

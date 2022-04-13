@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/homeworkAnswer/:id", homeworkAnswer.findOne);
 
+   app.get("/api/studentAnswer", homeworkAnswer.findOneForStudent);
+
    app.put("/api/homeworkAnswer/:id", homeworkAnswer.update);
 
    app.delete("/api/homeworkAnswer/:id", homeworkAnswer.delete);
