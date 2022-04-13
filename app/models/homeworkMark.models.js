@@ -6,7 +6,7 @@ const {
 const HomeworkMark = function (homeworkMark) {
    this.userId = homeworkMark.userId;
    this.homeworkId = homeworkMark.homeworkId;
-   this.mark = homeworkMark.mark;
+   this.mark = parseInt(homeworkMark.mark);
 };
 
 HomeworkMark.create = async (newHomeworkMark, result) => {

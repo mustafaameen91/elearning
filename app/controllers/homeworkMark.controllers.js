@@ -10,7 +10,7 @@ exports.create = (req, res) => {
    const homeworkMark = new HomeworkMark({
       userId: req.body.userId,
       homeworkId: req.body.homeworkId,
-      mark: req.body.mark,
+      mark: parseInt(req.body.mark),
    });
 
    HomeworkMark.create(homeworkMark, (err, data) => {
