@@ -74,11 +74,11 @@ exports.findAllByCourseIdForNotification = (req, res) => {
          if (data.length > 0) {
             let players = data.filter((student) => {
                if (
-                  student.student.user.playerId != "" ||
-                  student.student.user.playerId != null ||
-                  student.student.user.playerId != "0" ||
-                  student.student.user.playerId != 0 ||
-                  student.student.user.playerId != undefined ||
+                  student.student.user.playerId != "" &&
+                  student.student.user.playerId != null &&
+                  student.student.user.playerId != "0" &&
+                  student.student.user.playerId != 0 &&
+                  student.student.user.playerId != undefined &&
                   student.student.user.playerId != "undefined"
                ) {
                   return student;
