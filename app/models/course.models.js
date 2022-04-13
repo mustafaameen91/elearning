@@ -490,7 +490,11 @@ Course.findByIdForHomework = async (courseId, result) => {
          include: {
             Homework: {
                include: {
-                  HomeWorkMark: true,
+                  user: {
+                     include: {
+                        HomeWorkMark: true,
+                     },
+                  },
                   HomeworkAnswer: {
                      include: { user: true },
                   },

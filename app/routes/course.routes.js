@@ -6,6 +6,8 @@ module.exports = (app) => {
 
    app.get("/api/courses", course.findAll);
 
+   // 3 laptops for automation
+
    app.get("/api/course/:id", checkAuth, course.findOne);
 
    app.get("/api/courseHomework/:id", course.findOneForHomework);
