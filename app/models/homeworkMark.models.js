@@ -11,7 +11,7 @@ const HomeworkMark = function (homeworkMark) {
 
 HomeworkMark.create = async (newHomeworkMark, result) => {
    try {
-      const homeworkMark = await prismaInstance.homeworkMark.create({
+      const homeworkMark = await prismaInstance.homeWorkMark.create({
          data: newHomeworkMark,
       });
 
