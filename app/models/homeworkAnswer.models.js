@@ -31,13 +31,11 @@ HomeworkAnswer.findByIdForStudent = async (userId, homeworkId, result) => {
             },
          }
       );
-
+      console.log(singleHomeworkAnswer);
       if (singleHomeworkAnswer.length > 0) {
          result(null, { answer: true });
       } else {
-         result(null, {
-            answer: false,
-         });
+         result(null, { answer: false });
       }
    } catch (err) {
       console.log(prismaErrorHandling(err));
