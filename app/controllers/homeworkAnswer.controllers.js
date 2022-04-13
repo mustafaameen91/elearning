@@ -30,8 +30,8 @@ exports.findAll = (req, res) => {
 
 exports.findOneForStudent = (req, res) => {
    HomeworkAnswer.findByIdForStudent(
-      req.params.userId,
-      req.params.homeworkId,
+      req.query.userId,
+      req.query.homeworkId,
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
