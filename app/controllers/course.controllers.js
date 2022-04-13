@@ -143,6 +143,12 @@ exports.findOneWithoutAuth = (req, res) => {
    });
 };
 
+exports.findOneForHomework = (req, res) => {
+   Course.findByIdForHomework(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
 exports.findOne = (req, res) => {
    Course.findById(req.params.id, req.studentId, (err, data) => {
       if (err) res.status(err.code).send(err);

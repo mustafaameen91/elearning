@@ -481,6 +481,40 @@ Course.findByIdWithoutAuth = async (courseId, result) => {
    }
 };
 
+Course.findByIdForHomework = async (courseId, studentId, result) => {
+   console.log(studentId);
+   try {
+      const courseHomework = await prismaInstance.course.findUnique({
+         where: {
+            idCourse: JSON.parse(courseId),
+         },
+         include: {
+            Homework: {
+               include: {
+                  HomeWorkMark: true,
+                  HomeworkAnswer: {
+                     include: { user: true },
+                  },
+               },
+            },
+         },
+      });
+
+      if (courseHomework) {
+         result(null, courseHomework);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Course with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Course.findById = async (courseId, studentId, result) => {
    console.log(studentId);
    try {
