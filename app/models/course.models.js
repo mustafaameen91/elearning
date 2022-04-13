@@ -481,8 +481,7 @@ Course.findByIdWithoutAuth = async (courseId, result) => {
    }
 };
 
-Course.findByIdForHomework = async (courseId, studentId, result) => {
-   console.log(studentId);
+Course.findByIdForHomework = async (courseId, result) => {
    try {
       const courseHomework = await prismaInstance.course.findUnique({
          where: {
