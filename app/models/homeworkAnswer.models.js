@@ -24,6 +24,8 @@ HomeworkAnswer.create = async (newHomeworkAnswer, result) => {
 
 HomeworkAnswer.findByIdForStudent = async (userId, homeworkId, result) => {
    try {
+      console.log("homework :", homeworkId);
+      console.log("userId : ", userId);
       const singleHomeworkAnswer = await prismaInstance.homeworkAnswer.findMany(
          {
             where: {
