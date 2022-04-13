@@ -29,7 +29,10 @@ HomeworkAnswer.findByIdForStudent = async (userId, homeworkId, result) => {
       const singleHomeworkAnswer = await prismaInstance.homeworkAnswer.findMany(
          {
             where: {
-               AND: [{ homeworkId: homeworkId }, { userId: userId }],
+               AND: [
+                  { homeworkId: parseInt(homeworkId) },
+                  { userId: parseInt(userId) },
+               ],
             },
          }
       );
