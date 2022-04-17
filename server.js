@@ -44,7 +44,7 @@ app.post("/api/uploadVideo", function (req, res) {
    let imagePath = `${__dirname}/app/videos/${photoName}.${ext}`;
    uploadedFile.mv(imagePath, function (err) {
       if (err) return res.status(500).send(err);
-      res.send({ videoPath: `videoStream/${photoName}.${ext}` });
+      res.send({ videoPath: `${photoName}.${ext}` });
    });
 });
 
