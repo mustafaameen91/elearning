@@ -53,7 +53,7 @@ exports.findByFilterCourse = (req, res) => {
    }
 
    if (req.query.notClass) {
-      filtered.classId = { not: req.query.notClass };
+      filtered.classId = { not: req.query.notClass * 1 };
    }
 
    if (req.query.courseIds) {

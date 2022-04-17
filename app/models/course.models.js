@@ -592,7 +592,6 @@ Course.findById = async (courseId, studentId, result) => {
          let currentDate = new Date();
          currentDate.setHours(0, 0, 0, 0);
          let data = singleCourse.CourseVideo.map((video) => {
-            console.log(video);
             let videoDate = new Date(video.unlockAt);
             videoDate.setHours(0, 0, 0, 0);
             return {
