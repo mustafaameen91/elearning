@@ -51,6 +51,11 @@ exports.findByFilterCourse = (req, res) => {
    if (req.query.limit) {
       limit = req.query.limit;
    }
+
+   if (req.query.notClass) {
+      filtered.classId = { not: req.query.notClass };
+   }
+
    if (req.query.courseIds) {
       if (req.query.courseIds.length > 0) {
          filtered.idCourse = { in: JSON.parse(req.query.courseIds) };
