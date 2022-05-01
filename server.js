@@ -58,6 +58,7 @@ app.post("/api/upload", function (req, res) {
 
    if (req.files.files?.length > 1) {
       req.files.files.forEach((file, index) => {
+         console.log(file);
          let uploadedFile = file;
          let photoName = generateRandomName(5, index + 1);
          var filename = uploadedFile.name;
@@ -69,7 +70,7 @@ app.post("/api/upload", function (req, res) {
                   if (err) return res.status(500).send(err);
                   resolve({ imagePath: `attachment/${photoName}.${ext}` });
                });
-            })
+            }),
          );
       });
 
@@ -93,7 +94,7 @@ app.post("/api/uploadFromUrl", function (req, res) {
    let videoName = generateRandomName(5, 10);
    let courseVideoId = req.body.courseVideoId;
    let videoDownload = ytdl(req.body.videoUrl).pipe(
-      fs.createWriteStream(`${__dirname}/app/videos/${videoName}.mp4`)
+      fs.createWriteStream(`${__dirname}/app/videos/${videoName}.mp4`),
    );
    videoDownload.on("close", async function () {
       try {
@@ -265,7 +266,7 @@ app.use(
    history({
       disableDotRule: true,
       verbose: true,
-   })
+   }),
 );
 
 app.use(staticFileMiddleware);

@@ -80,17 +80,32 @@ Homework.findById = async (homeworkId, result) => {
             idHomework: JSON.parse(homeworkId),
          },
          include: {
-            user: {
-               include: {
-                  HomeworkAnswer: true,
-                  HomeWorkMark: true,
-               },
+            HomeworkAnswer: {
+               include: { user: { include: { HomeWorkMark: true } } },
             },
          },
       });
 
+      const homeworkAnswers = await prismaInstance.homeworkAnswer.groupBy({
+         by: ["userId"],
+         where: {
+            homeworkId: JSON.parse(homeworkId),
+         },
+      });
+
+      let data = homeworkAnswers.map((student) => {
+         return {
+            ...student,
+            homeworkAnswer: singleHomework.HomeworkAnswer.filter(
+               (homework) => homework.userId === student.userId,
+            ),
+         };
+      });
+
+      console.log(data);
+
       if (singleHomework) {
-         result(null, singleHomework);
+         result(null, data);
       } else {
          result({
             error: "Not Found",
