@@ -52,7 +52,7 @@ CourseDistributor.create = async (newCourseDistributor, result) => {
 CourseDistributor.findByIdOfCourseAndDist = async (
    distributorId,
    courseId,
-   result
+   result,
 ) => {
    try {
       const singleCourseDistributor =
@@ -159,7 +159,7 @@ CourseDistributor.findByDistributorId = async (distributorId, result) => {
                course: true,
                user: true,
             },
-         }
+         },
       );
 
       result(null, courseDistributor);
@@ -183,9 +183,13 @@ CourseDistributor.findByTeacherDistributor = async (teacherId, result) => {
             },
             include: {
                course: true,
-               user: true,
+               user: {
+                  include: {
+                     province: true,
+                  },
+               },
             },
-         }
+         },
       );
 
       result(null, courseDistributor);
@@ -209,7 +213,7 @@ CourseDistributor.getAll = async (result) => {
 CourseDistributor.updateById = async (
    courseDistributorId,
    courseDistributor,
-   result
+   result,
 ) => {
    try {
       const updateCourseDistributor =
