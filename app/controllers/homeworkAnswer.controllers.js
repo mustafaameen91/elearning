@@ -21,6 +21,29 @@ exports.create = (req, res) => {
    });
 };
 
+exports.createMultiAnswer = (req, res) => {
+   if (!req.body) {
+      res.status(400).send({
+         message: "Content can not be empty!",
+      });
+   }
+
+   let data = req.body.answerPath.map((answer) => {
+      return {
+         homeworkId: req.body.homeworkId,
+         userId: req.body.userId,
+         answerPath: answer,
+      };
+   });
+
+   HomeworkAnswer.createMulti(data, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else {
+         res.send(data);
+      }
+   });
+};
+
 exports.findAll = (req, res) => {
    HomeworkAnswer.getAll((err, data) => {
       if (err) res.status(err.code).send(err);
@@ -35,7 +58,7 @@ exports.findOneForStudent = (req, res) => {
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
-      }
+      },
    );
 };
 
@@ -59,7 +82,7 @@ exports.update = (req, res) => {
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
-      }
+      },
    );
 };
 

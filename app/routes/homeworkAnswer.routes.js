@@ -3,6 +3,8 @@ module.exports = (app) => {
 
    app.post("/api/addHomeworkAnswer", homeworkAnswer.create);
 
+   app.post("/api/addManyAnswer", homeworkAnswer.createMultiAnswer);
+
    app.get("/api/homeworkAnswers", homeworkAnswer.findAll);
 
    app.get("/api/homeworkAnswer/:id", homeworkAnswer.findOne);

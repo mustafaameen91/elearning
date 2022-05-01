@@ -22,6 +22,19 @@ HomeworkAnswer.create = async (newHomeworkAnswer, result) => {
    }
 };
 
+HomeworkAnswer.createMulti = async (newHomeworkAnswers, result) => {
+   try {
+      const homeworkAnswer = await prismaInstance.homeworkAnswer.createMany({
+         data: newHomeworkAnswers,
+      });
+
+      result(null, homeworkAnswer);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 HomeworkAnswer.findByIdForStudent = async (userId, homeworkId, result) => {
    try {
       console.log("homework :", homeworkId);
@@ -34,7 +47,7 @@ HomeworkAnswer.findByIdForStudent = async (userId, homeworkId, result) => {
                   { userId: parseInt(userId) },
                ],
             },
-         }
+         },
       );
       console.log(singleHomeworkAnswer);
       if (singleHomeworkAnswer.length > 0) {
@@ -85,7 +98,7 @@ HomeworkAnswer.getAll = async (result) => {
 HomeworkAnswer.updateById = async (
    homeworkAnswerId,
    homeworkAnswer,
-   result
+   result,
 ) => {
    try {
       const updateHomeworkAnswer = await prismaInstance.homeworkAnswer.update({
