@@ -65,7 +65,6 @@ Homework.create = async (newHomework, result) => {
             notification(message);
          }
       }
-
       result(null, homework);
    } catch (err) {
       console.log(prismaErrorHandling(err));
@@ -86,26 +85,33 @@ Homework.findById = async (homeworkId, result) => {
          },
       });
 
-      const homeworkAnswers = await prismaInstance.homeworkAnswer.groupBy({
-         by: ["userId"],
-         where: {
-            homeworkId: JSON.parse(homeworkId),
-         },
-      });
-
-      let data = homeworkAnswers.map((student) => {
-         return {
-            ...student,
-            homeworkAnswer: singleHomework.HomeworkAnswer.filter(
-               (homework) => homework.userId === student.userId,
-            ),
-         };
-      });
-
-      console.log(data);
-
       if (singleHomework) {
-         result(null, data);
+         const homeworkAnswers = await prismaInstance.homeworkAnswer.groupBy({
+            by: ["userId"],
+            where: {
+               homeworkId: JSON.parse(homeworkId),
+            },
+         });
+
+         let data = homeworkAnswers.map((student) => {
+            let studentInformation = singleHomework.HomeworkAnswer.filter(
+               (homework) => homework.userId === student.userId,
+            );
+            return {
+               userName: studentInformation[0].user.userName,
+               homeworkMark: studentInformation[0].user.HomeWorkMark,
+               homeworkAnswer: singleHomework.HomeworkAnswer.filter(
+                  (homework) => homework.userId === student.userId,
+               ),
+            };
+         });
+
+         let formattedData = {
+            homework: singleHomework,
+            students: data,
+         };
+
+         result(null, formattedData);
       } else {
          result({
             error: "Not Found",
