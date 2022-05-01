@@ -32,7 +32,7 @@ exports.createMultiAnswer = (req, res) => {
       return {
          homeworkId: req.body.homeworkId,
          userId: req.body.userId,
-         answerPath: answer,
+         answerPath: answer.imagePath,
       };
    });
 
