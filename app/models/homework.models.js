@@ -44,7 +44,7 @@ Homework.create = async (newHomework, result) => {
             }
          });
          let playerIds = students.map(
-            (student) => student.student.user.playerId
+            (student) => student.student.user.playerId,
          );
 
          let players = playerIds.filter((player) => {
@@ -78,6 +78,11 @@ Homework.findById = async (homeworkId, result) => {
       const singleHomework = await prismaInstance.homework.findUnique({
          where: {
             idHomework: JSON.parse(homeworkId),
+         },
+         include: {
+            HomeworkAnswer: {
+               include: { user: { include: { HomeWorkMark: true } } },
+            },
          },
       });
 
