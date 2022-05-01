@@ -28,6 +28,9 @@ HomeworkMark.findById = async (homeworkMarkId, result) => {
          where: {
             idHomeworkMark: JSON.parse(homeworkMarkId),
          },
+         include: {
+            user: true,
+         },
       });
 
       if (singleHomeworkMark) {
@@ -47,7 +50,7 @@ HomeworkMark.findById = async (homeworkMarkId, result) => {
 
 HomeworkMark.getAll = async (result) => {
    try {
-      const homeworkMarks = await prismaInstance.homeworkMark.findMany();
+      const homeworkMarks = await prismaInstance.homeWorkMark.findMany();
       result(null, homeworkMarks);
    } catch (err) {
       console.log(prismaErrorHandling(err));
@@ -57,7 +60,7 @@ HomeworkMark.getAll = async (result) => {
 
 HomeworkMark.updateById = async (homeworkMarkId, homeworkMark, result) => {
    try {
-      const updateHomeworkMark = await prismaInstance.homeworkMark.update({
+      const updateHomeworkMark = await prismaInstance.homeWorkMark.update({
          where: { idHomeworkMark: JSON.parse(homeworkMarkId) },
          data: homeworkMark,
       });
@@ -70,7 +73,7 @@ HomeworkMark.updateById = async (homeworkMarkId, homeworkMark, result) => {
 
 HomeworkMark.remove = async (id, result) => {
    try {
-      const deleteHomeworkMark = await prismaInstance.homeworkMark.delete({
+      const deleteHomeworkMark = await prismaInstance.homeWorkMark.delete({
          where: { idHomeworkMark: JSON.parse(id) },
       });
       result(null, deleteHomeworkMark);
