@@ -80,8 +80,11 @@ Homework.findById = async (homeworkId, result) => {
             idHomework: JSON.parse(homeworkId),
          },
          include: {
-            HomeworkAnswer: {
-               include: { user: { include: { HomeWorkMark: true } } },
+            user: {
+               include: {
+                  HomeworkAnswer: true,
+                  HomeWorkMark: true,
+               },
             },
          },
       });

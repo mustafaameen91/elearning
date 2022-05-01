@@ -96,7 +96,7 @@ CourseVideo.remove = async (id, result) => {
 CourseVideo.removeAll = async (result) => {
    try {
       const deleteAllCourseVideos = await prismaInstance.courseVideo.deleteMany(
-         {}
+         {},
       );
       result(null, deleteAllCourseVideos);
    } catch (error) {
