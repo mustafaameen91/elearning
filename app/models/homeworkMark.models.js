@@ -24,7 +24,7 @@ HomeworkMark.create = async (newHomeworkMark, result) => {
 
 HomeworkMark.findById = async (homeworkMarkId, result) => {
    try {
-      const singleHomeworkMark = await prismaInstance.homeworkMark.findUnique({
+      const singleHomeworkMark = await prismaInstance.homeWorkMark.findUnique({
          where: {
             idHomeworkMark: JSON.parse(homeworkMarkId),
          },
