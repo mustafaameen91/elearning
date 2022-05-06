@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
+const path = require("path");
 const http = require("http");
 const ytdl = require("ytdl-core");
 const history = require("connect-history-api-fallback");
@@ -222,6 +223,79 @@ app.get("/api/videoStream/:name", function (req, res) {
    //    res.write(data);
    //    res.end();
    // });
+});
+
+app.get("/api/stream/:name", function (req, res) {
+   var file = path.resolve(`${__dirname}/app/videos`, req.params.name);
+
+   fs.stat(file, function (err, stats) {
+      if (err) {
+         if (err.code === "ENOENT") {
+            //404 Error if file not found
+            res.writeHead(404, {
+               "Accept-Ranges": "bytes",
+               "Content-Range": "bytes " + start + "-" + end + "/" + total,
+               "Content-Length": chunksize,
+               "Content-Type": "video/mp4",
+            });
+         }
+         res.end(err);
+      }
+
+      var start;
+      var end;
+      var chunksize;
+      var total = stats.size;
+
+      var range = req.headers.range;
+      if (range) {
+         var positions = range.replace(/bytes=/, "").split("-");
+         end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+         start = parseInt(positions[0], 10);
+      } else {
+         start = 0;
+         end = total - 1;
+      }
+
+      if (start > end || start < 0 || end > total - 1) {
+         //error 416 is "Range Not Satisfiable"
+         res.writeHead(416, {
+            "Accept-Ranges": "bytes",
+            "Content-Range": "*/" + stats.size,
+            "Content-Type": "video/mp4",
+         });
+         res.end();
+         return;
+      }
+
+      if (start == 0 && end == total - 1) {
+         res.writeHead(200, {
+            "Accept-Ranges": "bytes",
+            "Content-Range": "bytes " + start + "-" + end + "/" + total,
+            "Content-Length": total,
+            "Content-Type": "video/mp4",
+         });
+      } else {
+         res.writeHead(206, {
+            "Accept-Ranges": "bytes",
+            "Content-Range": "bytes " + start + "-" + end + "/" + total,
+            "Content-Length": end - start + 1,
+            "Content-Type": "video/mp4",
+         });
+      }
+
+      var stream = fs
+         .createReadStream(file, {
+            start: start,
+            end: end,
+         })
+         .on("open", function () {
+            stream.pipe(res);
+         })
+         .on("error", function (err) {
+            res.end(err);
+         });
+   });
 });
 
 require("./app/routes/user.routes.js")(app);

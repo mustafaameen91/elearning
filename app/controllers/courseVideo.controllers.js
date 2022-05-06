@@ -54,7 +54,7 @@ exports.update = (req, res) => {
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
-      }
+      },
    );
 };
 
