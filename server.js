@@ -4,9 +4,9 @@ const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const fs = require("fs");
 const path = require("path");
-const http = require("http");
 const ytdl = require("ytdl-core");
 const history = require("connect-history-api-fallback");
+const cron = require("node-cron");
 require("dotenv").config();
 const notification = require("./app/notifications/notification.js");
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -33,6 +33,73 @@ function generateRandomName(length, patientId) {
    }
    return result;
 }
+
+async function chechStudentForUnlockVideos() {
+   let currentDate = new Date();
+   var startDate = currentDate;
+   var day = 60 * 60 * 24 * 1000;
+   var endDate = new Date(currentDate.getTime() + day);
+   unlockAt = {
+      gte: new Date(startDate.toISOString().split("T")[0]),
+      lte: new Date(endDate.toISOString().split("T")[0]),
+   };
+   const videoUnlock = await prismaInstance.courseVideo.findMany({
+      where: {
+         unlockAt: unlockAt,
+      },
+      include: {
+         course: true,
+      },
+   });
+   if (videoUnlock.length > 0) {
+      videoUnlock.forEach(async (video) => {
+         const student = await prismaInstance.studentCourse.findMany({
+            where: {
+               courseId: video.courseId,
+            },
+            include: {
+               student: {
+                  include: { user: true },
+               },
+            },
+         });
+
+         let players = student.filter((student) => {
+            if (
+               student.student.user.playerId != "" &&
+               student.student.user.playerId != null &&
+               student.student.user.playerId != "0" &&
+               student.student.user.playerId != 0 &&
+               student.student.user.playerId != undefined &&
+               student.student.user.playerId != "undefined"
+            ) {
+               return student;
+            }
+         });
+
+         let playerIds = players.map((player) => {
+            return player.student.user.playerId;
+         });
+
+         var message = {
+            app_id: "4295b0f7-9a63-4bb0-96ea-749e71e8c346",
+            headings: { en: `درس جديد` },
+            contents: {
+               en: `لقد اصبح الدرس ${video.videoTitle}  لكورس ${video.course.courseTitle} متاحا`,
+            },
+            include_player_ids: playerIds,
+         };
+         if (playerIds.length > 0) {
+            console.log(playerIds);
+            notification(message);
+         }
+      });
+   }
+}
+
+cron.schedule("10 0 * * *", () => {
+   chechStudentForUnlockVideos();
+});
 app.post("/api/uploadVideo", function (req, res) {
    if (!req.files || Object.keys(req.files).length === 0) {
       return res.status(400).send("No files were uploaded.");

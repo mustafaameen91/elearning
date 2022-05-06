@@ -136,13 +136,13 @@ User.login = async (user, result) => {
             "password : ",
             CryptoJS.AES.decrypt(
                loginUser[0].password,
-               process.env.SECRET_KEY
-            ).toString(CryptoJS.enc.Utf8)
+               process.env.SECRET_KEY,
+            ).toString(CryptoJS.enc.Utf8),
          );
          if (
             CryptoJS.AES.decrypt(
                loginUser[0].password,
-               process.env.SECRET_KEY
+               process.env.SECRET_KEY,
             ).toString(CryptoJS.enc.Utf8) === user.password
          ) {
             result(null, loginUser[0]);
@@ -153,7 +153,7 @@ User.login = async (user, result) => {
                   await prismaInstance.userSession.findMany({
                      where: { studentId: loginUser[0].idUser },
                   });
-               if (findUserSession.length != 3) {
+               if (findUserSession.length != 2) {
                   const findWithPlayerId =
                      await prismaInstance.userSession.findUnique({
                         where: {
@@ -200,7 +200,7 @@ User.login = async (user, result) => {
                         errorMessage: "Too many Logins with this phone!!",
                         phone: adminDetails.phone,
                      },
-                     null
+                     null,
                   );
                }
             } else if (
@@ -228,7 +228,7 @@ User.login = async (user, result) => {
                   code: 404,
                   errorMessage: "Not Found User with this phone!!",
                },
-               null
+               null,
             );
          }
       } else {
@@ -251,7 +251,7 @@ User.login = async (user, result) => {
                   errorMessage: "Too many Logins with this phone!!",
                   phone: adminDetails.phone,
                },
-               null
+               null,
             );
          } else {
             result(
@@ -260,7 +260,7 @@ User.login = async (user, result) => {
                   code: 404,
                   errorMessage: "Not Found User with this phone",
                },
-               null
+               null,
             );
          }
       }
@@ -350,7 +350,7 @@ User.getAll = async (result) => {
             phone: user.phone,
             password: CryptoJS.AES.decrypt(
                user.password,
-               process.env.SECRET_KEY
+               process.env.SECRET_KEY,
             ).toString(CryptoJS.enc.Utf8),
          };
       });

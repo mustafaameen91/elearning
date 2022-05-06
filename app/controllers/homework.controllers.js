@@ -13,7 +13,7 @@ exports.create = (req, res) => {
       homeworkPath: req.body.homeworkPath,
       courseId: req.body.courseId,
       homeworkType: req.body.homeworkType,
-      expireDate: req.body.expireDate,
+      expireDate: new Date(req.body.expireDate),
       createdBy: req.body.createdBy,
    });
 
