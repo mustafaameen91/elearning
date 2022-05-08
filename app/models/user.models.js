@@ -78,7 +78,12 @@ User.findById = async (userId, result) => {
       });
 
       if (singleUser) {
-         result(null, singleUser);
+         if (singleUser.roleId == 3) {
+            singleUser.phone = "غير متوفر";
+            result(null, singleUser);
+         } else {
+            result(null, singleUser);
+         }
       } else {
          result({
             error: "Not Found",
