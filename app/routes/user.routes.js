@@ -21,6 +21,8 @@ module.exports = (app) => {
 
    app.get("/api/user/:id", user.findOne);
 
+   app.get("/api/userForAdmin/:id", user.findOneForAdmin);
+
    app.put("/api/user/:id", user.update);
 
    app.put("/api/resetPassword", user.updatePassword);

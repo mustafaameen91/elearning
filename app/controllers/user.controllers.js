@@ -73,12 +73,21 @@ exports.findAllForHome = (req, res) => {
       else res.send(data);
    });
 };
+
+exports.findOneForAdmin = (req, res) => {
+   User.findByIdForAdmin(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    User.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);
       else res.send(data);
    });
 };
+
 exports.login = (req, res) => {
    console.log(req.body);
    User.login(
