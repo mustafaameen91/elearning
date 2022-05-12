@@ -7,6 +7,8 @@ module.exports = (app) => {
 
    app.get("/api/homeworkAnswers", homeworkAnswer.findAll);
 
+   app.get("/api/studentAnswers", homeworkAnswer.findOneForUser);
+
    app.get("/api/homeworkAnswer/:id", homeworkAnswer.findOne);
 
    app.get("/api/studentAnswer", homeworkAnswer.findOneForStudent);
