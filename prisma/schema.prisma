@@ -21,6 +21,7 @@ model User {
   roleId                Int
   countryCode           String                 @default("+964") @db.VarChar(220)
   canLogin              Boolean                @default(true)
+  canShow               Boolean                @default(true)
   playerId              String                 @default("0") @db.VarChar(220)
   distributorInfo       DistributorInfo?
   teacherInfo           TeacherInfo?
