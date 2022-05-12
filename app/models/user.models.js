@@ -75,6 +75,7 @@ User.findByIdForAdmin = async (userId, result) => {
             teacherInfo: true,
             studentInfo: true,
             distributorInfo: true,
+            canShow: true,
          },
       });
 
