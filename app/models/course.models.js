@@ -178,12 +178,12 @@ Course.findByTeacherId = async (teacherId, result) => {
       let countMoney = courseMoney.map((money) => {
          let studentDiscounts = money.StudentCourse.reduce(
             (pv, cv) => pv + cv.discount,
-            0
+            0,
          );
          let studentTotalPrice =
             money.coursePrice *
             money.StudentCourse.filter(
-               (stu) => stu.statusId == 2 || stu.statusId == 3
+               (stu) => stu.statusId == 2 || stu.statusId == 3,
             ).length;
          return {
             idCourse: money.idCourse,
@@ -202,10 +202,10 @@ Course.findByTeacherId = async (teacherId, result) => {
                money.coursePrice *
                money.StudentCourse.filter((stu) => stu.statusId == 1).length,
             enrolledStudents: money.StudentCourse.filter(
-               (stu) => stu.statusId == 2 || stu.statusId == 3
+               (stu) => stu.statusId == 2 || stu.statusId == 3,
             ).length,
             pendingStudents: money.StudentCourse.filter(
-               (stu) => stu.statusId == 1
+               (stu) => stu.statusId == 1,
             ),
             studentDiscount: studentDiscounts,
             // totalPrice: money.StudentCourse.reduce(
@@ -253,7 +253,7 @@ Course.findByAllCourses = async (filtered, result) => {
             totalPrice:
                money.coursePrice *
                money.StudentCourse.filter(
-                  (stu) => stu.statusId == 2 || stu.statusId == 3
+                  (stu) => stu.statusId == 2 || stu.statusId == 3,
                ).length,
             remainingPrice:
                money.coursePrice *
@@ -263,13 +263,13 @@ Course.findByAllCourses = async (filtered, result) => {
                money.platformPrice *
                money.StudentCourse.filter((stu) => stu.statusId == 3).length,
             PendingStudents: money.StudentCourse.filter(
-               (stu) => stu.statusId == 1
+               (stu) => stu.statusId == 1,
             ).length,
             EnrolledStudents: money.StudentCourse.filter(
-               (stu) => stu.statusId == 2
+               (stu) => stu.statusId == 2,
             ).length,
             ActiveStudents: money.StudentCourse.filter(
-               (stu) => stu.statusId == 3
+               (stu) => stu.statusId == 3,
             ).length,
             // totalPrice: money.StudentCourse.reduce(
             //    (pv, cv) => pv + cv.discount,
@@ -383,14 +383,14 @@ Course.findByIdTeacher = async (courseId, teacherId, result) => {
                if (student.studentId == 1) {
                   return student;
                }
-            }
+            },
          ).length),
             (singleCourse.enrolledStudents = singleCourse.StudentCourse.filter(
                (student) => {
                   if (student.studentId != 1) {
                      return student;
                   }
-               }
+               },
             ).length),
             console.log(singleCourse);
          result(null, singleCourse);
@@ -633,14 +633,14 @@ Course.findById = async (courseId, studentId, result) => {
                if (student.studentId == 1) {
                   return student;
                }
-            }
+            },
          ).length),
             (singleCourse.enrolledStudents = singleCourse.StudentCourse.filter(
                (student) => {
                   if (student.studentId != 1) {
                      return student;
                   }
-               }
+               },
             ).length),
             console.log(singleCourse);
 

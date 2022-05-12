@@ -51,6 +51,17 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findOneForUser = (req, res) => {
+   HomeworkAnswer.findByIdOfUser(
+      req.query.homeworkId,
+      req.query.userId,
+      (err, data) => {
+         if (err) res.status(err.code).send(err);
+         else res.send(data);
+      },
+   );
+};
+
 exports.findOneForStudent = (req, res) => {
    HomeworkAnswer.findByIdForStudent(
       req.query.userId,

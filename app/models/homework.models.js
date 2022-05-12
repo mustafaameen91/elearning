@@ -125,6 +125,31 @@ Homework.findById = async (homeworkId, result) => {
    }
 };
 
+Homework.getAllFromHomework = async (homeworkId, result) => {
+   try {
+      const homework =
+         await prismaInstance.$queryRaw`SELECT * ,  (SELECT  JSON_ARRAYAGG(JSON_OBJECT('idHomeworkAnswer',homeworkAnswer.idHomeworkAnswer , 'userId' , homeworkAnswer.userId , "createdAt", homeworkAnswer.createdAt , "idHomeworkMark" ,HomeWorkMark.idHomeworkMark , "mark",HomeWorkMark.mark , "createdAtMark",HomeWorkMark.createdAt )) FROM homeworkAnswer LEFT JOIN HomeWorkMark ON homeworkAnswer.userId =  HomeWorkMark.userId  AND  HomeWorkMark.homeworkId = ${homeworkId} WHERE homeworkAnswer.homeworkId = ${homeworkId})  students FROM Homework WHERE idHomework = ${homeworkId}`;
+
+      if (homework) {
+         let filtered = homework[0].students.filter(
+            (v, i, a) => a.findIndex((v2) => v2.userId === v.userId) === i,
+         );
+         homework[0].students = filtered;
+
+         result(null, homework[0]);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Homework with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 Homework.getAll = async (result) => {
    try {
       const homeworks = await prismaInstance.homework.findMany();

@@ -5,6 +5,8 @@ module.exports = (app) => {
 
    app.get("/api/homeworks", homework.findAll);
 
+   app.get("/api/homeworkStudentAnswer/:id", homework.findAllForHomework);
+
    app.get("/api/homework/:id", homework.findOne);
 
    app.put("/api/homework/:id", homework.update);

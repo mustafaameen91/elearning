@@ -32,6 +32,13 @@ exports.findAll = (req, res) => {
    });
 };
 
+exports.findAllForHomework = (req, res) => {
+   Homework.getAllFromHomework(req.params.id, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findOne = (req, res) => {
    Homework.findById(req.params.id, (err, data) => {
       if (err) res.status(err.code).send(err);

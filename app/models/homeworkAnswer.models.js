@@ -85,6 +85,34 @@ HomeworkAnswer.findById = async (homeworkAnswerId, result) => {
    }
 };
 
+HomeworkAnswer.findByIdOfUser = async (homeworkId, userId, result) => {
+   try {
+      const singleHomeworkAnswer = await prismaInstance.homeworkAnswer.findMany(
+         {
+            where: {
+               AND: [
+                  { homeworkId: JSON.parse(homeworkId) },
+                  { userId: JSON.parse(userId) },
+               ],
+            },
+         },
+      );
+
+      if (singleHomeworkAnswer.length > 0) {
+         result(null, singleHomeworkAnswer);
+      } else {
+         result({
+            error: "Not Found",
+            code: 404,
+            errorMessage: "Not Found Homework Answer with this Id",
+         });
+      }
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 HomeworkAnswer.getAll = async (result) => {
    try {
       const homeworkAnswers = await prismaInstance.homeworkAnswer.findMany();
