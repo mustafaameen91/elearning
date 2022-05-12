@@ -32,6 +32,13 @@ exports.create = (req, res) => {
    });
 };
 
+exports.findByRoleIdCanShow = (req, res) => {
+   User.getByRoleIdCanShow(req.params.roleId, (err, data) => {
+      if (err) res.status(err.code).send(err);
+      else res.send(data);
+   });
+};
+
 exports.findByRoleId = (req, res) => {
    User.getByRoleId(req.params.roleId, (err, data) => {
       if (err) res.status(err.code).send(err);
