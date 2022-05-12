@@ -11,6 +11,7 @@ const User = function (user) {
    this.provinceId = user.provinceId;
    this.roleId = user.roleId;
    this.canLogin = true;
+   this.canLogin = user.canShow;
    this.countryCode = user.countryCode;
 };
 

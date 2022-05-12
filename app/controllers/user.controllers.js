@@ -14,13 +14,14 @@ exports.create = (req, res) => {
       userName: req.body.userName,
       password: CryptoJS.AES.encrypt(
          req.body.password,
-         process.env.SECRET_KEY
+         process.env.SECRET_KEY,
       ).toString(),
       phone: req.body.phone,
       provinceId: req.body.provinceId * 1,
       roleId: req.body.roleId,
       canLogin: Boolean(req.body.canLogin),
       countryCode: req.body.countryCode,
+      canShow: Boolean(req.body.canShow),
    });
 
    User.create(user, (err, data) => {
@@ -87,7 +88,7 @@ exports.login = (req, res) => {
             });
             res.send({ token });
          }
-      }
+      },
    );
 };
 
@@ -110,12 +111,12 @@ exports.updatePassword = (req, res) => {
       req.body.phone,
       CryptoJS.AES.encrypt(
          req.body.password,
-         process.env.SECRET_KEY
+         process.env.SECRET_KEY,
       ).toString(),
       (err, data) => {
          if (err) res.status(err.code).send(err);
          else res.send(data);
-      }
+      },
    );
 };
 
@@ -128,7 +129,7 @@ exports.update = (req, res) => {
    if (req.body.password) {
       req.body.password = CryptoJS.AES.encrypt(
          req.body.password,
-         process.env.SECRET_KEY
+         process.env.SECRET_KEY,
       ).toString();
    }
 
