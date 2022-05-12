@@ -396,6 +396,42 @@ User.getByRoleId = async (roleId, result) => {
    }
 };
 
+User.getByRoleIdCanShow = async (roleId, result) => {
+   try {
+      const users = await prismaInstance.user.findMany({
+         where: {
+            AND: [
+               {
+                  roleId: JSON.parse(roleId),
+               },
+               {
+                  canShow: true,
+               },
+            ],
+         },
+         select: {
+            idUser: true,
+            userName: true,
+            provinceId: true,
+            roleId: true,
+            phone: true,
+            province: true,
+            role: true,
+            canLogin: true,
+            teacherInfo: true,
+            studentInfo: true,
+            distributorInfo: true,
+            StudentCourse: true,
+         },
+      });
+
+      result(null, users);
+   } catch (err) {
+      console.log(prismaErrorHandling(err));
+      result(prismaErrorHandling(err), null);
+   }
+};
+
 User.logoutStudent = async (userId, result) => {
    try {
       console.log("user to be logout", userId);

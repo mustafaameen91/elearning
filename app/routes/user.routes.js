@@ -15,6 +15,8 @@ module.exports = (app) => {
 
    app.get("/api/students", user.findAllStudents);
 
+   app.get("/api/userShow/:roleId", user.findByRoleIdCanShow);
+
    app.get("/api/userRoles/:roleId", user.findByRoleId);
 
    app.get("/api/user/:id", user.findOne);
