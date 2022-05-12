@@ -128,7 +128,7 @@ Homework.findById = async (homeworkId, result) => {
 Homework.getAllFromHomework = async (homeworkId, result) => {
    try {
       const homework =
-         await prismaInstance.$queryRaw`SELECT * ,  (SELECT  JSON_ARRAYAGG(JSON_OBJECT('idHomeworkAnswer',homeworkAnswer.idHomeworkAnswer , 'userId' , homeworkAnswer.userId , "createdAt", homeworkAnswer.createdAt , "idHomeworkMark" ,HomeWorkMark.idHomeworkMark , "mark",HomeWorkMark.mark , "createdAtMark",HomeWorkMark.createdAt )) FROM homeworkAnswer LEFT JOIN HomeWorkMark ON homeworkAnswer.userId =  HomeWorkMark.userId  AND  HomeWorkMark.homeworkId = ${homeworkId} WHERE homeworkAnswer.homeworkId = ${homeworkId})  students FROM Homework WHERE idHomework = ${homeworkId}`;
+         await prismaInstance.$queryRaw`SELECT * ,  (SELECT  JSON_ARRAYAGG(JSON_OBJECT('idHomeworkAnswer',homeworkAnswer.idHomeworkAnswer , 'userId' , homeworkAnswer.userId , "createdAt", homeworkAnswer.createdAt , "idHomeworkMark" ,HomeWorkMark.idHomeworkMark , "mark",HomeWorkMark.mark , "createdAtMark",HomeWorkMark.createdAt )) FROM HomeworkAnswer LEFT JOIN HomeWorkMark ON homeworkAnswer.userId =  HomeWorkMark.userId  AND  HomeWorkMark.homeworkId = ${homeworkId} WHERE homeworkAnswer.homeworkId = ${homeworkId})  students FROM Homework WHERE idHomework = ${homeworkId}`;
 
       if (homework) {
          let filtered = homework[0].students.filter(
