@@ -11,11 +11,12 @@ const User = function (user) {
    this.provinceId = user.provinceId;
    this.roleId = user.roleId;
    this.canLogin = true;
-   this.canLogin = user.canShow;
+   this.canShow = true;
    this.countryCode = user.countryCode;
 };
 
 User.create = async (newUser, result) => {
+   console.log(newUser);
    try {
       const user = await prismaInstance.user.create({
          data: newUser,
