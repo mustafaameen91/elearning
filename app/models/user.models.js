@@ -257,6 +257,7 @@ User.login = async (user, result) => {
                console.log(updateUser);
                result(null, loginUser[0]);
             } else if (loginUser[0].roleId == 6) {
+               console.log(loginUser[0]);
                const updateUser = await prismaInstance.user.update({
                   where: {
                      idUser: loginUser[0].idUser,
