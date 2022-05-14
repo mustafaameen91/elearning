@@ -245,11 +245,18 @@ User.login = async (user, result) => {
                      null,
                   );
                }
-            } else if (
-               loginUser[0].roleId == 3 ||
-               loginUser[0].roleId == 4 ||
-               loginUser[0].roleId == 6
-            ) {
+            } else if (loginUser[0].roleId == 3 || loginUser[0].roleId == 4) {
+               const updateUser = await prismaInstance.user.update({
+                  where: {
+                     idUser: loginUser[0].idUser,
+                  },
+                  data: {
+                     playerId: user.playerId,
+                  },
+               });
+               console.log(updateUser);
+               result(null, loginUser[0]);
+            } else if (loginUser[0].roleId == 6) {
                const updateUser = await prismaInstance.user.update({
                   where: {
                      idUser: loginUser[0].idUser,
