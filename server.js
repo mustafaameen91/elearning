@@ -248,6 +248,7 @@ app.get("/test", function (req, res) {
 });
 
 app.get("/api/videoStream/:name", function (req, res) {
+   console.log(req.socket.remoteAddress);
    // const range = req.headers.range;
    // let videoName = req.params.name;
    // console.log(req.headers);
